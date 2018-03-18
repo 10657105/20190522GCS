@@ -82,9 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MissionPlanner.csproj">
+    <ProjectReference Include="..\..\AUV-GCS.csproj">
       <Project>{A2E22272-95FE-47B6-B050-9AE7E2055BF5}</Project>
-      <Name>MissionPlanner</Name>
+      <Name>AUV-GCS</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Comms\MissionPlanner.Comms.csproj">
