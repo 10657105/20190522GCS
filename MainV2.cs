@@ -395,6 +395,9 @@ namespace MissionPlanner
         public GCSViews.FlightData FlightData;
 
         public GCSViews.FlightPlanner FlightPlanner;
+
+        public GCSViews.MainUserControls MainUserControls;
+            
         Controls.SITL Simulation;
 
         private Form connectionStatsForm;
@@ -411,9 +414,7 @@ namespace MissionPlanner
 
         public void updateLayout(object sender, EventArgs e)
         {
-            MenuSimulation.Visible = DisplayConfiguration.displaySimulation;
-            MenuTerminal.Visible = DisplayConfiguration.displayTerminal;
-            MenuHelp.Visible = DisplayConfiguration.displayHelp;
+            
             MissionPlanner.Controls.BackstageView.BackstageView.Advanced = DisplayConfiguration.isAdvancedMode;
 
             if (MainV2.instance.FlightData != null)
@@ -702,7 +703,9 @@ namespace MissionPlanner
                 Simulation = new SITL();
                 //Firmware = new GCSViews.Firmware();
                 //Terminal = new GCSViews.Terminal();
+                MainUserControls = new GCSViews.MainUserControls();
 
+                MainUserControls.Width = MyView.Width;
                 FlightData.Width = MyView.Width;
                 FlightPlanner.Width = MyView.Width;
                 Simulation.Width = MyView.Width;
@@ -889,25 +892,15 @@ namespace MissionPlanner
 
             if (Program.Logo != null && Program.name == "VVVVZ")
             {
-                MenuDonate.Click -= this.toolStripMenuItem1_Click;
-                MenuDonate.Text = "";
-                MenuDonate.Image = Program.Logo;
-
-                MenuDonate.Click += MenuCustom_Click;
+               
 
                 MenuFlightData.Visible = false;
-                MenuFlightPlanner.Visible = true;
-                MenuConfigTune.Visible = false;
-                MenuHelp.Visible = false;
-                MenuInitConfig.Visible = false;
-                MenuSimulation.Visible = false;
-                MenuTerminal.Visible = false;
+                
             }
             else if (Program.Logo != null && Program.names.Contains(Program.name))
             {
-                MenuDonate.Click -= this.toolStripMenuItem1_Click;
-                MenuDonate.Text = "";
-                MenuDonate.Image = Program.Logo;
+                
+           
             }
 
             Application.DoEvents();
@@ -999,25 +992,14 @@ namespace MissionPlanner
             MainMenu.BackgroundImage = displayicons.bg;
 
             MenuFlightData.Image = displayicons.fd;
-            MenuFlightPlanner.Image = displayicons.fp;
-            MenuInitConfig.Image = displayicons.initsetup;
-            MenuSimulation.Image = displayicons.sim;
-            MenuConfigTune.Image = displayicons.config_tuning;
-            MenuTerminal.Image = displayicons.terminal;
+        
             MenuConnect.Image = displayicons.connect;
-            MenuHelp.Image = displayicons.help;
-            MenuDonate.Image = displayicons.donate;
+           
 
 
             MenuFlightData.ForeColor = ThemeManager.TextColor;
-            MenuFlightPlanner.ForeColor = ThemeManager.TextColor;
-            MenuInitConfig.ForeColor = ThemeManager.TextColor;
-            MenuSimulation.ForeColor = ThemeManager.TextColor;
-            MenuConfigTune.ForeColor = ThemeManager.TextColor;
-            MenuTerminal.ForeColor = ThemeManager.TextColor;
             MenuConnect.ForeColor = ThemeManager.TextColor;
-            MenuHelp.ForeColor = ThemeManager.TextColor;
-            MenuDonate.ForeColor = ThemeManager.TextColor;
+           
         }
 
         void MenuCustom_Click(object sender, EventArgs e)
@@ -1025,24 +1007,14 @@ namespace MissionPlanner
             if (Settings.Instance.GetBoolean("password_protect") == false)
             {
                 MenuFlightData.Visible = true;
-                MenuFlightPlanner.Visible = true;
-                MenuConfigTune.Visible = true;
-                MenuHelp.Visible = true;
-                MenuInitConfig.Visible = true;
-                MenuSimulation.Visible = true;
-                MenuTerminal.Visible = true;
+               
             }
             else
             {
                 if (Password.VerifyPassword())
                 {
                     MenuFlightData.Visible = true;
-                    MenuFlightPlanner.Visible = true;
-                    MenuConfigTune.Visible = true;
-                    MenuHelp.Visible = true;
-                    MenuInitConfig.Visible = true;
-                    MenuSimulation.Visible = true;
-                    MenuTerminal.Visible = true;
+                   
                 }
             }
         }
@@ -1141,50 +1113,6 @@ namespace MissionPlanner
             MyView.ShowScreen("FlightData");
         }
 
-        private void MenuFlightPlanner_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("FlightPlanner");
-        }
-
-        public void MenuSetup_Click(object sender, EventArgs e)
-        {
-            if (Settings.Instance.GetBoolean("password_protect") == false)
-            {
-                MyView.ShowScreen("HWConfig");
-            }
-            else
-            {
-                if (Password.VerifyPassword())
-                {
-                    MyView.ShowScreen("HWConfig");
-                }
-            }
-        }
-
-        private void MenuSimulation_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("Simulation");
-        }
-
-        private void MenuTuning_Click(object sender, EventArgs e)
-        {
-            if (Settings.Instance.GetBoolean("password_protect") == false)
-            {
-                MyView.ShowScreen("SWConfig");
-            }
-            else
-            {
-                if (Password.VerifyPassword())
-                {
-                    MyView.ShowScreen("SWConfig");
-                }
-            }
-        }
-
-        private void MenuTerminal_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("Terminal");
-        }
 
         public void doDisconnect(MAVLinkInterface comPort)
         {
@@ -1514,7 +1442,7 @@ namespace MissionPlanner
                     // only do it if we are connected.
                     if (comPort.BaseStream.IsOpen)
                     {
-                        MenuFlightPlanner_Click(null, null);
+                       
                         FlightPlanner.BUT_read_Click(null, null);
                     }
                 }
@@ -2659,7 +2587,7 @@ namespace MissionPlanner
             catch
             {
             }
-
+            MyView.AddScreen(new MainSwitcher.Screen("MainUserControls", MainUserControls, true));  // MyView切換器 新增MainUserControls畫面 命名為MainUserControls
             MyView.AddScreen(new MainSwitcher.Screen("FlightData", FlightData, true));
             MyView.AddScreen(new MainSwitcher.Screen("FlightPlanner", FlightPlanner, true));
             MyView.AddScreen(new MainSwitcher.Screen("HWConfig", typeof(GCSViews.InitialSetup), false));
@@ -2688,14 +2616,14 @@ namespace MissionPlanner
             if (Program.Logo != null && Program.name == "VVVVZ")
             {
                 this.PerformLayout();
-                MenuFlightPlanner_Click(this, e);
-                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightPlanner));
+                
             }
             else
             {
                 this.PerformLayout();
                 log.Info("show FlightData");
-                MenuFlightData_Click(this, e);
+                MyView.ShowScreen("MainUserControls"); //將切換器MyView切換至顯示MainUserControls畫面
+                //MenuFlightData_Click(this, e);   //MainV2載入後模擬人工點擊FlightData按鍵
                 log.Info("show FlightData... Done");
                 MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));
             }
@@ -3144,16 +3072,6 @@ namespace MissionPlanner
             if (keyData == Keys.F2)
             {
                 MenuFlightData_Click(null, null);
-                return true;
-            }
-            if (keyData == Keys.F3)
-            {
-                MenuFlightPlanner_Click(null, null);
-                return true;
-            }
-            if (keyData == Keys.F4)
-            {
-                MenuTuning_Click(null, null);
                 return true;
             }
 

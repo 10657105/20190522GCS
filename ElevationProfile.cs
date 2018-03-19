@@ -24,9 +24,9 @@ namespace MissionPlanner
         PointPairList list4terrain = new PointPairList();
         int distance = 0;
         double homealt = 0;
-        GCSViews.FlightPlanner.altmode altmode = GCSViews.FlightPlanner.altmode.Relative;
+        GCSViews.MainUserControls.altmode altmode = GCSViews.MainUserControls.altmode.Relative;
 
-        public ElevationProfile(List<PointLatLngAlt> locs, double homealt, GCSViews.FlightPlanner.altmode altmode)
+        public ElevationProfile(List<PointLatLngAlt> locs, double homealt, GCSViews.MainUserControls.altmode altmode)
         {
             InitializeComponent();
 
@@ -115,12 +115,12 @@ namespace MissionPlanner
                 }
 
                 // deal with at mode
-                if (altmode == GCSViews.FlightPlanner.altmode.Terrain)
+                if (altmode == GCSViews.MainUserControls.altmode.Terrain)
                 {
                     list1 = list4terrain;
                     break;
                 }
-                else if (altmode == GCSViews.FlightPlanner.altmode.Relative)
+                else if (altmode == GCSViews.MainUserControls.altmode.Relative)
                 {
                     // already includes the home alt
                     list1.Add(a, (planloc.Alt/CurrentState.multiplierdist), 0, planloc.Tag);

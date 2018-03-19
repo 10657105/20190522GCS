@@ -44,7 +44,7 @@ using PathProgram;
 
 namespace MissionPlanner.GCSViews
 {
-    public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
+    public partial class MainUserControls : MyUserControl, IDeactivate, IActivate
     {
         Auto_Guide.Auto_Guide AutoGuide;
        
@@ -59,7 +59,7 @@ namespace MissionPlanner.GCSViews
 
         bool grid;
         public double A_distance = 0, B_distance = 0;
-        public static FlightPlanner instance;
+        public static MainUserControls instance;
 
         public bool autopan { get; set; }
 
@@ -550,7 +550,7 @@ namespace MissionPlanner.GCSViews
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public FlightPlanner()
+        public MainUserControls()
         {
             instance = this;
 
@@ -891,7 +891,7 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void FlightPlanner_Load(object sender, EventArgs e)
+        private void MainUserControls_Load(object sender, EventArgs e)
         {
             quickadd = true;
 
@@ -5197,7 +5197,7 @@ namespace MissionPlanner.GCSViews
             timer1.Stop();
         }
 
-        private void FlightPlanner_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainUserControls_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
         }
@@ -5666,9 +5666,9 @@ namespace MissionPlanner.GCSViews
         {
             writeKML();
             double homealt = MainV2.comPort.MAV.cs.HomeAlt;
-            //Form temp = new ElevationProfile(pointlist, homealt, (altmode)CMB_altmode.SelectedValue);
-            //ThemeManager.ApplyThemeTo(temp);
-            //temp.ShowDialog();
+            Form temp = new ElevationProfile(pointlist, homealt, (altmode)CMB_altmode.SelectedValue);
+            ThemeManager.ApplyThemeTo(temp);
+            temp.ShowDialog();
         }
 
         private void rTLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7489,6 +7489,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             AutoGuide = new Auto_Guide.Auto_Guide();
             //AutoGuide.Show();
         }
+
+    
+
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist
                                         , ref List<PointLatLngAlt> outputDpointlist,ref List<PointLatLngAlt> outputEpointlist)    
         {

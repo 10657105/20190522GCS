@@ -897,6 +897,12 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="GCSViews\MainUserControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\MainUserControls.Designer.cs">
+      <DependentUpon>MainUserControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="GCSViews\FlightData.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -2721,6 +2727,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\InitialSetup.zh-TW.resx">
       <DependentUpon>InitialSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\MainUserControls.resx" >
+      <DependentUpon>MainUserControls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\SoftwareConfig.resx">
       <DependentUpon>SoftwareConfig.cs</DependentUpon>
