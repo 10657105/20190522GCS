@@ -177,7 +177,7 @@
             // Auto_Guide
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
-            this.ClientSize = new System.Drawing.Size(384, 302);
+            this.ClientSize = new System.Drawing.Size(422, 338);
             this.Controls.Add(this.SetE);
             this.Controls.Add(this.SetD);
             this.Controls.Add(this.RTL_All);
