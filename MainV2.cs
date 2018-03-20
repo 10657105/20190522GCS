@@ -894,7 +894,7 @@ namespace MissionPlanner
             {
                
 
-                MenuFlightData.Visible = false;
+                //MenuFlightData.Visible = false;
                 
             }
             else if (Program.Logo != null && Program.names.Contains(Program.name))
@@ -991,13 +991,13 @@ namespace MissionPlanner
 
             MainMenu.BackgroundImage = displayicons.bg;
 
-            MenuFlightData.Image = displayicons.fd;
+            //MenuFlightData.Image = displayicons.fd;
         
             MenuConnect.Image = displayicons.connect;
            
 
 
-            MenuFlightData.ForeColor = ThemeManager.TextColor;
+            //MenuFlightData.ForeColor = ThemeManager.TextColor;
             MenuConnect.ForeColor = ThemeManager.TextColor;
            
         }
@@ -1006,14 +1006,14 @@ namespace MissionPlanner
         {
             if (Settings.Instance.GetBoolean("password_protect") == false)
             {
-                MenuFlightData.Visible = true;
+                //MenuFlightData.Visible = true;
                
             }
             else
             {
                 if (Password.VerifyPassword())
                 {
-                    MenuFlightData.Visible = true;
+                    //MenuFlightData.Visible = true;
                    
                 }
             }
@@ -2625,7 +2625,7 @@ namespace MissionPlanner
                 MyView.ShowScreen("MainUserControls"); //將切換器MyView切換至顯示MainUserControls畫面
                 //MenuFlightData_Click(this, e);   //MainV2載入後模擬人工點擊FlightData按鍵
                 log.Info("show FlightData... Done");
-                MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));
+                //MainMenu_ItemClicked(this, new ToolStripItemClickedEventArgs(MenuFlightData));
             }
 
             // for long running tasks using own threads.

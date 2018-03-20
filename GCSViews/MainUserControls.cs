@@ -42,6 +42,7 @@ using MissionPlanner.Plugin;
 using PathProgram;
 
 
+
 namespace MissionPlanner.GCSViews
 {
     public partial class MainUserControls : MyUserControl, IDeactivate, IActivate
@@ -57,7 +58,7 @@ namespace MissionPlanner.GCSViews
         bool splinemode;
         altmode currentaltmode = altmode.Relative;
 
-        bool grid;
+        public bool grid;
         public double A_distance = 0, B_distance = 0;
         public static MainUserControls instance;
 
@@ -142,10 +143,10 @@ namespace MissionPlanner.GCSViews
             if (pointno == "H")
             {
                 // auto update home alt
-                TXT_homealt.Text = (srtm.getAltitude(lat, lng).alt * CurrentState.multiplierdist).ToString();
+                WayPointControl1.TXT_homealt.Text = (srtm.getAltitude(lat, lng).alt * CurrentState.multiplierdist).ToString();
 
-                TXT_homelat.Text = lat.ToString();
-                TXT_homelng.Text = lng.ToString();
+                WayPointControl1.TXT_homelat.Text = lat.ToString();
+                WayPointControl1.TXT_homelng.Text = lng.ToString();
                 return;
             }
 
@@ -249,7 +250,7 @@ namespace MissionPlanner.GCSViews
 
                 {
                     double result;
-                    bool pass = double.TryParse(TXT_homealt.Text, out result);
+                    bool pass = double.TryParse(WayPointControl1.TXT_homealt.Text, out result);
 
                     if (pass == false)
                     {
@@ -257,7 +258,7 @@ namespace MissionPlanner.GCSViews
                         string homealt = "100";
                         if (DialogResult.Cancel == InputBox.Show("Home Alt", "Home Altitude", ref homealt))
                             return;
-                        TXT_homealt.Text = homealt;
+                        WayPointControl1.TXT_homealt.Text = homealt;
                     }
                     int results1;
                     if (!int.TryParse(TXT_DefaultAlt.Text, out results1))
@@ -439,11 +440,12 @@ namespace MissionPlanner.GCSViews
             mouseposdisplay.Lng = lng;
             mouseposdisplay.Alt = alt;
 
-            coords1.Lat = mouseposdisplay.Lat;
-            coords1.Lng = mouseposdisplay.Lng;
+            WayPointControl1.coords1.Lat = mouseposdisplay.Lat;
+            WayPointControl1.coords1.Lng = mouseposdisplay.Lng;
             var altdata = srtm.getAltitude(mouseposdisplay.Lat, mouseposdisplay.Lng, MainMap.Zoom);
-            coords1.Alt = altdata.alt;
-            coords1.AltSource = altdata.altsource;
+            WayPointControl1.coords1.Alt = altdata.alt;
+            WayPointControl1.coords1.AltSource = altdata.altsource;
+
 
             try
             {
@@ -555,7 +557,7 @@ namespace MissionPlanner.GCSViews
             instance = this;
 
             InitializeComponent();
-
+            
             // config map             
             MainMap.CacheLocation = Settings.GetDataDirectory() +
                                     "gmapcache" + Path.DirectorySeparatorChar;
@@ -583,11 +585,11 @@ namespace MissionPlanner.GCSViews
             //WebRequest.DefaultWebProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
             // get map type
-            comboBoxMapType.ValueMember = "Name";
-            comboBoxMapType.DataSource = GMapProviders.List.ToArray();
-            comboBoxMapType.SelectedItem = MainMap.MapProvider;
+            WayPointControl1.comboBoxMapType.ValueMember = "Name";
+            WayPointControl1.comboBoxMapType.DataSource = GMapProviders.List.ToArray();
+            WayPointControl1.comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
-            comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
+            WayPointControl1.comboBoxMapType.SelectedValueChanged += comboBoxMapType_SelectedValueChanged;
 
             MainMap.RoutesEnabled = true;
 
@@ -700,7 +702,7 @@ namespace MissionPlanner.GCSViews
 
         void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
         {
-            log.Info("updateMapType invoke req? " + comboBoxMapType.InvokeRequired);
+            log.Info("updateMapType invoke req? " + WayPointControl1.comboBoxMapType.InvokeRequired);
 
             if (sender is System.Timers.Timer)
                 ((System.Timers.Timer)sender).Stop();
@@ -713,7 +715,7 @@ namespace MissionPlanner.GCSViews
                     var index = GMapProviders.List.FindIndex(x => (x.Name == mapType));
 
                     if (index != -1)
-                        comboBoxMapType.SelectedIndex = index;
+                        WayPointControl1.comboBoxMapType.SelectedIndex = index;
                 }
                 catch (Exception ex)
                 {
@@ -733,7 +735,7 @@ namespace MissionPlanner.GCSViews
                         var index = GMapProviders.List.FindIndex(x => (x.Name == "谷歌中国卫星地图"));
 
                         if (index != -1)
-                            comboBoxMapType.SelectedIndex = index;
+                            WayPointControl1.comboBoxMapType.SelectedIndex = index;
                     }
                     catch (Exception ex)
                     {
@@ -749,7 +751,7 @@ namespace MissionPlanner.GCSViews
                         var index = GMapProviders.List.FindIndex(x => (x.Name == mapType));
 
                         if (index != -1)
-                            comboBoxMapType.SelectedIndex = index;
+                            WayPointControl1.comboBoxMapType.SelectedIndex = index;
                     }
                     catch (Exception ex)
                     {
@@ -931,9 +933,9 @@ namespace MissionPlanner.GCSViews
             //set home
             try
             {
-                if (TXT_homelat.Text != "")
+                if (WayPointControl1.TXT_homelat.Text != "")
                 {
-                    MainMap.Position = new PointLatLng(double.Parse(TXT_homelat.Text), double.Parse(TXT_homelng.Text));
+                    MainMap.Position = new PointLatLng(double.Parse(WayPointControl1.TXT_homelat.Text), double.Parse(WayPointControl1.TXT_homelng.Text));
                     MainMap.Zoom = 16;
                 }
             }
@@ -1291,15 +1293,15 @@ namespace MissionPlanner.GCSViews
 
                 // process and add home to the list
                 string home;
-                if (TXT_homealt.Text != "" && TXT_homelat.Text != "" && TXT_homelng.Text != "")
+                if (WayPointControl1.TXT_homealt.Text != "" && WayPointControl1.TXT_homelat.Text != "" && WayPointControl1.TXT_homelng.Text != "")
                 {
-                    home = string.Format("{0},{1},{2}\r\n", TXT_homelng.Text, TXT_homelat.Text, TXT_DefaultAlt.Text);
+                    home = string.Format("{0},{1},{2}\r\n", WayPointControl1.TXT_homelng.Text, WayPointControl1.TXT_homelat.Text, TXT_DefaultAlt.Text);
                     if (objectsoverlay != null) // during startup
                     {
-                        pointlist.Add(new PointLatLngAlt(double.Parse(TXT_homelat.Text), double.Parse(TXT_homelng.Text),
-                            double.Parse(TXT_homealt.Text), "H"));
-                        fullpointlist.Add(pointlist[pointlist.Count - 1]);
-                        addpolygonmarker("H", double.Parse(TXT_homelng.Text), double.Parse(TXT_homelat.Text), 0, null);
+                        pointlist.Add(new PointLatLngAlt(double.Parse(WayPointControl1.TXT_homelat.Text), double.Parse(WayPointControl1.TXT_homelng.Text),
+                            double.Parse(WayPointControl1.TXT_homealt.Text), "H"));
+                        fullpointlist.Add(pointlist[pointlist.Count - 1]); 
+                         addpolygonmarker("H", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, null);
                     }
                 }
                 else
@@ -1319,8 +1321,8 @@ namespace MissionPlanner.GCSViews
                 double homealt = 0;
                 try
                 {
-                    if (!String.IsNullOrEmpty(TXT_homealt.Text))
-                        homealt = (int)double.Parse(TXT_homealt.Text);
+                    if (!String.IsNullOrEmpty(WayPointControl1.TXT_homealt.Text))
+                        homealt = (int)double.Parse(WayPointControl1.TXT_homealt.Text);
                 }
                 catch (Exception ex)
                 {
@@ -1509,8 +1511,8 @@ namespace MissionPlanner.GCSViews
                 }
                 else if (home.Length > 5 && usable == 0)
                 {
-                    lookat = "<LookAt>     <longitude>" + TXT_homelng.Text.ToString(new CultureInfo("en-US")) +
-                             "</longitude>     <latitude>" + TXT_homelat.Text.ToString(new CultureInfo("en-US")) +
+                    lookat = "<LookAt>     <longitude>" + WayPointControl1.TXT_homelng.Text.ToString(new CultureInfo("en-US")) +
+                             "</longitude>     <latitude>" + WayPointControl1.TXT_homelat.Text.ToString(new CultureInfo("en-US")) +
                              "</latitude> <range>4000</range> </LookAt>";
 
                     RectLatLng? rect = MainMap.GetRectOfAllMarkers("objects");
@@ -1830,9 +1832,9 @@ namespace MissionPlanner.GCSViews
                             try
                             {
                                 home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                                home.lat = (double.Parse(TXT_homelat.Text));
-                                home.lng = (double.Parse(TXT_homelng.Text));
-                                home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
+                                home.lat = (double.Parse(WayPointControl1.TXT_homelat.Text));
+                                home.lng = (double.Parse(WayPointControl1.TXT_homelng.Text));
+                                home.alt = (float.Parse(WayPointControl1.TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
                             }
                             catch { }
 
@@ -1849,11 +1851,11 @@ namespace MissionPlanner.GCSViews
                         try
                         {
                             sw.WriteLine("0\t1\t0\t16\t0\t0\t0\t0\t" +
-                                         double.Parse(TXT_homelat.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         double.Parse(WayPointControl1.TXT_homelat.Text).ToString("0.000000", new CultureInfo("en-US")) +
                                          "\t" +
-                                         double.Parse(TXT_homelng.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         double.Parse(WayPointControl1.TXT_homelng.Text).ToString("0.000000", new CultureInfo("en-US")) +
                                          "\t" +
-                                         double.Parse(TXT_homealt.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                                         double.Parse(WayPointControl1.TXT_homealt.Text).ToString("0.000000", new CultureInfo("en-US")) +
                                          "\t1");
                         }
                         catch (Exception ex)
@@ -1907,7 +1909,7 @@ namespace MissionPlanner.GCSViews
                         }
                         sw.Close();
 
-                        lbl_wpfile.Text = "Saved " + Path.GetFileName(file);
+                        WayPointControl1.lbl_wpfile.Text = "Saved " + Path.GetFileName(file);
                     }
                     catch (Exception)
                     {
@@ -2053,7 +2055,7 @@ namespace MissionPlanner.GCSViews
 
                    MainV2.comPort.giveComport = false;
 
-                   BUT_read.Enabled = true;
+                   WayPointControl1.BUT_read.Enabled = true;
 
                    writeKML();
                });
@@ -2085,9 +2087,9 @@ namespace MissionPlanner.GCSViews
             try
             {
                 home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                home.lat = (double.Parse(TXT_homelat.Text));
-                home.lng = (double.Parse(TXT_homelng.Text));
-                home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
+                home.lat = (double.Parse(WayPointControl1.TXT_homelat.Text));
+                home.lng = (double.Parse(WayPointControl1.TXT_homelng.Text));
+                home.alt = (float.Parse(WayPointControl1.TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
             }
             catch
             {
@@ -2193,7 +2195,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        List<Locationwp> GetCommandList()
+         List<Locationwp> GetCommandList()
         {
             List<Locationwp> commands = new List<Locationwp>();
 
@@ -2226,9 +2228,9 @@ namespace MissionPlanner.GCSViews
                 try
                 {
                     home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                    home.lat = (double.Parse(TXT_homelat.Text));
-                    home.lng = (double.Parse(TXT_homelng.Text));
-                    home.alt = (float.Parse(TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
+                    home.lat = (double.Parse(WayPointControl1.TXT_homelat.Text));
+                    home.lng = (double.Parse(WayPointControl1.TXT_homelng.Text));
+                    home.alt = (float.Parse(WayPointControl1.TXT_homealt.Text) / CurrentState.multiplierdist); // use saved home
                 }
                 catch
                 {
@@ -2451,7 +2453,7 @@ namespace MissionPlanner.GCSViews
         /// <summary>
         /// Processes a loaded EEPROM to the map and datagrid
         /// </summary>
-        void processToScreen(List<Locationwp> cmds, bool append = false)
+        public void processToScreen(List<Locationwp> cmds, bool append = false)
         {
             quickadd = true;
 
@@ -2565,18 +2567,18 @@ namespace MissionPlanner.GCSViews
                     cellhome = Commands.Rows[0].Cells[Lat.Index] as DataGridViewTextBoxCell;
                     if (cellhome.Value != null)
                     {
-                        if (cellhome.Value.ToString() != TXT_homelat.Text && cellhome.Value.ToString() != "0")
+                        if (cellhome.Value.ToString() != WayPointControl1.TXT_homelat.Text && cellhome.Value.ToString() != "0")
                         {
                             DialogResult dr = CustomMessageBox.Show("Reset Home to loaded coords", "Reset Home Coords",
                                 MessageBoxButtons.YesNo);
 
                             if (dr == DialogResult.Yes)
                             {
-                                TXT_homelat.Text = (double.Parse(cellhome.Value.ToString())).ToString();
+                                WayPointControl1.TXT_homelat.Text = (double.Parse(cellhome.Value.ToString())).ToString();
                                 cellhome = Commands.Rows[0].Cells[Lon.Index] as DataGridViewTextBoxCell;
-                                TXT_homelng.Text = (double.Parse(cellhome.Value.ToString())).ToString();
+                                WayPointControl1.TXT_homelng.Text = (double.Parse(cellhome.Value.ToString())).ToString();
                                 cellhome = Commands.Rows[0].Cells[Alt.Index] as DataGridViewTextBoxCell;
-                                TXT_homealt.Text =
+                                WayPointControl1.TXT_homealt.Text =
                                     (double.Parse(cellhome.Value.ToString()) * CurrentState.multiplierdist).ToString();
                             }
                         }
@@ -2657,9 +2659,9 @@ namespace MissionPlanner.GCSViews
         {
             if (write)
             {
-                Settings.Instance["TXT_homelat"] = TXT_homelat.Text;
-                Settings.Instance["TXT_homelng"] = TXT_homelng.Text;
-                Settings.Instance["TXT_homealt"] = TXT_homealt.Text;
+                Settings.Instance["TXT_homelat"] = WayPointControl1.TXT_homelat.Text;
+                Settings.Instance["TXT_homelng"] = WayPointControl1.TXT_homelng.Text;
+                Settings.Instance["TXT_homealt"] = WayPointControl1.TXT_homealt.Text;
 
 
                 Settings.Instance["TXT_WPRad"] = TXT_WPRad.Text;
@@ -2672,7 +2674,7 @@ namespace MissionPlanner.GCSViews
 
                 Settings.Instance["fpminaltwarning"] = TXT_altwarn.Text;
 
-                Settings.Instance["fpcoordmouse"] = coords1.System;
+                Settings.Instance["fpcoordmouse"] = WayPointControl1.coords1.System;
             }
             else
             {
@@ -2696,7 +2698,7 @@ namespace MissionPlanner.GCSViews
                             TXT_altwarn.Text = "" + Settings.Instance["fpminaltwarning"];
                             break;
                         case "fpcoordmouse":
-                            coords1.System = "" + Settings.Instance[key];
+                            WayPointControl1.coords1.System = "" + Settings.Instance[key];
                             break;
                         default:
                             break;
@@ -2816,12 +2818,12 @@ namespace MissionPlanner.GCSViews
             e.Row.Cells[Down.Index].Value = Resources.down;
         }
 
-        private void TXT_homelat_TextChanged(object sender, EventArgs e)
+        public void TXT_homelat_TextChanged(object sender, EventArgs e)
         {
             sethome = false;
             try
             {
-                MainV2.comPort.MAV.cs.HomeLocation.Lat = double.Parse(TXT_homelat.Text);
+                MainV2.comPort.MAV.cs.HomeLocation.Lat = double.Parse(WayPointControl1.TXT_homelat.Text);
             }
             catch (Exception ex)
             {
@@ -2830,12 +2832,12 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void TXT_homelng_TextChanged(object sender, EventArgs e)
+        public void TXT_homelng_TextChanged(object sender, EventArgs e)
         {
             sethome = false;
             try
             {
-                MainV2.comPort.MAV.cs.HomeLocation.Lng = double.Parse(TXT_homelng.Text);
+                MainV2.comPort.MAV.cs.HomeLocation.Lng = double.Parse(WayPointControl1.TXT_homelng.Text);
             }
             catch (Exception ex)
             {
@@ -2844,12 +2846,12 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void TXT_homealt_TextChanged(object sender, EventArgs e)
+        public void TXT_homealt_TextChanged(object sender, EventArgs e)
         {
             sethome = false;
             try
             {
-                MainV2.comPort.MAV.cs.HomeLocation.Alt = double.Parse(TXT_homealt.Text);
+                MainV2.comPort.MAV.cs.HomeLocation.Alt = double.Parse(WayPointControl1.TXT_homealt.Text);
             }
             catch (Exception ex)
             {
@@ -2857,15 +2859,14 @@ namespace MissionPlanner.GCSViews
             }
             writeKML();
         }
-
-        private void BUT_loadwpfile_Click(object sender, EventArgs e)
+        public void BUT_loadwpfile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
                 fd.Filter = "All Supported Types|*.txt;*.waypoints;*.shp;*.plan";
                 DialogResult result = fd.ShowDialog();
                 string file = fd.FileName;
-
+                
                 if (File.Exists(file))
                 {
                     if (file.ToLower().EndsWith(".shp"))
@@ -2899,7 +2900,7 @@ namespace MissionPlanner.GCSViews
                         }
                     }
 
-                    lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
+                    WayPointControl1.lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
                 }
             }
         }
@@ -3210,7 +3211,7 @@ namespace MissionPlanner.GCSViews
 
         void MainMap_OnMapTypeChanged(GMapProvider type)
         {
-            comboBoxMapType.SelectedItem = MainMap.MapProvider;
+            WayPointControl1.comboBoxMapType.SelectedItem = MainMap.MapProvider;
 
             MainMap.ZoomAndCenterMarkers("objects");
 
@@ -3809,7 +3810,7 @@ namespace MissionPlanner.GCSViews
         // loader start loading tiles
         void MainMap_OnTileLoadStart()
         {
-            MethodInvoker m = delegate { lbl_status.Text = "Status: loading tiles..."; };
+            MethodInvoker m = delegate { WayPointControl1.lbl_status.Text = "Status: loading tiles..."; };
             try
             {
                 if (IsHandleCreated)
@@ -3828,7 +3829,7 @@ namespace MissionPlanner.GCSViews
 
             MethodInvoker m = delegate
             {
-                lbl_status.Text = "Status: loaded tiles";
+                WayPointControl1.lbl_status.Text = "Status: loaded tiles";
 
                 //panelMenu.Text = "Menu, last load in " + MainMap.ElapsedMilliseconds + "ms";
 
@@ -3866,8 +3867,8 @@ namespace MissionPlanner.GCSViews
             }
             center.Position = point;
 
-            coords1.Lat = point.Lat;
-            coords1.Lng = point.Lng;
+            WayPointControl1.coords1.Lat = point.Lat;
+            WayPointControl1.coords1.Lng = point.Lng;
 
             // always show on planner view
             //if (MainV2.ShowAirports)
@@ -3892,6 +3893,7 @@ namespace MissionPlanner.GCSViews
                 MainMap.ZoomAndCenterMarkers(null);
             }
             trackBar1.Value = (int)MainMap.Zoom;
+            
         }
 
         // ensure focus on map, trackbar can have it too
@@ -3906,9 +3908,9 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
-                MainMap.MapProvider = (GMapProvider)comboBoxMapType.SelectedItem;
-                FlightData.mymap.MapProvider = (GMapProvider)comboBoxMapType.SelectedItem;
-                Settings.Instance["MapType"] = comboBoxMapType.Text;
+                MainMap.MapProvider = (GMapProvider)WayPointControl1.comboBoxMapType.SelectedItem;
+                FlightData.mymap.MapProvider = (GMapProvider)WayPointControl1.comboBoxMapType.SelectedItem;
+                Settings.Instance["MapType"] = WayPointControl1.comboBoxMapType.Text;
             }
             catch (Exception ex)
             {
@@ -4022,7 +4024,7 @@ namespace MissionPlanner.GCSViews
             return alt * CurrentState.multiplierdist;
         }
 
-        private void TXT_homelat_Enter(object sender, EventArgs e)
+        public void TXT_homelat_Enter(object sender, EventArgs e)
         {
             if (!sethome)
                 CustomMessageBox.Show("Click on the Map to set Home ");
@@ -4166,13 +4168,13 @@ namespace MissionPlanner.GCSViews
         {
         }
 
-        private void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        public void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (MainV2.comPort.MAV.cs.lat != 0)
             {
-                TXT_homealt.Text = (MainV2.comPort.MAV.cs.altasl).ToString("0");
-                TXT_homelat.Text = MainV2.comPort.MAV.cs.lat.ToString();
-                TXT_homelng.Text = MainV2.comPort.MAV.cs.lng.ToString();
+                WayPointControl1.TXT_homealt.Text = (MainV2.comPort.MAV.cs.altasl).ToString("0");
+                WayPointControl1.TXT_homelat.Text = MainV2.comPort.MAV.cs.lat.ToString();
+                WayPointControl1.TXT_homelng.Text = MainV2.comPort.MAV.cs.lng.ToString();
             }
             else
             {
@@ -5181,11 +5183,11 @@ namespace MissionPlanner.GCSViews
             // set home location
             if (MainV2.comPort.MAV.cs.HomeLocation.Lat != 0 && MainV2.comPort.MAV.cs.HomeLocation.Lng != 0)
             {
-                TXT_homelat.Text = MainV2.comPort.MAV.cs.HomeLocation.Lat.ToString();
+                WayPointControl1.TXT_homelat.Text = MainV2.comPort.MAV.cs.HomeLocation.Lat.ToString();
 
-                TXT_homelng.Text = MainV2.comPort.MAV.cs.HomeLocation.Lng.ToString();
+                WayPointControl1.TXT_homelng.Text = MainV2.comPort.MAV.cs.HomeLocation.Lng.ToString();
 
-                TXT_homealt.Text = MainV2.comPort.MAV.cs.HomeLocation.Alt.ToString();
+                WayPointControl1.TXT_homealt.Text = MainV2.comPort.MAV.cs.HomeLocation.Alt.ToString();
 
                 writeKML();
             }
@@ -6097,9 +6099,9 @@ namespace MissionPlanner.GCSViews
 
         MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
 
-        private void chk_grid_CheckedChanged(object sender, EventArgs e)
+        public void chk_grid_CheckedChanged(object sender, EventArgs e)
         {
-            grid = chk_grid.Checked;
+            grid = WayPointControl1.chk_grid.Checked;
         }
 
         private void insertWpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6345,7 +6347,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void lnk_kml_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        public void lnk_kml_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -6532,7 +6534,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void LoadSHPFile(string file)
+        public void LoadSHPFile(string file)
         {
             ProjectionInfo pStart = new ProjectionInfo();
             ProjectionInfo pESRIEnd = KnownCoordinateSystems.Geographic.World.WGS1984;
@@ -6664,7 +6666,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void BUT_saveWPFile_Click(object sender, EventArgs e)
+        public void BUT_saveWPFile_Click(object sender, EventArgs e)
         {
             SaveFile_Click(null, null);
         }
@@ -6963,14 +6965,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void setHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TXT_homealt.Text = srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt.ToString("0");
-            TXT_homelat.Text = MouseDownStart.Lat.ToString();
-            TXT_homelng.Text = MouseDownStart.Lng.ToString();
+            WayPointControl1.TXT_homealt.Text = srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt.ToString("0");
+            WayPointControl1.TXT_homelat.Text = MouseDownStart.Lat.ToString();
+            WayPointControl1.TXT_homelng.Text = MouseDownStart.Lng.ToString();
         }
 
-        private void coords1_SystemChanged(object sender, EventArgs e)
+        public void coords1_SystemChanged(object sender, EventArgs e)
         {
-            if (coords1.System == Coords.CoordsSystems.GEO.ToString())
+            if (WayPointControl1.coords1.System == Coords.CoordsSystems.GEO.ToString())
             {
                 Lat.Visible = true;
                 Lon.Visible = true;
@@ -6980,7 +6982,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 coordNorthing.Visible = false;
                 MGRS.Visible = false;
             }
-            else if (coords1.System == Coords.CoordsSystems.MGRS.ToString())
+            else if (WayPointControl1.coords1.System == Coords.CoordsSystems.MGRS.ToString())
             {
                 Lat.Visible = false;
                 Lon.Visible = false;
@@ -6990,7 +6992,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 coordNorthing.Visible = false;
                 MGRS.Visible = true;
             }
-            else if (coords1.System == Coords.CoordsSystems.UTM.ToString())
+            else if (WayPointControl1.coords1.System == Coords.CoordsSystems.UTM.ToString())
             {
                 Lat.Visible = false;
                 Lon.Visible = false;
@@ -7061,7 +7063,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             grid.but_Click(sender, e);
         }
         /****路徑規劃功能****/
-        private void Path_Programming_button_Click(object sender, EventArgs e)
+        public void Path_Programming_button_Click(object sender, EventArgs e)
         {
             int groupset = 0;  //設定群數變數 
             double distance = 0, totaldistance = 0;  // distance 是用來回傳單群航程距離的變數2，totaldistance 是拿來計算總航程的變數
@@ -7082,7 +7084,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Dhomeroute.Clear();  //清除D路徑虛線圖層
             Eroute.Clear();      //清除E路徑路線圖層
             Ehomeroute.Clear();  //清除E路徑虛線圖層
-            Allpointlist.Add(new PointLatLngAlt(double.Parse(TXT_homelat.Text.ToString()), double.Parse(TXT_homelng.Text.ToString()), 0));  //將home點座標存入list
+            Allpointlist.Add(new PointLatLngAlt(double.Parse(WayPointControl1.TXT_homelat.Text.ToString()), double.Parse(WayPointControl1.TXT_homelng.Text.ToString()), 0));  //將home點座標存入list
             for (int i = 0; i < Commands.RowCount; i++)//將waypoint點座標存入list
             {
                 Allpointlist.Add(new PointLatLngAlt(double.Parse(Commands.Rows[i].Cells[Lat.Index].Value.ToString()),
@@ -7091,7 +7093,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             for (int j = 0; j < drawnpolygon.Points.Count; j++)//將禁航區座標存入noflypointlist
                 noflypointlist.Add(new PointLatLngAlt(drawnpolygon.Points[j].Lat, drawnpolygon.Points[j].Lng, 0));
-            if (Groupcountset.Text == string.Empty)   //如果未輸入欲分群數量跳出提示，並以預設值"1"做運算
+            if (WayPointControl1.Groupcountset.Text == string.Empty)   //如果未輸入欲分群數量跳出提示，並以預設值"1"做運算
             {
                 CustomMessageBox.Show("Please input group number or default single group !");
                 groupset = 1;
@@ -7099,7 +7101,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             else  //若有輸入分群數量則轉換變數存入groupset
 
             {
-                groupset = int.Parse(Groupcountset.Text);  //將輸入群數轉成int
+                groupset = int.Parse(WayPointControl1.Groupcountset.Text);  //將輸入群數轉成int
             }
             PathProgramming pathProgrammingdll = new PathProgramming();
             pathProgrammingdll.math(groupset, Allpointlist, noflypointlist, ref Apointlist, ref Bpointlist, ref Cpointlist,ref Dpointlist,ref Epointlist);
@@ -7108,67 +7110,67 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (Apointlist.Count!=0)  //若A群清單有航點
             {
                 WP_Marker_Route_function(Apointlist, "A",out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Apointlist及群組A做建航點、畫路徑及新增DataGridView資料，並回傳A群路徑長度
-                lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false); //A群路徑長度以KM為單位做表示
-                lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
+                WayPointControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false); //A群路徑長度以KM為單位做表示
+                WayPointControl1.lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
                 totaldistance += distance;  //總航程距離加上A群路徑長度
                 
             }
             else if (Apointlist.Count == 0)  //若A群清單無航點
             {
-                lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text"); //清除A群路徑長度顯示資料
-                lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText; //A群路徑長度顯示為黑色
+                WayPointControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text"); //清除A群路徑長度顯示資料
+                WayPointControl1.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText; //A群路徑長度顯示為黑色
             }
 
             if (Bpointlist.Count != 0)  //若B群清單有航點
             {
                 WP_Marker_Route_function(Bpointlist, "B", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Bpointlist及群組B做建航點、畫路徑及新增DataGridView資料，並回傳B群路徑長度
-                lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false);  //B群路徑長度以KM為單位做表示
-                lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
+                WayPointControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false);  //B群路徑長度以KM為單位做表示
+                WayPointControl1.lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
                 totaldistance += distance;  //總航程距離加上B群路徑長度
             }
             else if (Bpointlist.Count == 0)  //若B群清單無航點
             {
-                lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text");  //清除B群路徑長度顯示資料
-                lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;  //B群路徑長度顯示為黑色
+                WayPointControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text");  //清除B群路徑長度顯示資料
+                WayPointControl1.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;  //B群路徑長度顯示為黑色
             }
 
             if (Cpointlist.Count != 0)  //若C群清單有航點
             {
                 WP_Marker_Route_function(Cpointlist, "C", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Cpointlist及群組C做建航點、畫路徑及新增DataGridView資料，並回傳C群路徑長度
-                lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false);  //C群路徑長度以KM為單位做表示
-                lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
+                WayPointControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false);  //C群路徑長度以KM為單位做表示
+                WayPointControl1.lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
                 totaldistance += distance;  //總航程距離加上C群路徑長度
             }
             else if (Cpointlist.Count == 0)  //若C群清單無航點
             {
-                lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text");  //清除C群路徑長度顯示資料
-                lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;  //C群路徑長度顯示為黑色
+                WayPointControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text");  //清除C群路徑長度顯示資料
+                WayPointControl1.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;  //C群路徑長度顯示為黑色
             }
 
             if (Dpointlist.Count != 0)  //若D群清單有航點
             {
                 WP_Marker_Route_function(Dpointlist, "D", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Dpointlist及群組D做建航點、畫路徑及新增DataGridView資料，並回傳群D路徑長度
-                lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false);  //D群路徑長度以KM為單位做表示
-                lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
+                WayPointControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false);  //D群路徑長度以KM為單位做表示
+                WayPointControl1.lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
                 totaldistance += distance;  //總航程距離加上D群路徑長度
             }
             else if (Dpointlist.Count == 0)  //若D群清單無航點
             {
-                lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text");  //清除D群路徑長度顯示資料
-                lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;  //D群路徑長度顯示為黑色
+                WayPointControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text");  //清除D群路徑長度顯示資料
+                WayPointControl1.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;  //D群路徑長度顯示為黑色
             }
 
             if (Epointlist.Count != 0)  //若E群清單有航點
             {
                 WP_Marker_Route_function(Epointlist, "E", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Epointlist及群組E做建航點、畫路徑及新增DataGridView資料，並回傳群E路徑長度
-                lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false);  //E群路徑長度以KM為單位做表示
-                lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
+                WayPointControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false);  //E群路徑長度以KM為單位做表示
+                WayPointControl1.lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
                 totaldistance += distance;  //總航程距離加上E群路徑長度
             }
             else if (Epointlist.Count == 0)  //若E群清單無航點
             {
-                lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text");  //清除E群路徑長度顯示資料
-                lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;  //E群路徑長度顯示為黑色
+                WayPointControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text");  //清除E群路徑長度顯示資料
+                WayPointControl1.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;  //E群路徑長度顯示為黑色
             }
             lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(totaldistance, false);  //總航程距離以KM為單位表示
 
@@ -7446,7 +7448,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
                 /****計算來源群航程距離****/
                 double homedist = 0;
-                string home = string.Format("{0},{1},{2}\r\n", TXT_homelng.Text, TXT_homelat.Text, TXT_DefaultAlt.Text);
+                string home = string.Format("{0},{1},{2}\r\n", WayPointControl1.TXT_homelng.Text, WayPointControl1.TXT_homelat.Text, TXT_DefaultAlt.Text);
                 if (home.Length > 5) //home點有被設置時
                 {
                     homedist = MainMap.MapProvider.Projection.GetDistance(sourcepointlist[sourcepointlist.Count - 1],
@@ -7489,8 +7491,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             AutoGuide = new Auto_Guide.Auto_Guide();
             //AutoGuide.Show();
         }
-
-    
 
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist
                                         , ref List<PointLatLngAlt> outputDpointlist,ref List<PointLatLngAlt> outputEpointlist)    

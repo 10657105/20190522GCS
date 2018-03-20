@@ -495,6 +495,12 @@
       <DependentUpon>LogDownloadscp.cs</DependentUpon>
     </Compile>
     <Compile Include="Log\test\MotorFailure.cs" />
+    <Compile Include="MainTabControl\WayPointControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainTabControl\WayPointControl.Designer.cs">
+      <DependentUpon>WayPointControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strings.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -2728,7 +2734,7 @@
     <EmbeddedResource Include="GCSViews\InitialSetup.zh-TW.resx">
       <DependentUpon>InitialSetup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\MainUserControls.resx" >
+    <EmbeddedResource Include="GCSViews\MainUserControls.resx">
       <DependentUpon>MainUserControls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\SoftwareConfig.resx">
@@ -2838,6 +2844,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Log\MavlinkLog.pt.resx">
       <DependentUpon>MavlinkLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTabControl\WayPointControl.resx">
+      <DependentUpon>WayPointControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ar.resx">
       <DependentUpon>MainV2.cs</DependentUpon>

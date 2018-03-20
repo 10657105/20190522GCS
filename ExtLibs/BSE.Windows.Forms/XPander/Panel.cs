@@ -20,7 +20,7 @@ namespace BSE.Windows.Forms
    /// You can use a Panel to group collections of controls such as the XPanderPanelList control.
    /// On top of the Panel there is the captionbar. This captionbar may contain an image and text.
    /// According to it's dockstyle and properties the panel is collapsable and/or closable.</remarks>
-   /// <copyright>Copyright © 2006-2008 Uwe Eichkorn
+   /// <copyright>Copyright ?2006-2008 Uwe Eichkorn
    /// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
    /// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
    /// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
