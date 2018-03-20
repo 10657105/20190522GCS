@@ -64,6 +64,8 @@ namespace MissionPlanner.GCSViews
 
         public bool autopan { get; set; }
 
+        
+
         public List<PointLatLngAlt> pointlist = new List<PointLatLngAlt>(); // used to calc distance
         public List<PointLatLngAlt> fullpointlist = new List<PointLatLngAlt>();
 
@@ -557,7 +559,22 @@ namespace MissionPlanner.GCSViews
             instance = this;
 
             InitializeComponent();
-            
+
+            //指定WayPointControls的UserControl觸發程序為此UserControl的副程式
+            WayPointControl1.coords1.SystemChanged += coords1_SystemChanged;
+            WayPointControl1.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
+            WayPointControl1.lnk_kml.LinkClicked += lnk_kml_LinkClicked;
+            WayPointControl1.BUT_loadwpfile.Click += BUT_loadwpfile_Click;
+            WayPointControl1.BUT_saveWPFile.Click += BUT_saveWPFile_Click;
+            WayPointControl1.BUT_read.Click += BUT_read_Click;
+            WayPointControl1.BUT_write.Click += BUT_write_Click;
+            WayPointControl1.label4.LinkClicked += label4_LinkClicked;
+            WayPointControl1.TXT_homelat.Enter += TXT_homelat_Enter;
+            WayPointControl1.TXT_homelat.TextChanged += TXT_homelat_TextChanged;
+            WayPointControl1.TXT_homelng.TextChanged += TXT_homelng_TextChanged;
+            WayPointControl1.TXT_homealt.TextChanged += TXT_homealt_TextChanged;
+            WayPointControl1.Path_Programming_button.Click += Path_Programming_button_Click;
+
             // config map             
             MainMap.CacheLocation = Settings.GetDataDirectory() +
                                     "gmapcache" + Path.DirectorySeparatorChar;
