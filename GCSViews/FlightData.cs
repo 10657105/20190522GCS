@@ -4019,10 +4019,10 @@ namespace MissionPlanner.GCSViews
         {
             threadrun = false;
 
-            while (thisthread.IsAlive)
+            /*while (thisthread.IsAlive)
             {
                 Application.DoEvents();
-            }
+            }*/
 
             // you cannot call join on the main thread, and invoke on the thread. as it just hangs on the invoke.
 

@@ -13,13 +13,14 @@ namespace PathProgram
         static public List<PointLatLngAlt> dll_noflylist = new List<PointLatLngAlt>();// no-fly zone piont list(lat,lng,alt)
         static public List<PointLatLngAlt> dll_exnoflylist = new List<PointLatLngAlt>();// the turning point after enlarging the no-fly zone(lat,lng,alt)
 
+        static int final_sol_no_ch = 3;//include tabu in_route(2nd) & cross_route (effect cpu time)
         static int tabulist_length = 10;// the Tabu list that it collected how many about the past optimal solution
-        static int intabu_no_ch = 20;// in_route 
-        static int crstabu_no_ch = 50;// cross_route
+        static int intabu_no_ch = 10;// in_route 
+        static int crstabu_no_ch = 30;// cross_route
         static double exnofly_gain = 1.2;// no-fly zone enlarging rate ( exnofly_gain > 1)
         static int m_num = 1;// the amount of swarm (if undefine m_num = 1)
-        static double exnofly_alt ; //turning point alt (1.start_alt 2.end_alt 3.avg_alt)
-        static int latLength = dll_goallist.Count;// the amount of target piont
+        static double exnofly_alt; //turning point alt (1.start_alt 2.end_alt 3.avg_alt)
+        static int latLength = dll_goallist.Count;// the amount of target piont 
         static int nflatLength = dll_noflylist.Count;// the amount of no-fly zone piont
         static double[,] Cij = new double[latLength, latLength];//the distance array of all lines
         static int[,] multi_path = new int[m_num, latLength - m_num + 3];// multi path
@@ -29,17 +30,17 @@ namespace PathProgram
         static int[,] opt_multi_path = new int[m_num, latLength - m_num + 3];// array of final global solution
         static int[,] path_solution = new int[m_num, ((latLength - m_num + 3) - 1) * latLength + nflatLength];
         static int iterat = 0;// initial iteration value (can't be write)
-       
+        static int cw_or_ccw = 1;//cw=0 //ccw=1
 
         public void math(int groupset, List<PointLatLngAlt> Allpointlist, List<PointLatLngAlt> noflypointlist,
-                         ref List<PointLatLngAlt> Apointlist, ref List<PointLatLngAlt> Bpointlist, 
-                         ref List<PointLatLngAlt> Cpointlist,ref List<PointLatLngAlt> Dpointlist, ref List<PointLatLngAlt> Epointlist)
+                         ref List<PointLatLngAlt> Apointlist, ref List<PointLatLngAlt> Bpointlist,
+                         ref List<PointLatLngAlt> Cpointlist, ref List<PointLatLngAlt> Dpointlist, ref List<PointLatLngAlt> Epointlist)
         {// main 
-            
+
             List<PointLatLngAlt> final_list = new List<PointLatLngAlt>();// atter algorithm , number of target piont 
             List<PointLatLngAlt> turn_list = new List<PointLatLngAlt>();// atter algorithm , latitude and longitude of target piont 
-            Apointlist.Clear();   Bpointlist.Clear();   Cpointlist.Clear();   Dpointlist.Clear();   Epointlist.Clear(); 
-            dll_goallist.Clear(); final_list.Clear();   dll_noflylist.Clear();  dll_exnoflylist.Clear(); turn_list.Clear();// list clear
+            Apointlist.Clear(); Bpointlist.Clear(); Cpointlist.Clear(); Dpointlist.Clear(); Epointlist.Clear();
+            dll_goallist.Clear(); final_list.Clear(); dll_noflylist.Clear(); dll_exnoflylist.Clear(); turn_list.Clear();// list clear
 
             for (int i = 0; i < Allpointlist.Count; i++)
             {//input target piont(lat,lng,alt)
@@ -51,7 +52,7 @@ namespace PathProgram
                 dll_noflylist.Add(new PointLatLngAlt(noflypointlist[i].Lat, noflypointlist[i].Lng, noflypointlist[i].Alt));
             }
             if (dll_noflylist.Count != 0)
-              dll_noflylist.Add(new PointLatLngAlt(noflypointlist[0].Lat, noflypointlist[0].Lng, noflypointlist[0].Alt));//add no-fly zone piont frist point for operation*
+                dll_noflylist.Add(new PointLatLngAlt(noflypointlist[0].Lat, noflypointlist[0].Lng, noflypointlist[0].Alt));//add no-fly zone piont frist point for operation*
 
             ///// ↓variable definition↓ /////
             m_num = groupset;//input the amount of swarm
@@ -65,7 +66,7 @@ namespace PathProgram
             Cij = new double[latLength, latLength];
             multi_path = new int[m_num, latLength - m_num + 3];
             point_num_of_multipath = new int[m_num];
-            save_turning_point = new int[latLength * latLength + nflatLength , nflatLength + 2];
+            save_turning_point = new int[latLength * latLength + nflatLength, nflatLength + 2];
             opt_multi_path = new int[m_num, latLength - m_num + 3];
             path_solution = new int[m_num, ((latLength - m_num + 3) - 1) * 2 + nflatLength];
             astar_ans = new int[nflatLength];
@@ -88,76 +89,135 @@ namespace PathProgram
 
                 for (int i = 0; i < dll_exnoflylist.Count; i++)
                 {//add turning point into target piont list
-                   dll_goallist.Add(new PointLatLngAlt(dll_exnoflylist[i].Lat, dll_exnoflylist[i].Lng, exnofly_alt));                              
+                    dll_goallist.Add(new PointLatLngAlt(dll_exnoflylist[i].Lat, dll_exnoflylist[i].Lng, exnofly_alt));
                 }
             }
 
             for (int i = 0; i < m_num; i++)
             {// output 
-                for (int j = 0; j < dll_goallist.Count - m_num + 3; j++)
+                for (int j = 0; j < dll_goallist.Count + 2; j++)//+2for L.106
                 {//final solution , number -> lat,lng,alt
                     turn_list.Add(new PointLatLngAlt(dll_goallist[path_solution[i, j]].Lat, dll_goallist[path_solution[i, j]].Lng, dll_goallist[path_solution[i, j]].Alt));
                 }
-                
+
                 for (int j = 0; j < turn_list.Count; j++)
                 {// all swarm list
                     final_list.Add(new PointLatLngAlt(turn_list[j].Lat, turn_list[j].Lng, turn_list[j].Alt));
 
-                    if ((turn_list[j].Lat == turn_list[j + 1].Lat) && (turn_list[j].Lng == turn_list[j + 1].Lng)) break;// check on target amount with every swarm
+                    if (((turn_list[j].Lat == Allpointlist[0].Lat) && (turn_list[j].Lat == turn_list[j + 1].Lat))
+                      && ((turn_list[j].Lng == Allpointlist[0].Lng) && (turn_list[j].Lng == turn_list[j + 1].Lng))) break;// check on target amount with every swarm
                 }
 
                 if (i == 0)
                 {// output swarm.A
-                    for (int j = 0; j < final_list.Count; j++)
+                    if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
-                        Apointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Apointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
                     }
-                    turn_list.Clear();
-                    final_list.Clear();
+                    else
+                    {
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Apointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
+                    }
                 }
-
                 if (i == 1)
                 {// output swarm.B
-                    for (int j = 0; j < final_list.Count; j++)
+                    if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
-                        Bpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Bpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
                     }
-                    turn_list.Clear();
-                    final_list.Clear();
+                    else
+                    {
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Bpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
+                    }
                 }
 
                 if (i == 2)
                 {// output swarm.C
-                    for (int j = 0; j < final_list.Count; j++)
+                    if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
-                        Cpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Cpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
                     }
-                    turn_list.Clear();
-                    final_list.Clear();
+                    else
+                    {
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Cpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
+                    }
                 }
-
                 if (i == 3)
                 {// output swarm.D
-                    for (int j = 0; j < final_list.Count; j++)
+                    if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
-                        Dpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Dpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
                     }
-                    turn_list.Clear();
-                    final_list.Clear();
+                    else
+                    {
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Dpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
+                    }
                 }
                 if (i == 4)
                 {// output swarm.E
-                    for (int j = 0; j < final_list.Count; j++)
+                    if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
-                        Epointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Epointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
                     }
-                    turn_list.Clear();
-                    final_list.Clear();
+                    else
+                    {
+                        for (int j = 0; j < final_list.Count; j++)
+                        {
+                            Epointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
+                        }
+                        turn_list.Clear();
+                        final_list.Clear();
+                    }
                 }
             }
 
         }
-        
+
         static private int[,] improve()//tabu improve* /i: path after cut /o: final path solution without turning point
         {
             multi_path = initail();//1st TABU in_route -> cut finish
@@ -176,7 +236,7 @@ namespace PathProgram
                 double dist_f = path_distance(path_crs_tabu);// calculate single path when cross_route working
                 opt_total += dist_f;// sum optimal total distance 
                 if (dist_f > opt_max) opt_max = dist_f;// if (new single path distance > optimal single path distance) replace
-            } 
+            }
             int count = 0;
 
             do
@@ -212,7 +272,7 @@ namespace PathProgram
                     cur_total += dist_f;
                     if (dist_f > cur_max) cur_max = dist_f;
                 }
-                
+
                 if (compare_max_total(cur_max, cur_total, opt_max, opt_total))
                 {// admit the best of solution
                     opt_max = cur_max;
@@ -225,8 +285,8 @@ namespace PathProgram
                     count++;
                 }
                 iterat++;// iterat ++
-            } while (!(count == 10));
-            
+            } while (!(count == final_sol_no_ch));
+
             return opt_path;
         }
 
@@ -245,7 +305,8 @@ namespace PathProgram
             for (int i = 0; i < m_num - 1; i++)
             {
                 int j = 1;
-                do{
+                do
+                {
                     j++;
                     cut_path = new int[j];
                     Array.Copy(single_path, cut_path, j);
@@ -307,14 +368,16 @@ namespace PathProgram
                 }
                 int k = 0;
                 int n = 0;
-                do {
+                do
+                {
                     n = 0;
                     for (int l = 0; l < save_turning_point.GetLength(0); l++)
                     {//scanning row
                         if (path[k + n] == save_turning_point[l, 0] && path[k + n + 1] == save_turning_point[l, 1])
                         {//start and end point from distance program ,scan the route cross no-fly zone or not
                             int f = 2;
-                            do {
+                            do
+                            {
                                 f++;
                             } while (!(save_turning_point[l, f] == 0));
                             int[] path1 = new int[((latLength - m_num + 3) - 1) * nflatLength];
@@ -329,14 +392,14 @@ namespace PathProgram
                             }
                             n += f - 2;
 
-                            exnofly_alt = dll_goallist[save_turning_point[l, 0]].Alt;// exnofly_alt = start.alt 
+                            exnofly_alt = dll_goallist[save_turning_point[l, 1]].Alt;// exnofly_alt = start.alt 
                             if (exnofly_alt == 0)
                             {
-                                exnofly_alt = dll_goallist[save_turning_point[l, 1]].Alt;// if exnofly_alt = 0 , exnofly_alt = end.alt 
+                                exnofly_alt = dll_goallist[save_turning_point[l, 0]].Alt;// if exnofly_alt = 0 , exnofly_alt = end.alt 
                             }
                             break;
                         }
-                        
+
                     }
                     k++;
                     for (int j = 0; j < path_solution.GetLength(1); j++)
@@ -389,7 +452,7 @@ namespace PathProgram
                 initail_total += dist_initail;
                 if (dist_initail > initail_max) initail_max = dist_initail;
             }
-            
+
             int count = 0;
             do
             {//move method (2-OPT)
@@ -507,7 +570,7 @@ namespace PathProgram
                                     if (dist_r == 0) not_feasible_r = true;
                                     total_dist_f += dist_f;
                                     total_dist_r += dist_r;
-                                    if (dist_f > max_dist_f) max_dist_f = dist_f;   
+                                    if (dist_f > max_dist_f) max_dist_f = dist_f;
                                     if (dist_r > max_dist_r) max_dist_r = dist_r; //focus on which group solsution is worst,improve it (load balance)*
                                 }
 
@@ -516,7 +579,7 @@ namespace PathProgram
                                     not_feasible_f |= tabulist[m, 0] == max_dist_f && tabulist[m, 1] == total_dist_f;
                                     not_feasible_r |= tabulist[m, 0] == max_dist_r && tabulist[m, 1] == total_dist_r;
                                 }
-                                
+
                                 if (compare_max_total(max_dist_f, total_dist_f, max_dist_r, total_dist_r))//max total (select forward or reverse solution)
                                 {// forward win
                                     if (not_feasible_f == true)
@@ -610,7 +673,7 @@ namespace PathProgram
                         Array.Copy(near_opt_path, global_sub_path, near_opt_path.Length);
                     }
                 }
-                
+
             } while (!(count == crstabu_no_ch));
             if (iterat >= 1)
             {
@@ -623,7 +686,8 @@ namespace PathProgram
             for (int i = 0; i < m_num; i++)
             {
                 int j = 0;
-                do{
+                do
+                {
                     j++;
                 } while (!(global_opt_path[i, j] == 0));
                 point_num_of_multipath[i] = j - 1;
@@ -678,10 +742,10 @@ namespace PathProgram
                             in_list |= (path_1_d == tabulist[k]);
                         }
 
-                        if ((path_1_d < near_opt_d) && !(in_list)) 
+                        if ((path_1_d < near_opt_d) && !(in_list))
                         {
                             near_opt_d = path_1_d;
-                            Array.Copy(path_1, near_opt_path, path_1.Length);                            
+                            Array.Copy(path_1, near_opt_path, path_1.Length);
                         }
                     }
                 }
@@ -725,14 +789,14 @@ namespace PathProgram
             NDM_path[0] = 0;
             double[,] Cij_copy = new double[Cij.GetLength(0), Cij.GetLength(1)];
             Array.Copy(Cij, Cij_copy, Cij.Length);//copy distance array
-            
+
             for (int i = 0; i < latLength; i++)
             {
                 Cij_copy[0, i] = double.MaxValue;// row No.zero = MaxValue
             }
             for (int i = 0; i < latLength - 1; i++)
             {
-                double min_value = double.MaxValue; 
+                double min_value = double.MaxValue;
                 int min_row = int.MaxValue;
                 for (int j = 0; j < latLength; j++)
                 {
@@ -795,7 +859,7 @@ namespace PathProgram
                         Cij[i, j] = astar(dll_goallist[i].Lat, dll_goallist[i].Lng, dll_goallist[i].Alt, dll_goallist[j].Lat, dll_goallist[j].Lng, dll_goallist[j].Alt); //astar
                         save_turning_point[count, 0] = i;//because cross no-fly zone ,so save this starting point for insert function
                         save_turning_point[count, 1] = j;//end point
-                       
+
                         int f = 1;
                         do
                         {
@@ -882,7 +946,7 @@ namespace PathProgram
 
         static private double astar(double lat0, double lng0, double alt0, double lat1, double lng1, double alt1) // A*
         {// i: start & end piont  / o: distance of dodge no-fly zone
-            
+
             List<PointLatLngAlt> dll_turnlist = new List<PointLatLngAlt>();
 
             dll_turnlist.Add(new PointLatLngAlt(lat0, lng0, alt0));//start point
@@ -914,7 +978,7 @@ namespace PathProgram
             }
 
             //
-            double[,] open = new double[nflatLength * nflatLength + latLength, nflatLength * nflatLength + latLength]; 
+            double[,] open = new double[nflatLength * nflatLength + latLength, nflatLength * nflatLength + latLength];
             double[,] close = new double[nflatLength * nflatLength + latLength, nflatLength * nflatLength + latLength];
             double[,] de = new double[nflatLength * nflatLength + latLength, nflatLength * nflatLength + latLength];
 
@@ -1057,14 +1121,14 @@ namespace PathProgram
             {
                 astar_ans[i] = Convert.ToInt32(ans[i]);//
             }
-            
-            return astar_g;            
+
+            return astar_g;
         }
 
         static private double[,] smalldistance(double[] slat, double[] slng)//small distance array for astart program(starting point,turning point,target point)
         {
             double[,] cij = new double[nflatLength + 2, nflatLength + 2];
-           
+
             for (int i = 0; i < nflatLength + 2; i++)
             {
                 for (int j = 0; j < nflatLength + 2; j++)
@@ -1123,6 +1187,26 @@ namespace PathProgram
                 array2d[array2d.GetLength(0) - 1, i] = array1d[i];
             }
             return array2d;
+        }
+
+        static private bool cw_ccw(double lat0, double lng0, double lat1, double lng1, double lat2, double lng2)//for same direction
+        {
+            double ccw = (lng0 - lng1) * lat2 + (lat1 - lat0) * lng2 + lat0 * lng1 - lat1 * lng0;
+            bool ccw_tf = false;
+
+            if (cw_or_ccw == 0) //cw
+            {
+                if (ccw > 0) ccw_tf = false;//left
+                if (ccw < 0) ccw_tf = true;//right
+                if (ccw == 0) ccw_tf = false;//on line
+            }
+            if (cw_or_ccw == 1) //ccw
+            {
+                if (ccw > 0) ccw_tf = true;//left
+                if (ccw < 0) ccw_tf = false;//right
+                if (ccw == 0) ccw_tf = true;//on line
+            }
+            return ccw_tf;
         }
     }
 }
