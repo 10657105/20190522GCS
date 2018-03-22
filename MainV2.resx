@@ -220,6 +220,15 @@
   <data name="toolStripConnectionControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 60</value>
   </data>
+  <data name="Connection_List_button.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="Connection_List_button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 57</value>
+  </data>
+  <data name="Connection_List_button.Text" xml:space="preserve">
+    <value>Connection List</value>
+  </data>
   <data name="MainMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -2010,7 +2019,13 @@
     <value>toolStripConnectionControl</value>
   </data>
   <data name="&gt;&gt;toolStripConnectionControl.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.1.6653.30922, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ToolStripConnectionControl, MissionPlanner, Version=1.1.6655.35117, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Connection_List_button.Name" xml:space="preserve">
+    <value>Connection_List_button</value>
+  </data>
+  <data name="&gt;&gt;Connection_List_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainV2</value>
