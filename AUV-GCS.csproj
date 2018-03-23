@@ -501,6 +501,12 @@
       <DependentUpon>LogDownloadscp.cs</DependentUpon>
     </Compile>
     <Compile Include="Log\test\MotorFailure.cs" />
+    <Compile Include="MainTabControl\AutoGuided.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainTabControl\AutoGuided.Designer.cs">
+      <DependentUpon>AutoGuided.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainTabControl\WayPointControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -2853,6 +2859,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Log\MavlinkLog.pt.resx">
       <DependentUpon>MavlinkLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTabControl\AutoGuided.resx">
+      <DependentUpon>AutoGuided.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainTabControl\WayPointControl.resx">
       <DependentUpon>WayPointControl.cs</DependentUpon>
