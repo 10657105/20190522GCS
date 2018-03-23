@@ -104,10 +104,12 @@ namespace MissionPlanner.GCSViews
             this.panelAction = new BSE.Windows.Forms.Panel();
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.ActionsplitContainer = new System.Windows.Forms.SplitContainer();
+            this.connectionData1 = new MissionPlanner.GCSViews.ConnectionData();
             this.MaintabControl = new System.Windows.Forms.TabControl();
             this.TabWaypoint = new System.Windows.Forms.TabPage();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.AutoGuidedControl = new System.Windows.Forms.TabPage();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -190,7 +192,7 @@ namespace MissionPlanner.GCSViews
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.connectionData1 = new MissionPlanner.GCSViews.ConnectionData();
+            this.autoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
             this.panelWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelAction.SuspendLayout();
@@ -200,6 +202,7 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.SuspendLayout();
             this.MaintabControl.SuspendLayout();
             this.TabWaypoint.SuspendLayout();
+            this.AutoGuidedControl.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -616,10 +619,16 @@ namespace MissionPlanner.GCSViews
             // 
             this.ActionsplitContainer.Panel2.Controls.Add(this.MaintabControl);
             // 
+            // connectionData1
+            // 
+            resources.ApplyResources(this.connectionData1, "connectionData1");
+            this.connectionData1.Name = "connectionData1";
+            // 
             // MaintabControl
             // 
             this.MaintabControl.Controls.Add(this.TabWaypoint);
             this.MaintabControl.Controls.Add(this.tabPage2);
+            this.MaintabControl.Controls.Add(this.AutoGuidedControl);
             resources.ApplyResources(this.MaintabControl, "MaintabControl");
             this.MaintabControl.Name = "MaintabControl";
             this.MaintabControl.SelectedIndex = 0;
@@ -641,6 +650,13 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // AutoGuidedControl
+            // 
+            this.AutoGuidedControl.Controls.Add(this.autoGuided1);
+            resources.ApplyResources(this.AutoGuidedControl, "AutoGuidedControl");
+            this.AutoGuidedControl.Name = "AutoGuidedControl";
+            this.AutoGuidedControl.UseVisualStyleBackColor = true;
             // 
             // panelMap
             // 
@@ -1235,10 +1251,10 @@ namespace MissionPlanner.GCSViews
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // connectionData1
+            // autoGuided1
             // 
-            resources.ApplyResources(this.connectionData1, "connectionData1");
-            this.connectionData1.Name = "connectionData1";
+            resources.ApplyResources(this.autoGuided1, "autoGuided1");
+            this.autoGuided1.Name = "autoGuided1";
             // 
             // MainUserControls
             // 
@@ -1260,6 +1276,7 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.ResumeLayout(false);
             this.MaintabControl.ResumeLayout(false);
             this.TabWaypoint.ResumeLayout(false);
+            this.AutoGuidedControl.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1401,5 +1418,7 @@ namespace MissionPlanner.GCSViews
         private MainTabControl.WayPointControl WayPointControl1;
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
         private ConnectionData connectionData1;
+        private System.Windows.Forms.TabPage AutoGuidedControl;
+        private MainTabControl.AutoGuided autoGuided1;
     }
 }

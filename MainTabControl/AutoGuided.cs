@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using MissionPlanner.Utilities; // Locationwp function
+using MissionPlanner.GCSViews;  // MainUserControl.cs function
 
 namespace MissionPlanner.MainTabControl
 {
@@ -41,82 +42,121 @@ namespace MissionPlanner.MainTabControl
         internal MAVLinkInterface Dcopter = null;
         internal MAVLinkInterface Ecopter = null;
 
+        //public static MainUserControls MainUserControls = new MainUserControls();
+
         public AutoGuided()
         {
             InitializeComponent();
-
-            Dictionary<String, MAVState> mavStates = new Dictionary<string, MAVState>();
-
-            foreach (var port in MainV2.Comports)
-            {
-                foreach (var mav in port.MAVlist)
-                {
-                    mavStates.Add(port.BaseStream.PortName + " " + mav.sysid + " " + mav.compid, mav);
-                }
-            }
-
-            bindingSource1.DataSource = mavStates;
-            Connection_Select.DataSource = bindingSource1;
-
             change_text = new mydalegate(Button_start_end);
+        }
+        public void Button_start_end()
+        {
+            Button_start.Text = "Start";
+        }
+
+        private void Connection_Select_Click(object sender, EventArgs e)
+        {
+            bindingSource1.ResetBindings(false);
+            bindingSource1.DataSource = MainV2.Comports;
+            Connection_Select.DataSource = bindingSource1;
         }
 
         private void SetA_Click(object sender, EventArgs e)
         {
-            Acopter = MainV2.comPort;
+            foreach (var port in MainV2.Comports)
+            {
+                if (port.ToString() == Connection_Select.Text)
+                {
+                    Acopter = port;
+                    LBL_ACopter.Text = "ACopter: On "+port.BaseStream.PortName.ToString();
+                    LBL_ACopter.ForeColor = Color.Yellow;
+                }
+            }
         }
 
         private void SetB_Click(object sender, EventArgs e)
         {
-            Bcopter = MainV2.comPort;
+            foreach (var port in MainV2.Comports)
+            {
+                if (port.ToString() == Connection_Select.Text)
+                {
+                    Bcopter = port;
+                    LBL_BCopter.Text = "BCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_BCopter.ForeColor = Color.Red;
+                }
+            }
         }
 
         private void SetC_Click(object sender, EventArgs e)
         {
-            Ccopter = MainV2.comPort;
+            foreach (var port in MainV2.Comports)
+            {
+                if (port.ToString() == Connection_Select.Text)
+                {
+                    Ccopter = port;
+                    LBL_CCopter.Text = "CCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_CCopter.ForeColor = Color.Cyan;
+                }
+            }
         }
 
         private void SetD_Click(object sender, EventArgs e)
         {
-            Dcopter = MainV2.comPort;
+            foreach (var port in MainV2.Comports)
+            {
+                if (port.ToString() == Connection_Select.Text)
+                {
+                    Dcopter = port;
+                    LBL_DCopter.Text = "DCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_DCopter.ForeColor = Color.Tomato;
+                }
+            }
         }
 
         private void SetE_Click(object sender, EventArgs e)
         {
-            Ecopter = MainV2.comPort;
+            foreach (var port in MainV2.Comports)
+            {
+                if (port.ToString() == Connection_Select.Text)
+                {
+                    Ecopter = port;
+                    LBL_ECopter.Text = "ECopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_ECopter.ForeColor = Color.DeepPink;
+                }
+            }
         }
 
         private void Button_start_Click(object sender, EventArgs e)
         {
-            if (threadrun == true)
-            {
-                threadrun = false;
-                Athread = false;
-                Bthread = false;
-                Cthread = false;
-                Dthread = false;
-                Ethread = false;
-                Acopter.setMode("Brake");
-                Bcopter.setMode("Brake");
-                Ccopter.setMode("Brake");
-                Dcopter.setMode("Brake");
-                Ecopter.setMode("Brake");
-                Button_start.Text = Strings.Start;
-                return;
-            }
+             if (threadrun == true)
+             {
+                 threadrun = false;
+                 Athread = false;
+                 Bthread = false;
+                 Cthread = false;
+                 Dthread = false;
+                 Ethread = false;
+                 Acopter.setMode("Brake");
+                 Bcopter.setMode("Brake");
+                 Ccopter.setMode("Brake");
+                 Dcopter.setMode("Brake");
+                 Ecopter.setMode("Brake");
+                 Button_start.Text = Strings.Start;
+                 return;
+             }
 
 
-            {
-                new System.Threading.Thread(Mainthread) { IsBackground = true }.Start();
-                Button_start.Text = Strings.Stop;
-                Athread = false;
-                Bthread = false;
-                Cthread = false;
-                Dthread = false;
-                Ethread = false;
-                FlightPlanner.Receivelist(ref Apointlist, ref Bpointlist, ref Cpointlist, ref Dpointlist, ref Epointlist);
-               
-            }
+             {
+                 new System.Threading.Thread(Mainthread) { IsBackground = true }.Start();
+                 Button_start.Text = Strings.Stop;
+                 Athread = false;
+                 Bthread = false;
+                 Cthread = false;
+                 Dthread = false;
+                 Ethread = false;
+                 MainUserControls.Receivelist(ref Apointlist, ref Bpointlist, ref Cpointlist, ref Dpointlist, ref Epointlist);
+
+             }
         }
         private void Mainthread()
         {
@@ -382,5 +422,7 @@ namespace MissionPlanner.MainTabControl
                 }
             }
         }
+
+  
     }
 }

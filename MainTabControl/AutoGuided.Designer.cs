@@ -71,7 +71,7 @@
             // SetA
             // 
             this.SetA.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetA.Location = new System.Drawing.Point(131, 64);
+            this.SetA.Location = new System.Drawing.Point(16, 136);
             this.SetA.Name = "SetA";
             this.SetA.Size = new System.Drawing.Size(75, 23);
             this.SetA.TabIndex = 11;
@@ -82,7 +82,7 @@
             // SetB
             // 
             this.SetB.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetB.Location = new System.Drawing.Point(131, 93);
+            this.SetB.Location = new System.Drawing.Point(16, 165);
             this.SetB.Name = "SetB";
             this.SetB.Size = new System.Drawing.Size(75, 23);
             this.SetB.TabIndex = 12;
@@ -93,7 +93,7 @@
             // SetC
             // 
             this.SetC.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetC.Location = new System.Drawing.Point(131, 122);
+            this.SetC.Location = new System.Drawing.Point(16, 194);
             this.SetC.Name = "SetC";
             this.SetC.Size = new System.Drawing.Size(75, 23);
             this.SetC.TabIndex = 13;
@@ -104,7 +104,7 @@
             // SetD
             // 
             this.SetD.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetD.Location = new System.Drawing.Point(131, 151);
+            this.SetD.Location = new System.Drawing.Point(16, 224);
             this.SetD.Name = "SetD";
             this.SetD.Size = new System.Drawing.Size(75, 23);
             this.SetD.TabIndex = 14;
@@ -115,7 +115,7 @@
             // SetE
             // 
             this.SetE.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetE.Location = new System.Drawing.Point(131, 180);
+            this.SetE.Location = new System.Drawing.Point(16, 255);
             this.SetE.Name = "SetE";
             this.SetE.Size = new System.Drawing.Size(75, 23);
             this.SetE.TabIndex = 15;
@@ -126,53 +126,59 @@
             // Connection_Select
             // 
             this.Connection_Select.FormattingEnabled = true;
-            this.Connection_Select.Location = new System.Drawing.Point(108, 38);
+            this.Connection_Select.Location = new System.Drawing.Point(16, 110);
             this.Connection_Select.Name = "Connection_Select";
             this.Connection_Select.Size = new System.Drawing.Size(121, 20);
             this.Connection_Select.TabIndex = 16;
+            this.Connection_Select.Click += new System.EventHandler(this.Connection_Select_Click);
             // 
             // LBL_ACopter
             // 
             this.LBL_ACopter.AutoSize = true;
-            this.LBL_ACopter.Location = new System.Drawing.Point(129, 218);
+            this.LBL_ACopter.Font = new System.Drawing.Font("Arial", 9F);
+            this.LBL_ACopter.Location = new System.Drawing.Point(13, 292);
             this.LBL_ACopter.Name = "LBL_ACopter";
-            this.LBL_ACopter.Size = new System.Drawing.Size(45, 12);
+            this.LBL_ACopter.Size = new System.Drawing.Size(51, 15);
             this.LBL_ACopter.TabIndex = 17;
             this.LBL_ACopter.Text = "ACopter";
             // 
             // LBL_BCopter
             // 
             this.LBL_BCopter.AutoSize = true;
-            this.LBL_BCopter.Location = new System.Drawing.Point(129, 230);
+            this.LBL_BCopter.Font = new System.Drawing.Font("Arial", 9F);
+            this.LBL_BCopter.Location = new System.Drawing.Point(12, 307);
             this.LBL_BCopter.Name = "LBL_BCopter";
-            this.LBL_BCopter.Size = new System.Drawing.Size(45, 12);
+            this.LBL_BCopter.Size = new System.Drawing.Size(52, 15);
             this.LBL_BCopter.TabIndex = 17;
             this.LBL_BCopter.Text = "BCopter";
             // 
             // LBL_CCopter
             // 
             this.LBL_CCopter.AutoSize = true;
-            this.LBL_CCopter.Location = new System.Drawing.Point(129, 242);
+            this.LBL_CCopter.Font = new System.Drawing.Font("Arial", 9F);
+            this.LBL_CCopter.Location = new System.Drawing.Point(11, 322);
             this.LBL_CCopter.Name = "LBL_CCopter";
-            this.LBL_CCopter.Size = new System.Drawing.Size(45, 12);
+            this.LBL_CCopter.Size = new System.Drawing.Size(53, 15);
             this.LBL_CCopter.TabIndex = 17;
             this.LBL_CCopter.Text = "CCopter";
             // 
             // LBL_DCopter
             // 
             this.LBL_DCopter.AutoSize = true;
-            this.LBL_DCopter.Location = new System.Drawing.Point(129, 254);
+            this.LBL_DCopter.Font = new System.Drawing.Font("Arial", 9F);
+            this.LBL_DCopter.Location = new System.Drawing.Point(11, 337);
             this.LBL_DCopter.Name = "LBL_DCopter";
-            this.LBL_DCopter.Size = new System.Drawing.Size(45, 12);
+            this.LBL_DCopter.Size = new System.Drawing.Size(53, 15);
             this.LBL_DCopter.TabIndex = 17;
             this.LBL_DCopter.Text = "DCopter";
             // 
             // LBL_ECopter
             // 
             this.LBL_ECopter.AutoSize = true;
-            this.LBL_ECopter.Location = new System.Drawing.Point(129, 266);
+            this.LBL_ECopter.Font = new System.Drawing.Font("Arial", 9F);
+            this.LBL_ECopter.Location = new System.Drawing.Point(12, 352);
             this.LBL_ECopter.Name = "LBL_ECopter";
-            this.LBL_ECopter.Size = new System.Drawing.Size(44, 12);
+            this.LBL_ECopter.Size = new System.Drawing.Size(52, 15);
             this.LBL_ECopter.TabIndex = 17;
             this.LBL_ECopter.Text = "ECopter";
             // 
