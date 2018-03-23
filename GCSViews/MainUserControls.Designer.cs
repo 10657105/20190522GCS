@@ -73,6 +73,7 @@ namespace MissionPlanner.GCSViews
             this.label6 = new System.Windows.Forms.Label();
             this.panelWaypoints = new BSE.Windows.Forms.Panel();
             this.splitter1 = new BSE.Windows.Forms.Splitter();
+            this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
             this.CMB_altmode = new System.Windows.Forms.ComboBox();
             this.CHK_splinedefault = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -189,11 +190,12 @@ namespace MissionPlanner.GCSViews
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
+            this.connectionData1 = new MissionPlanner.GCSViews.ConnectionData();
             this.panelWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).BeginInit();
+            this.ActionsplitContainer.Panel1.SuspendLayout();
             this.ActionsplitContainer.Panel2.SuspendLayout();
             this.ActionsplitContainer.SuspendLayout();
             this.MaintabControl.SuspendLayout();
@@ -319,6 +321,13 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.splitter1, "splitter1");
             this.splitter1.Name = "splitter1";
             this.splitter1.TabStop = false;
+            // 
+            // CHK_WaypointTag
+            // 
+            resources.ApplyResources(this.CHK_WaypointTag, "CHK_WaypointTag");
+            this.CHK_WaypointTag.Name = "CHK_WaypointTag";
+            this.CHK_WaypointTag.UseVisualStyleBackColor = true;
+            this.CHK_WaypointTag.CheckedChanged += new System.EventHandler(this.CHK_WaypointTag_CheckedChanged);
             // 
             // CMB_altmode
             // 
@@ -598,6 +607,10 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.ActionsplitContainer, "ActionsplitContainer");
             this.ActionsplitContainer.Name = "ActionsplitContainer";
+            // 
+            // ActionsplitContainer.Panel1
+            // 
+            this.ActionsplitContainer.Panel1.Controls.Add(this.connectionData1);
             // 
             // ActionsplitContainer.Panel2
             // 
@@ -1222,12 +1235,10 @@ namespace MissionPlanner.GCSViews
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // CHK_WaypointTag
+            // connectionData1
             // 
-            resources.ApplyResources(this.CHK_WaypointTag, "CHK_WaypointTag");
-            this.CHK_WaypointTag.Name = "CHK_WaypointTag";
-            this.CHK_WaypointTag.UseVisualStyleBackColor = true;
-            this.CHK_WaypointTag.CheckedChanged += new System.EventHandler(this.CHK_WaypointTag_CheckedChanged);
+            resources.ApplyResources(this.connectionData1, "connectionData1");
+            this.connectionData1.Name = "connectionData1";
             // 
             // MainUserControls
             // 
@@ -1243,6 +1254,7 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.panelAction.ResumeLayout(false);
+            this.ActionsplitContainer.Panel1.ResumeLayout(false);
             this.ActionsplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).EndInit();
             this.ActionsplitContainer.ResumeLayout(false);
@@ -1388,5 +1400,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.TabPage tabPage2;
         private MainTabControl.WayPointControl WayPointControl1;
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
+        private ConnectionData connectionData1;
     }
 }
