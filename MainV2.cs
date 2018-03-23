@@ -1381,7 +1381,7 @@ namespace MissionPlanner
                 // check for newer firmware
                 var softwares = Firmware.LoadSoftwares();
 
-                if (softwares.Count > 0)
+                /*if (softwares.Count > 0)
                 {
                     try
                     {
@@ -1413,7 +1413,7 @@ namespace MissionPlanner
                     {
                         log.Error(ex);
                     }
-                }
+                }*/
 
                 FlightData.CheckBatteryShow();
 
