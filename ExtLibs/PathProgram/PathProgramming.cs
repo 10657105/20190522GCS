@@ -68,7 +68,7 @@ namespace PathProgram
             point_num_of_multipath = new int[m_num];
             save_turning_point = new int[latLength * latLength + nflatLength, nflatLength + 2];
             opt_multi_path = new int[m_num, latLength - m_num + 3];
-            path_solution = new int[m_num, ((latLength - m_num + 3) - 1) * 2 + nflatLength];
+            path_solution = new int[m_num, ((latLength - m_num + 3) - 1) * 2 + nflatLength+2];//3/23 +2
             astar_ans = new int[nflatLength];
             ///// ↑variable definition↑ /////
 

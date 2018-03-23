@@ -13,9 +13,18 @@ namespace MissionPlanner.GCSViews
 {
     public partial class ConnectionData : MyUserControl
     {
+        public static HUD hud;
         public ConnectionData()
         {
             InitializeComponent();
+            hud = new HUD();
+            /*try
+            {
+                label1.Text = hud.batterylevel.ToString();
+            }
+            catch { }*/
         }
+
+
     }
 }
