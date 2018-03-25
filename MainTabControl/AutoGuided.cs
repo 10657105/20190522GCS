@@ -136,11 +136,16 @@ namespace MissionPlanner.MainTabControl
                  Cthread = false;
                  Dthread = false;
                  Ethread = false;
-                 Acopter.setMode("Brake");
-                 Bcopter.setMode("Brake");
-                 Ccopter.setMode("Brake");
-                 Dcopter.setMode("Brake");
-                 Ecopter.setMode("Brake");
+                if(Acopter != null)
+                     Acopter.setMode("Brake");
+                if (Bcopter != null)
+                    Bcopter.setMode("Brake");
+                if (Ccopter != null)
+                    Ccopter.setMode("Brake");
+                if (Dcopter != null)
+                    Dcopter.setMode("Brake");
+                if (Ecopter != null)
+                    Ecopter.setMode("Brake");
                  Button_start.Text = Strings.Start;
                  return;
              }
@@ -190,7 +195,11 @@ namespace MissionPlanner.MainTabControl
                     new System.Threading.Thread(ECopter) { IsBackground = true }.Start();
                 }
                 System.Threading.Thread.Sleep(450);       
-                if (Aend == true && Bend == true && Cend == true && Dend == true && Eend == true)
+                if ((Aend == true && Bcopter == null && Ccopter == null && Dcopter == null && Ecopter == null)||
+                    (Aend == true && Bend == true) ||
+                    (Aend == true && Bend == true && Cend == true) ||
+                    (Aend == true && Bend == true && Cend == true && Dend == true) ||
+                    (Aend == true && Bend == true && Cend == true && Dend == true && Eend == true))
                 {
                     threadrun = false;
                     Athread = false;

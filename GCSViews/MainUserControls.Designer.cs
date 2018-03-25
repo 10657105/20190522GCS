@@ -73,6 +73,7 @@ namespace MissionPlanner.GCSViews
             this.label6 = new System.Windows.Forms.Label();
             this.panelWaypoints = new BSE.Windows.Forms.Panel();
             this.splitter1 = new BSE.Windows.Forms.Splitter();
+            this.CHK_Multitrack = new System.Windows.Forms.CheckBox();
             this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
             this.CMB_altmode = new System.Windows.Forms.ComboBox();
             this.CHK_splinedefault = new System.Windows.Forms.CheckBox();
@@ -110,6 +111,7 @@ namespace MissionPlanner.GCSViews
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.AutoGuidedControl = new System.Windows.Forms.TabPage();
+            this.AutoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -192,7 +194,7 @@ namespace MissionPlanner.GCSViews
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.autoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
+            this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.panelWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelAction.SuspendLayout();
@@ -281,6 +283,8 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelWaypoints.CaptionHeight = 21;
             this.panelWaypoints.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelWaypoints.Controls.Add(this.CHK_autopan);
+            this.panelWaypoints.Controls.Add(this.CHK_Multitrack);
             this.panelWaypoints.Controls.Add(this.CHK_WaypointTag);
             this.panelWaypoints.Controls.Add(this.CMB_altmode);
             this.panelWaypoints.Controls.Add(this.CHK_splinedefault);
@@ -324,6 +328,13 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.splitter1, "splitter1");
             this.splitter1.Name = "splitter1";
             this.splitter1.TabStop = false;
+            // 
+            // CHK_Multitrack
+            // 
+            resources.ApplyResources(this.CHK_Multitrack, "CHK_Multitrack");
+            this.CHK_Multitrack.Name = "CHK_Multitrack";
+            this.CHK_Multitrack.UseVisualStyleBackColor = true;
+            this.CHK_Multitrack.CheckedChanged += new System.EventHandler(this.CHK_Multitrack_CheckedChanged);
             // 
             // CHK_WaypointTag
             // 
@@ -653,10 +664,15 @@ namespace MissionPlanner.GCSViews
             // 
             // AutoGuidedControl
             // 
-            this.AutoGuidedControl.Controls.Add(this.autoGuided1);
+            this.AutoGuidedControl.Controls.Add(this.AutoGuided1);
             resources.ApplyResources(this.AutoGuidedControl, "AutoGuidedControl");
             this.AutoGuidedControl.Name = "AutoGuidedControl";
             this.AutoGuidedControl.UseVisualStyleBackColor = true;
+            // 
+            // AutoGuided1
+            // 
+            resources.ApplyResources(this.AutoGuided1, "AutoGuided1");
+            this.AutoGuided1.Name = "AutoGuided1";
             // 
             // panelMap
             // 
@@ -1251,10 +1267,15 @@ namespace MissionPlanner.GCSViews
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // autoGuided1
+            // CHK_autopan
             // 
-            resources.ApplyResources(this.autoGuided1, "autoGuided1");
-            this.autoGuided1.Name = "autoGuided1";
+            resources.ApplyResources(this.CHK_autopan, "CHK_autopan");
+            this.CHK_autopan.Checked = true;
+            this.CHK_autopan.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_autopan.Name = "CHK_autopan";
+            this.toolTip1.SetToolTip(this.CHK_autopan, resources.GetString("CHK_autopan.ToolTip"));
+            this.CHK_autopan.UseVisualStyleBackColor = true;
+            this.CHK_autopan.CheckedChanged += new System.EventHandler(this.CHK_autopan_CheckedChanged);
             // 
             // MainUserControls
             // 
@@ -1419,6 +1440,8 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
         private ConnectionData connectionData1;
         private System.Windows.Forms.TabPage AutoGuidedControl;
-        private MainTabControl.AutoGuided autoGuided1;
+        private MainTabControl.AutoGuided AutoGuided1;
+        private System.Windows.Forms.CheckBox CHK_Multitrack;
+        private System.Windows.Forms.CheckBox CHK_autopan;
     }
 }

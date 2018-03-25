@@ -148,7 +148,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CHK_verifyheight.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="TXT_WPRad.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 36</value>
@@ -172,7 +172,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;TXT_WPRad.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="TXT_DefaultAlt.Location" type="System.Drawing.Point, System.Drawing">
     <value>154, 36</value>
@@ -196,7 +196,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;TXT_DefaultAlt.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="LBL_WPRad.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -226,7 +226,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;LBL_WPRad.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="LBL_defalutalt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -256,7 +256,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;LBL_defalutalt.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="TXT_loiterrad.Location" type="System.Drawing.Point, System.Drawing">
     <value>89, 35</value>
@@ -280,7 +280,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;TXT_loiterrad.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -310,7 +310,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="dataGridViewImageColumn1.HeaderText" xml:space="preserve">
     <value>Up</value>
@@ -391,6 +391,72 @@
   <data name="&gt;&gt;splitter1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="CHK_autopan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="CHK_autopan.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CHK_autopan.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CHK_autopan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>767, 29</value>
+  </data>
+  <data name="CHK_autopan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 16</value>
+  </data>
+  <data name="CHK_autopan.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="CHK_autopan.Text" xml:space="preserve">
+    <value>Auto Pan</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>172, 17</value>
+  </metadata>
+  <data name="CHK_autopan.ToolTip" xml:space="preserve">
+    <value>Makes the map autopan based on current location</value>
+  </data>
+  <data name="&gt;&gt;CHK_autopan.Name" xml:space="preserve">
+    <value>CHK_autopan</value>
+  </data>
+  <data name="&gt;&gt;CHK_autopan.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CHK_autopan.Parent" xml:space="preserve">
+    <value>panelWaypoints</value>
+  </data>
+  <data name="&gt;&gt;CHK_autopan.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="CHK_Multitrack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CHK_Multitrack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>686, 29</value>
+  </data>
+  <data name="CHK_Multitrack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 16</value>
+  </data>
+  <data name="CHK_Multitrack.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="CHK_Multitrack.Text" xml:space="preserve">
+    <value>Multi track</value>
+  </data>
+  <data name="&gt;&gt;CHK_Multitrack.Name" xml:space="preserve">
+    <value>CHK_Multitrack</value>
+  </data>
+  <data name="&gt;&gt;CHK_Multitrack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CHK_Multitrack.Parent" xml:space="preserve">
+    <value>panelWaypoints</value>
+  </data>
+  <data name="&gt;&gt;CHK_Multitrack.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="CHK_WaypointTag.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -419,7 +485,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CHK_WaypointTag.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="CMB_altmode.Location" type="System.Drawing.Point, System.Drawing">
     <value>213, 31</value>
@@ -443,7 +509,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CMB_altmode.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="CHK_splinedefault.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -473,7 +539,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CHK_splinedefault.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -503,7 +569,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="TXT_altwarn.Location" type="System.Drawing.Point, System.Drawing">
     <value>482, 35</value>
@@ -527,7 +593,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;TXT_altwarn.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="Commands.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -843,13 +909,13 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6656.37468, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;Commands.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="BUT_Add.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -866,9 +932,6 @@
   <data name="BUT_Add.Text" xml:space="preserve">
     <value>Add Below</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>172, 17</value>
-  </metadata>
   <data name="BUT_Add.ToolTip" xml:space="preserve">
     <value>Add a line to the grid bellow</value>
   </data>
@@ -882,7 +945,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;BUT_Add.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="panelWaypoints.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -966,7 +1029,7 @@
     <value>connectionData1</value>
   </data>
   <data name="&gt;&gt;connectionData1.Type" xml:space="preserve">
-    <value>MissionPlanner.GCSViews.ConnectionData, MissionPlanner, Version=1.1.6656.37468, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.GCSViews.ConnectionData, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;connectionData1.Parent" xml:space="preserve">
     <value>ActionsplitContainer.Panel1</value>
@@ -1002,7 +1065,7 @@
     <value>WayPointControl1</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6656.37468, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Parent" xml:space="preserve">
     <value>TabWaypoint</value>
@@ -1044,7 +1107,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 379</value>
+    <value>192, 74</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1064,28 +1127,28 @@
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="autoGuided1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="AutoGuided1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="autoGuided1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="AutoGuided1.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="autoGuided1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoGuided1.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 373</value>
   </data>
-  <data name="autoGuided1.TabIndex" type="System.Int32, mscorlib">
+  <data name="AutoGuided1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;autoGuided1.Name" xml:space="preserve">
-    <value>autoGuided1</value>
+  <data name="&gt;&gt;AutoGuided1.Name" xml:space="preserve">
+    <value>AutoGuided1</value>
   </data>
-  <data name="&gt;&gt;autoGuided1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6656.37468, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;AutoGuided1.Type" xml:space="preserve">
+    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;autoGuided1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;AutoGuided1.Parent" xml:space="preserve">
     <value>AutoGuidedControl</value>
   </data>
-  <data name="&gt;&gt;autoGuided1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;AutoGuided1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="AutoGuidedControl.Location" type="System.Drawing.Point, System.Drawing">
