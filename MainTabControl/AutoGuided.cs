@@ -42,7 +42,7 @@ namespace MissionPlanner.MainTabControl
         internal MAVLinkInterface Dcopter = null;
         internal MAVLinkInterface Ecopter = null;
 
-        //public static MainUserControls MainUserControls = new MainUserControls();
+        private ComponentResourceManager rm = new ComponentResourceManager(typeof(AutoGuided));
 
         public AutoGuided()
         {
@@ -51,7 +51,7 @@ namespace MissionPlanner.MainTabControl
         }
         public void Button_start_end()
         {
-            Button_start.Text = "Start";
+            Button_start.Text = rm.GetString("startText");
         }
 
         private void Connection_Select_Click(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Acopter = port;
-                    LBL_ACopter.Text = "ACopter: On "+port.BaseStream.PortName.ToString();
+                    LBL_ACopter.Text = rm.GetString("LBL_ACopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_ACopter.ForeColor = Color.Yellow;
                 }
             }
@@ -81,7 +81,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Bcopter = port;
-                    LBL_BCopter.Text = "BCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_BCopter.Text = rm.GetString("LBL_BCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_BCopter.ForeColor = Color.Red;
                 }
             }
@@ -94,7 +94,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Ccopter = port;
-                    LBL_CCopter.Text = "CCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_CCopter.Text = rm.GetString("LBL_CCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_CCopter.ForeColor = Color.Cyan;
                 }
             }
@@ -107,7 +107,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Dcopter = port;
-                    LBL_DCopter.Text = "DCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_DCopter.Text = rm.GetString("LBL_DCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_DCopter.ForeColor = Color.Tomato;
                 }
             }
@@ -120,7 +120,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Ecopter = port;
-                    LBL_ECopter.Text = "ECopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_ECopter.Text = rm.GetString("LBL_ECopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_ECopter.ForeColor = Color.DeepPink;
                 }
             }
@@ -146,15 +146,15 @@ namespace MissionPlanner.MainTabControl
                     Dcopter.setMode("Brake");
                 if (Ecopter != null)
                     Ecopter.setMode("Brake");
-                 Button_start.Text = Strings.Start;
-                 return;
+                Button_start.Text = rm.GetString("startText");
+                return;
              }
 
 
              {
                  new System.Threading.Thread(Mainthread) { IsBackground = true }.Start();
-                 Button_start.Text = Strings.Stop;
-                 Athread = false;
+                Button_start.Text = rm.GetString("stopText");
+                Athread = false;
                  Bthread = false;
                  Cthread = false;
                  Dthread = false;

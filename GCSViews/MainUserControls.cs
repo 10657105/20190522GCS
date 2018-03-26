@@ -8207,6 +8207,106 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 MainV2.comPort.MAV.camerapoints.Clear();
         }
 
+        private void goHereToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
+                return;
+            }
+
+            if (MainV2.comPort.MAV.GuidedMode.z == 0)
+            {
+                flyToHereAltToolStripMenuItem_Click(null, null);
+
+                if (MainV2.comPort.MAV.GuidedMode.z == 0)
+                    return;
+            }
+
+            if (MouseDownStart.Lat == 0 || MouseDownStart.Lng == 0)
+            {
+                CustomMessageBox.Show(Strings.BadCoords, Strings.ERROR);
+                return;
+            }
+
+            Locationwp gotohere = new Locationwp();
+
+            gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+            gotohere.alt = MainV2.comPort.MAV.GuidedMode.z; // back to m
+            gotohere.lat = (MouseDownStart.Lat);
+            gotohere.lng = (MouseDownStart.Lng);
+
+            try
+            {
+                MainV2.comPort.setGuidedModeWP(gotohere);
+            }
+            catch (Exception ex)
+            {
+                MainV2.comPort.giveComport = false;
+                CustomMessageBox.Show(Strings.CommandFailed + ex.Message, Strings.ERROR);
+            }
+        }
+
+        private void flyToHereAltToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string alt = "100";
+
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+            {
+                alt = (10 * CurrentState.multiplierdist).ToString("0");
+            }
+            else
+            {
+                alt = (100 * CurrentState.multiplierdist).ToString("0");
+            }
+
+            if (Settings.Instance.ContainsKey("guided_alt"))
+                alt = Settings.Instance["guided_alt"];
+
+            if (DialogResult.Cancel == InputBox.Show("Enter Alt", "Enter Guided Mode Alt", ref alt))
+                return;
+
+            Settings.Instance["guided_alt"] = alt;
+
+            int intalt = (int)(100 * CurrentState.multiplierdist);
+            if (!int.TryParse(alt, out intalt))
+            {
+                CustomMessageBox.Show("Bad Alt");
+                return;
+            }
+
+            MainV2.comPort.MAV.GuidedMode.z = intalt / CurrentState.multiplierdist;
+
+            if (MainV2.comPort.MAV.cs.mode == "Guided")
+            {
+                MainV2.comPort.setGuidedModeWP(new Locationwp
+                {
+                    alt = MainV2.comPort.MAV.GuidedMode.z,
+                    lat = MainV2.comPort.MAV.GuidedMode.x,
+                    lng = MainV2.comPort.MAV.GuidedMode.y
+                });
+            }
+        }
+
+        private void TakeOffButton_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                flyToHereAltToolStripMenuItem_Click(null, null);
+
+                MainV2.comPort.setMode("GUIDED");
+
+                try
+                {
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, MainV2.comPort.MAV.GuidedMode.z);
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+            }
+        }
+
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist
                                         , ref List<PointLatLngAlt> outputDpointlist,ref List<PointLatLngAlt> outputEpointlist)    
         {

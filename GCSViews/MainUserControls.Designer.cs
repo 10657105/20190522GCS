@@ -55,12 +55,11 @@ namespace MissionPlanner.GCSViews
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainUserControls));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CHK_verifyheight = new System.Windows.Forms.CheckBox();
             this.TXT_WPRad = new System.Windows.Forms.TextBox();
             this.TXT_DefaultAlt = new System.Windows.Forms.TextBox();
@@ -110,13 +109,14 @@ namespace MissionPlanner.GCSViews
             this.MaintabControl = new System.Windows.Forms.TabControl();
             this.TabWaypoint = new System.Windows.Forms.TabPage();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
-            this.tabActions = new System.Windows.Forms.TabPage();
+            this.TabActions = new System.Windows.Forms.TabPage();
+            this.TakeOffButton = new MissionPlanner.Controls.MyButton();
             this.label1 = new System.Windows.Forms.Label();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.BUT_ARM = new MissionPlanner.Controls.MyButton();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
             this.CMB_modes = new System.Windows.Forms.ComboBox();
-            this.AutoGuidedControl = new System.Windows.Forms.TabPage();
+            this.TabAutoGuidedControl = new System.Windows.Forms.TabPage();
             this.AutoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
@@ -195,6 +195,9 @@ namespace MissionPlanner.GCSViews
             this.enterUTMCoordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchDockingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setHomeHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackBar1 = new MissionPlanner.Controls.MyTrackBar();
             this.label11 = new System.Windows.Forms.Label();
             this.panelBASE = new System.Windows.Forms.Panel();
@@ -209,8 +212,8 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.SuspendLayout();
             this.MaintabControl.SuspendLayout();
             this.TabWaypoint.SuspendLayout();
-            this.tabActions.SuspendLayout();
-            this.AutoGuidedControl.SuspendLayout();
+            this.TabActions.SuspendLayout();
+            this.TabAutoGuidedControl.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -388,14 +391,6 @@ namespace MissionPlanner.GCSViews
             this.Commands.AllowUserToAddRows = false;
             resources.ApplyResources(this.Commands, "Commands");
             this.Commands.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.Commands.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Command,
             this.Param1,
@@ -419,17 +414,17 @@ namespace MissionPlanner.GCSViews
             this.TagData,
             this.Group});
             this.Commands.Name = "Commands";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.Format = "N0";
-            dataGridViewCellStyle7.NullValue = "0";
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("新細明體", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = "0";
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.Commands.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Commands_CellContentClick);
             this.Commands.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Commands_CellEndEdit);
             this.Commands.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.Commands_DataError);
@@ -442,9 +437,9 @@ namespace MissionPlanner.GCSViews
             // Command
             // 
             this.Command.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            this.Command.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            this.Command.DefaultCellStyle = dataGridViewCellStyle3;
             this.Command.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             resources.ApplyResources(this.Command, "Command");
             this.Command.Name = "Command";
@@ -528,7 +523,7 @@ namespace MissionPlanner.GCSViews
             // Up
             // 
             this.Up.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Up.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Up.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.Up, "Up");
             this.Up.Image = ((System.Drawing.Image)(resources.GetObject("Up.Image")));
             this.Up.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -537,8 +532,8 @@ namespace MissionPlanner.GCSViews
             // Down
             // 
             this.Down.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Down.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Down.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.Down, "Down");
             this.Down.Image = ((System.Drawing.Image)(resources.GetObject("Down.Image")));
             this.Down.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -654,8 +649,8 @@ namespace MissionPlanner.GCSViews
             // MaintabControl
             // 
             this.MaintabControl.Controls.Add(this.TabWaypoint);
-            this.MaintabControl.Controls.Add(this.tabActions);
-            this.MaintabControl.Controls.Add(this.AutoGuidedControl);
+            this.MaintabControl.Controls.Add(this.TabActions);
+            this.MaintabControl.Controls.Add(this.TabAutoGuidedControl);
             resources.ApplyResources(this.MaintabControl, "MaintabControl");
             this.MaintabControl.Name = "MaintabControl";
             this.MaintabControl.SelectedIndex = 0;
@@ -672,16 +667,24 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.WayPointControl1, "WayPointControl1");
             this.WayPointControl1.Name = "WayPointControl1";
             // 
-            // tabActions
+            // TabActions
             // 
-            this.tabActions.Controls.Add(this.label1);
-            this.tabActions.Controls.Add(this.BUT_clear_track);
-            this.tabActions.Controls.Add(this.BUT_ARM);
-            this.tabActions.Controls.Add(this.BUT_setmode);
-            this.tabActions.Controls.Add(this.CMB_modes);
-            resources.ApplyResources(this.tabActions, "tabActions");
-            this.tabActions.Name = "tabActions";
-            this.tabActions.UseVisualStyleBackColor = true;
+            this.TabActions.Controls.Add(this.TakeOffButton);
+            this.TabActions.Controls.Add(this.label1);
+            this.TabActions.Controls.Add(this.BUT_clear_track);
+            this.TabActions.Controls.Add(this.BUT_ARM);
+            this.TabActions.Controls.Add(this.BUT_setmode);
+            this.TabActions.Controls.Add(this.CMB_modes);
+            resources.ApplyResources(this.TabActions, "TabActions");
+            this.TabActions.Name = "TabActions";
+            this.TabActions.UseVisualStyleBackColor = true;
+            // 
+            // TakeOffButton
+            // 
+            resources.ApplyResources(this.TakeOffButton, "TakeOffButton");
+            this.TakeOffButton.Name = "TakeOffButton";
+            this.TakeOffButton.UseVisualStyleBackColor = true;
+            this.TakeOffButton.Click += new System.EventHandler(this.TakeOffButton_Click);
             // 
             // label1
             // 
@@ -729,12 +732,12 @@ namespace MissionPlanner.GCSViews
             this.CMB_modes.Name = "CMB_modes";
             this.CMB_modes.Click += new System.EventHandler(this.CMB_modes_Click);
             // 
-            // AutoGuidedControl
+            // TabAutoGuidedControl
             // 
-            this.AutoGuidedControl.Controls.Add(this.AutoGuided1);
-            resources.ApplyResources(this.AutoGuidedControl, "AutoGuidedControl");
-            this.AutoGuidedControl.Name = "AutoGuidedControl";
-            this.AutoGuidedControl.UseVisualStyleBackColor = true;
+            this.TabAutoGuidedControl.Controls.Add(this.AutoGuided1);
+            resources.ApplyResources(this.TabAutoGuidedControl, "TabAutoGuidedControl");
+            this.TabAutoGuidedControl.Name = "TabAutoGuidedControl";
+            this.TabAutoGuidedControl.UseVisualStyleBackColor = true;
             // 
             // AutoGuided1
             // 
@@ -822,7 +825,10 @@ namespace MissionPlanner.GCSViews
             this.modifyAltToolStripMenuItem,
             this.enterUTMCoordToolStripMenuItem,
             this.switchDockingToolStripMenuItem,
-            this.setHomeHereToolStripMenuItem});
+            this.setHomeHereToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.goHereToolStripMenuItem,
+            this.flyToHereAltToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
@@ -1300,6 +1306,23 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.setHomeHereToolStripMenuItem, "setHomeHereToolStripMenuItem");
             this.setHomeHereToolStripMenuItem.Click += new System.EventHandler(this.setHomeHereToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // goHereToolStripMenuItem
+            // 
+            this.goHereToolStripMenuItem.Name = "goHereToolStripMenuItem";
+            resources.ApplyResources(this.goHereToolStripMenuItem, "goHereToolStripMenuItem");
+            this.goHereToolStripMenuItem.Click += new System.EventHandler(this.goHereToolStripMenuItem_Click);
+            // 
+            // flyToHereAltToolStripMenuItem
+            // 
+            this.flyToHereAltToolStripMenuItem.Name = "flyToHereAltToolStripMenuItem";
+            resources.ApplyResources(this.flyToHereAltToolStripMenuItem, "flyToHereAltToolStripMenuItem");
+            this.flyToHereAltToolStripMenuItem.Click += new System.EventHandler(this.flyToHereAltToolStripMenuItem_Click);
+            // 
             // trackBar1
             // 
             resources.ApplyResources(this.trackBar1, "trackBar1");
@@ -1354,9 +1377,9 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.ResumeLayout(false);
             this.MaintabControl.ResumeLayout(false);
             this.TabWaypoint.ResumeLayout(false);
-            this.tabActions.ResumeLayout(false);
-            this.tabActions.PerformLayout();
-            this.AutoGuidedControl.ResumeLayout(false);
+            this.TabActions.ResumeLayout(false);
+            this.TabActions.PerformLayout();
+            this.TabAutoGuidedControl.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1494,11 +1517,11 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.SplitContainer ActionsplitContainer;
         private System.Windows.Forms.TabControl MaintabControl;
         private System.Windows.Forms.TabPage TabWaypoint;
-        private System.Windows.Forms.TabPage tabActions;
+        private System.Windows.Forms.TabPage TabActions;
         private MainTabControl.WayPointControl WayPointControl1;
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
         private ConnectionData connectionData1;
-        private System.Windows.Forms.TabPage AutoGuidedControl;
+        private System.Windows.Forms.TabPage TabAutoGuidedControl;
         private MainTabControl.AutoGuided AutoGuided1;
         private System.Windows.Forms.CheckBox CHK_Multitrack;
         private System.Windows.Forms.CheckBox CHK_autopan;
@@ -1507,5 +1530,9 @@ namespace MissionPlanner.GCSViews
         private MyButton BUT_ARM;
         private MyButton BUT_setmode;
         private System.Windows.Forms.ComboBox CMB_modes;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem goHereToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flyToHereAltToolStripMenuItem;
+        private MyButton TakeOffButton;
     }
 }

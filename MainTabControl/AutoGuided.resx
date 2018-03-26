@@ -117,7 +117,411 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Armed_and_Takeoff_All.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="Armed_and_Takeoff_All.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 29</value>
+  </data>
+  <data name="Armed_and_Takeoff_All.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 29</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Armed_and_Takeoff_All.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="Armed_and_Takeoff_All.Text" xml:space="preserve">
+    <value>Armed and Takeoff All</value>
+  </data>
+  <data name="&gt;&gt;Armed_and_Takeoff_All.Name" xml:space="preserve">
+    <value>Armed_and_Takeoff_All</value>
+  </data>
+  <data name="&gt;&gt;Armed_and_Takeoff_All.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Armed_and_Takeoff_All.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Armed_and_Takeoff_All.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Button_start.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="Button_start.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 64</value>
+  </data>
+  <data name="Button_start.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="Button_start.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="Button_start.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="&gt;&gt;Button_start.Name" xml:space="preserve">
+    <value>Button_start</value>
+  </data>
+  <data name="&gt;&gt;Button_start.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Button_start.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Button_start.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="SetA.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetA.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 136</value>
+  </data>
+  <data name="SetA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetA.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="SetA.Text" xml:space="preserve">
+    <value>Set to A</value>
+  </data>
+  <data name="&gt;&gt;SetA.Name" xml:space="preserve">
+    <value>SetA</value>
+  </data>
+  <data name="&gt;&gt;SetA.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetA.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetA.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="SetB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 165</value>
+  </data>
+  <data name="SetB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetB.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="SetB.Text" xml:space="preserve">
+    <value>Set to B</value>
+  </data>
+  <data name="&gt;&gt;SetB.Name" xml:space="preserve">
+    <value>SetB</value>
+  </data>
+  <data name="&gt;&gt;SetB.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetB.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetB.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="SetC.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 194</value>
+  </data>
+  <data name="SetC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetC.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="SetC.Text" xml:space="preserve">
+    <value>Set to C</value>
+  </data>
+  <data name="&gt;&gt;SetC.Name" xml:space="preserve">
+    <value>SetC</value>
+  </data>
+  <data name="&gt;&gt;SetC.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetC.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetC.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="SetD.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 224</value>
+  </data>
+  <data name="SetD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetD.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="SetD.Text" xml:space="preserve">
+    <value>Set to D</value>
+  </data>
+  <data name="&gt;&gt;SetD.Name" xml:space="preserve">
+    <value>SetD</value>
+  </data>
+  <data name="&gt;&gt;SetD.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetD.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetD.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="SetE.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetE.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 255</value>
+  </data>
+  <data name="SetE.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetE.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="SetE.Text" xml:space="preserve">
+    <value>Set to E</value>
+  </data>
+  <data name="&gt;&gt;SetE.Name" xml:space="preserve">
+    <value>SetE</value>
+  </data>
+  <data name="&gt;&gt;SetE.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetE.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetE.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="Connection_Select.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 110</value>
+  </data>
+  <data name="Connection_Select.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 20</value>
+  </data>
+  <data name="Connection_Select.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;Connection_Select.Name" xml:space="preserve">
+    <value>Connection_Select</value>
+  </data>
+  <data name="&gt;&gt;Connection_Select.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Connection_Select.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Connection_Select.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="LBL_ACopter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_ACopter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="LBL_ACopter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 6</value>
+  </data>
+  <data name="LBL_ACopter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 15</value>
+  </data>
+  <data name="LBL_ACopter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="LBL_ACopter.Text" xml:space="preserve">
+    <value>ACopter : On</value>
+  </data>
+  <data name="&gt;&gt;LBL_ACopter.Name" xml:space="preserve">
+    <value>LBL_ACopter</value>
+  </data>
+  <data name="&gt;&gt;LBL_ACopter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_ACopter.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_ACopter.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LBL_BCopter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_BCopter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="LBL_BCopter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 21</value>
+  </data>
+  <data name="LBL_BCopter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 15</value>
+  </data>
+  <data name="LBL_BCopter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="LBL_BCopter.Text" xml:space="preserve">
+    <value>BCopter : On</value>
+  </data>
+  <data name="&gt;&gt;LBL_BCopter.Name" xml:space="preserve">
+    <value>LBL_BCopter</value>
+  </data>
+  <data name="&gt;&gt;LBL_BCopter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_BCopter.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_BCopter.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="LBL_CCopter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_CCopter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="LBL_CCopter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 36</value>
+  </data>
+  <data name="LBL_CCopter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="LBL_CCopter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="LBL_CCopter.Text" xml:space="preserve">
+    <value>CCopter : On</value>
+  </data>
+  <data name="&gt;&gt;LBL_CCopter.Name" xml:space="preserve">
+    <value>LBL_CCopter</value>
+  </data>
+  <data name="&gt;&gt;LBL_CCopter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_CCopter.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_CCopter.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="LBL_DCopter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_DCopter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="LBL_DCopter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 51</value>
+  </data>
+  <data name="LBL_DCopter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="LBL_DCopter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="LBL_DCopter.Text" xml:space="preserve">
+    <value>DCopter : On</value>
+  </data>
+  <data name="&gt;&gt;LBL_DCopter.Name" xml:space="preserve">
+    <value>LBL_DCopter</value>
+  </data>
+  <data name="&gt;&gt;LBL_DCopter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_DCopter.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_DCopter.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="LBL_ECopter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_ECopter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="LBL_ECopter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 66</value>
+  </data>
+  <data name="LBL_ECopter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 15</value>
+  </data>
+  <data name="LBL_ECopter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="LBL_ECopter.Text" xml:space="preserve">
+    <value>ECopter : On</value>
+  </data>
+  <data name="&gt;&gt;LBL_ECopter.Name" xml:space="preserve">
+    <value>LBL_ECopter</value>
+  </data>
+  <data name="&gt;&gt;LBL_ECopter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_ECopter.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_ECopter.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 284</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 100</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>243, 398</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
+    <value>bindingSource1</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AutoGuided</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MyUserControl, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>
