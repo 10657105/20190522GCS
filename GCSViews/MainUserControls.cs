@@ -730,7 +730,7 @@ namespace MissionPlanner.GCSViews
             noflypolygon.Stroke = new Pen(Color.Pink, 5);
             noflypolygon.Fill = Brushes.Transparent;
 
-            
+
             /*var timer = new System.Timers.Timer();
 
             // 2 second
@@ -738,7 +738,15 @@ namespace MissionPlanner.GCSViews
             timer.Elapsed += updateMapType;
 
             timer.Start();*/
-            
+
+
+            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs);
+            CMB_modes.ValueMember = "Key";
+            CMB_modes.DisplayMember = "Value";
+
+            //default to auto
+            CMB_modes.Text = "Auto";
+
         }
 
         void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
@@ -8134,6 +8142,69 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void CHK_autopan_CheckedChanged(object sender, EventArgs e)
         {
             autopan = CHK_autopan.Checked;
+        }
+
+        private void BUT_setmode_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.failsafe)
+            {
+                if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+            MainV2.comPort.setMode(CMB_modes.Text);
+        }
+
+        private void CMB_modes_Click(object sender, EventArgs e)
+        {
+            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs);
+            CMB_modes.ValueMember = "Key";
+            CMB_modes.DisplayMember = "Value";
+        }
+
+        private void BUT_ARM_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+                return;
+
+            // arm the MAV
+            try
+            {
+                if (MainV2.comPort.MAV.cs.armed)
+                    if (CustomMessageBox.Show("Are you sure you want to Disarm?", "Disarm?", MessageBoxButtons.YesNo) !=
+                        DialogResult.Yes)
+                        return;
+
+                bool ans = MainV2.comPort.doARM(!MainV2.comPort.MAV.cs.armed);
+                if (ans == false)
+                    CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+            
+        }
+
+        private void BUT_clear_track_Click(object sender, EventArgs e)
+        {
+            if (trackroute != null)
+                trackroute.Points.Clear();
+            if (Atrackroute != null)
+                Atrackroute.Points.Clear();
+            if (Btrackroute != null)
+                Btrackroute.Points.Clear();
+            if (Ctrackroute != null)
+                Ctrackroute.Points.Clear();
+            if (Dtrackroute != null)
+                Dtrackroute.Points.Clear();
+            if (Etrackroute != null)
+                Etrackroute.Points.Clear();
+
+
+            if (MainV2.comPort.MAV.camerapoints != null)
+                MainV2.comPort.MAV.camerapoints.Clear();
         }
 
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist

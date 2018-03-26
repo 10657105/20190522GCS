@@ -73,6 +73,7 @@ namespace MissionPlanner.GCSViews
             this.label6 = new System.Windows.Forms.Label();
             this.panelWaypoints = new BSE.Windows.Forms.Panel();
             this.splitter1 = new BSE.Windows.Forms.Splitter();
+            this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CHK_Multitrack = new System.Windows.Forms.CheckBox();
             this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
             this.CMB_altmode = new System.Windows.Forms.ComboBox();
@@ -109,7 +110,12 @@ namespace MissionPlanner.GCSViews
             this.MaintabControl = new System.Windows.Forms.TabControl();
             this.TabWaypoint = new System.Windows.Forms.TabPage();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabActions = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
+            this.BUT_ARM = new MissionPlanner.Controls.MyButton();
+            this.BUT_setmode = new MissionPlanner.Controls.MyButton();
+            this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.AutoGuidedControl = new System.Windows.Forms.TabPage();
             this.AutoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
             this.panelMap = new System.Windows.Forms.Panel();
@@ -194,7 +200,6 @@ namespace MissionPlanner.GCSViews
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.panelWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelAction.SuspendLayout();
@@ -204,6 +209,7 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.SuspendLayout();
             this.MaintabControl.SuspendLayout();
             this.TabWaypoint.SuspendLayout();
+            this.tabActions.SuspendLayout();
             this.AutoGuidedControl.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -328,6 +334,16 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.splitter1, "splitter1");
             this.splitter1.Name = "splitter1";
             this.splitter1.TabStop = false;
+            // 
+            // CHK_autopan
+            // 
+            resources.ApplyResources(this.CHK_autopan, "CHK_autopan");
+            this.CHK_autopan.Checked = true;
+            this.CHK_autopan.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_autopan.Name = "CHK_autopan";
+            this.toolTip1.SetToolTip(this.CHK_autopan, resources.GetString("CHK_autopan.ToolTip"));
+            this.CHK_autopan.UseVisualStyleBackColor = true;
+            this.CHK_autopan.CheckedChanged += new System.EventHandler(this.CHK_autopan_CheckedChanged);
             // 
             // CHK_Multitrack
             // 
@@ -638,7 +654,7 @@ namespace MissionPlanner.GCSViews
             // MaintabControl
             // 
             this.MaintabControl.Controls.Add(this.TabWaypoint);
-            this.MaintabControl.Controls.Add(this.tabPage2);
+            this.MaintabControl.Controls.Add(this.tabActions);
             this.MaintabControl.Controls.Add(this.AutoGuidedControl);
             resources.ApplyResources(this.MaintabControl, "MaintabControl");
             this.MaintabControl.Name = "MaintabControl";
@@ -656,11 +672,62 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.WayPointControl1, "WayPointControl1");
             this.WayPointControl1.Name = "WayPointControl1";
             // 
-            // tabPage2
+            // tabActions
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabActions.Controls.Add(this.label1);
+            this.tabActions.Controls.Add(this.BUT_clear_track);
+            this.tabActions.Controls.Add(this.BUT_ARM);
+            this.tabActions.Controls.Add(this.BUT_setmode);
+            this.tabActions.Controls.Add(this.CMB_modes);
+            resources.ApplyResources(this.tabActions, "tabActions");
+            this.tabActions.Name = "tabActions";
+            this.tabActions.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // BUT_clear_track
+            // 
+            this.BUT_clear_track.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_clear_track.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_clear_track.ColorNotEnabled = System.Drawing.Color.Empty;
+            resources.ApplyResources(this.BUT_clear_track, "BUT_clear_track");
+            this.BUT_clear_track.Name = "BUT_clear_track";
+            this.toolTip1.SetToolTip(this.BUT_clear_track, resources.GetString("BUT_clear_track.ToolTip"));
+            this.BUT_clear_track.UseVisualStyleBackColor = true;
+            this.BUT_clear_track.Click += new System.EventHandler(this.BUT_clear_track_Click);
+            // 
+            // BUT_ARM
+            // 
+            this.BUT_ARM.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorNotEnabled = System.Drawing.Color.Empty;
+            resources.ApplyResources(this.BUT_ARM, "BUT_ARM");
+            this.BUT_ARM.Name = "BUT_ARM";
+            this.toolTip1.SetToolTip(this.BUT_ARM, resources.GetString("BUT_ARM.ToolTip"));
+            this.BUT_ARM.UseVisualStyleBackColor = true;
+            this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
+            // 
+            // BUT_setmode
+            // 
+            this.BUT_setmode.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_setmode.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_setmode.ColorNotEnabled = System.Drawing.Color.Empty;
+            resources.ApplyResources(this.BUT_setmode, "BUT_setmode");
+            this.BUT_setmode.Name = "BUT_setmode";
+            this.toolTip1.SetToolTip(this.BUT_setmode, resources.GetString("BUT_setmode.ToolTip"));
+            this.BUT_setmode.UseVisualStyleBackColor = true;
+            this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
+            // 
+            // CMB_modes
+            // 
+            this.CMB_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_modes.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_modes, "CMB_modes");
+            this.CMB_modes.Name = "CMB_modes";
+            this.CMB_modes.Click += new System.EventHandler(this.CMB_modes_Click);
             // 
             // AutoGuidedControl
             // 
@@ -1267,16 +1334,6 @@ namespace MissionPlanner.GCSViews
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // CHK_autopan
-            // 
-            resources.ApplyResources(this.CHK_autopan, "CHK_autopan");
-            this.CHK_autopan.Checked = true;
-            this.CHK_autopan.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_autopan.Name = "CHK_autopan";
-            this.toolTip1.SetToolTip(this.CHK_autopan, resources.GetString("CHK_autopan.ToolTip"));
-            this.CHK_autopan.UseVisualStyleBackColor = true;
-            this.CHK_autopan.CheckedChanged += new System.EventHandler(this.CHK_autopan_CheckedChanged);
-            // 
             // MainUserControls
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1297,6 +1354,8 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.ResumeLayout(false);
             this.MaintabControl.ResumeLayout(false);
             this.TabWaypoint.ResumeLayout(false);
+            this.tabActions.ResumeLayout(false);
+            this.tabActions.PerformLayout();
             this.AutoGuidedControl.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
@@ -1435,7 +1494,7 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.SplitContainer ActionsplitContainer;
         private System.Windows.Forms.TabControl MaintabControl;
         private System.Windows.Forms.TabPage TabWaypoint;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabActions;
         private MainTabControl.WayPointControl WayPointControl1;
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
         private ConnectionData connectionData1;
@@ -1443,5 +1502,10 @@ namespace MissionPlanner.GCSViews
         private MainTabControl.AutoGuided AutoGuided1;
         private System.Windows.Forms.CheckBox CHK_Multitrack;
         private System.Windows.Forms.CheckBox CHK_autopan;
+        private System.Windows.Forms.Label label1;
+        private MyButton BUT_clear_track;
+        private MyButton BUT_ARM;
+        private MyButton BUT_setmode;
+        private System.Windows.Forms.ComboBox CMB_modes;
     }
 }

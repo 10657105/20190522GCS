@@ -909,7 +909,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6658.29557, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1029,7 +1029,7 @@
     <value>connectionData1</value>
   </data>
   <data name="&gt;&gt;connectionData1.Type" xml:space="preserve">
-    <value>MissionPlanner.GCSViews.ConnectionData, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.GCSViews.ConnectionData, MissionPlanner, Version=1.1.6658.29557, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;connectionData1.Parent" xml:space="preserve">
     <value>ActionsplitContainer.Panel1</value>
@@ -1065,7 +1065,7 @@
     <value>WayPointControl1</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6658.29557, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Parent" xml:space="preserve">
     <value>TabWaypoint</value>
@@ -1100,31 +1100,175 @@
   <data name="&gt;&gt;TabWaypoint.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
   </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 74</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 11</value>
   </data>
-  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>For Current Connect Only</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="BUT_clear_track.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_clear_track.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 58</value>
+  </data>
+  <data name="BUT_clear_track.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="BUT_clear_track.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="BUT_clear_track.Text" xml:space="preserve">
+    <value>Clear Track</value>
+  </data>
+  <data name="BUT_clear_track.ToolTip" xml:space="preserve">
+    <value>Clear the recorded path on the map</value>
+  </data>
+  <data name="&gt;&gt;BUT_clear_track.Name" xml:space="preserve">
+    <value>BUT_clear_track</value>
+  </data>
+  <data name="&gt;&gt;BUT_clear_track.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_clear_track.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_clear_track.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="BUT_ARM.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
-    <value>tabPage2</value>
+  <data name="BUT_ARM.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+  <data name="BUT_ARM.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 57</value>
+  </data>
+  <data name="BUT_ARM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 23</value>
+  </data>
+  <data name="BUT_ARM.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="BUT_ARM.Text" xml:space="preserve">
+    <value>Arm/ Disarm</value>
+  </data>
+  <data name="BUT_ARM.ToolTip" xml:space="preserve">
+    <value>Arm the Mav</value>
+  </data>
+  <data name="&gt;&gt;BUT_ARM.Name" xml:space="preserve">
+    <value>BUT_ARM</value>
+  </data>
+  <data name="&gt;&gt;BUT_ARM.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_ARM.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_ARM.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BUT_setmode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_setmode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 29</value>
+  </data>
+  <data name="BUT_setmode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="BUT_setmode.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="BUT_setmode.Text" xml:space="preserve">
+    <value>Set Mode</value>
+  </data>
+  <data name="BUT_setmode.ToolTip" xml:space="preserve">
+    <value>Changes to the Mode on the left</value>
+  </data>
+  <data name="&gt;&gt;BUT_setmode.Name" xml:space="preserve">
+    <value>BUT_setmode</value>
+  </data>
+  <data name="&gt;&gt;BUT_setmode.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_setmode.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_setmode.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="CMB_modes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 31</value>
+  </data>
+  <data name="CMB_modes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 20</value>
+  </data>
+  <data name="CMB_modes.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;CMB_modes.Name" xml:space="preserve">
+    <value>CMB_modes</value>
+  </data>
+  <data name="&gt;&gt;CMB_modes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CMB_modes.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;CMB_modes.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabActions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabActions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabActions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 379</value>
+  </data>
+  <data name="tabActions.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabActions.Text" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="&gt;&gt;tabActions.Name" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;tabActions.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabActions.Parent" xml:space="preserve">
     <value>MaintabControl</value>
   </data>
-  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabActions.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="AutoGuided1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -1134,7 +1278,7 @@
     <value>3, 3</value>
   </data>
   <data name="AutoGuided1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 373</value>
+    <value>186, 68</value>
   </data>
   <data name="AutoGuided1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1143,7 +1287,7 @@
     <value>AutoGuided1</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6657.30126, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6658.29557, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Parent" xml:space="preserve">
     <value>AutoGuidedControl</value>
@@ -1158,7 +1302,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="AutoGuidedControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 379</value>
+    <value>192, 74</value>
   </data>
   <data name="AutoGuidedControl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

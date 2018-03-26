@@ -213,7 +213,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void ACopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Acopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -253,7 +253,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void BCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Bcopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -295,7 +295,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void CCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Ccopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -337,7 +337,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void DCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Dcopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -378,7 +378,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void ECopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Ecopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
