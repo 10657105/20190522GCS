@@ -486,6 +486,12 @@
     <Compile Include="GCSViews\ConnectionData.Designer.cs">
       <DependentUpon>ConnectionData.cs</DependentUpon>
     </Compile>
+    <Compile Include="GCSViews\ConnectionStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\ConnectionStatus.Designer.cs">
+      <DependentUpon>ConnectionStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grid\Grid.cs" />
     <Compile Include="Grid\GridPlugin.cs" />
     <Compile Include="Grid\GridUI.cs">
@@ -2576,6 +2582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConnectionData.resx">
       <DependentUpon>ConnectionData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConnectionStatus.resx">
+      <DependentUpon>ConnectionStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.ar.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
