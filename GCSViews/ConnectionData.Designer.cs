@@ -67,7 +67,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 67);
             this.label1.TabIndex = 0;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -116,6 +116,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ConnectionData";
             this.Size = new System.Drawing.Size(147, 337);
+            this.Load += new System.EventHandler(this.ConnectionData_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
