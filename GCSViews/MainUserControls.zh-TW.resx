@@ -483,4 +483,16 @@
   <data name="CHK_WaypointTag.Text" xml:space="preserve">
     <value>顯示航點編號</value>
   </data>
+  <data name="BUT_ARM.Text" xml:space="preserve">
+    <value>解鎖/鎖定</value>
+  </data>
+  <data name="BUT_clear_track.Text" xml:space="preserve">
+    <value>清除軌跡</value>
+  </data>
+  <data name="BUT_setmode.Text" xml:space="preserve">
+    <value>設置模式</value>
+  </data>
+  <data name="TakeOffButton.Text" xml:space="preserve">
+    <value>起飛</value>
+  </data>
 </root>

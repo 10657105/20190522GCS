@@ -985,7 +985,7 @@ namespace MissionPlanner.GCSViews
                 if (WayPointControl1.TXT_homelat.Text != "")
                 {
                     MainMap.Position = new PointLatLng(double.Parse(WayPointControl1.TXT_homelat.Text), double.Parse(WayPointControl1.TXT_homelng.Text));
-                    MainMap.Zoom = 16;
+                    MainMap.Zoom = 18;
                 }
             }
             catch (Exception ex)
