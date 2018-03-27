@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoGuided));
             this.Armed_and_Takeoff_All = new MissionPlanner.Controls.MyButton();
             this.Button_start = new MissionPlanner.Controls.MyButton();
             this.SetA = new MissionPlanner.Controls.MyButton();
@@ -43,154 +44,107 @@
             this.LBL_CCopter = new System.Windows.Forms.Label();
             this.LBL_DCopter = new System.Windows.Forms.Label();
             this.LBL_ECopter = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Armed_and_Takeoff_All
             // 
-            this.Armed_and_Takeoff_All.Font = new System.Drawing.Font("Arial", 9F);
-            this.Armed_and_Takeoff_All.Location = new System.Drawing.Point(16, 29);
+            resources.ApplyResources(this.Armed_and_Takeoff_All, "Armed_and_Takeoff_All");
             this.Armed_and_Takeoff_All.Name = "Armed_and_Takeoff_All";
-            this.Armed_and_Takeoff_All.Size = new System.Drawing.Size(75, 29);
-            this.Armed_and_Takeoff_All.TabIndex = 9;
-            this.Armed_and_Takeoff_All.Text = "Armed and Takeoff All";
             this.Armed_and_Takeoff_All.UseVisualStyleBackColor = true;
             this.Armed_and_Takeoff_All.Click += new System.EventHandler(this.Armed_and_Takeoff_All_Click);
             // 
             // Button_start
             // 
-            this.Button_start.Font = new System.Drawing.Font("Arial", 9F);
-            this.Button_start.Location = new System.Drawing.Point(16, 64);
+            resources.ApplyResources(this.Button_start, "Button_start");
             this.Button_start.Name = "Button_start";
-            this.Button_start.Size = new System.Drawing.Size(75, 23);
-            this.Button_start.TabIndex = 10;
-            this.Button_start.Text = "Start";
             this.Button_start.UseVisualStyleBackColor = true;
             this.Button_start.Click += new System.EventHandler(this.Button_start_Click);
             // 
             // SetA
             // 
-            this.SetA.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetA.Location = new System.Drawing.Point(16, 136);
+            resources.ApplyResources(this.SetA, "SetA");
             this.SetA.Name = "SetA";
-            this.SetA.Size = new System.Drawing.Size(75, 23);
-            this.SetA.TabIndex = 11;
-            this.SetA.Text = "Set to A";
             this.SetA.UseVisualStyleBackColor = true;
             this.SetA.Click += new System.EventHandler(this.SetA_Click);
             // 
             // SetB
             // 
-            this.SetB.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetB.Location = new System.Drawing.Point(16, 165);
+            resources.ApplyResources(this.SetB, "SetB");
             this.SetB.Name = "SetB";
-            this.SetB.Size = new System.Drawing.Size(75, 23);
-            this.SetB.TabIndex = 12;
-            this.SetB.Text = "Set to B";
             this.SetB.UseVisualStyleBackColor = true;
             this.SetB.Click += new System.EventHandler(this.SetB_Click);
             // 
             // SetC
             // 
-            this.SetC.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetC.Location = new System.Drawing.Point(16, 194);
+            resources.ApplyResources(this.SetC, "SetC");
             this.SetC.Name = "SetC";
-            this.SetC.Size = new System.Drawing.Size(75, 23);
-            this.SetC.TabIndex = 13;
-            this.SetC.Text = "Set to C";
             this.SetC.UseVisualStyleBackColor = true;
             this.SetC.Click += new System.EventHandler(this.SetC_Click);
             // 
             // SetD
             // 
-            this.SetD.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetD.Location = new System.Drawing.Point(16, 224);
+            resources.ApplyResources(this.SetD, "SetD");
             this.SetD.Name = "SetD";
-            this.SetD.Size = new System.Drawing.Size(75, 23);
-            this.SetD.TabIndex = 14;
-            this.SetD.Text = "Set to D";
             this.SetD.UseVisualStyleBackColor = true;
             this.SetD.Click += new System.EventHandler(this.SetD_Click);
             // 
             // SetE
             // 
-            this.SetE.Font = new System.Drawing.Font("Arial", 9F);
-            this.SetE.Location = new System.Drawing.Point(16, 255);
+            resources.ApplyResources(this.SetE, "SetE");
             this.SetE.Name = "SetE";
-            this.SetE.Size = new System.Drawing.Size(75, 23);
-            this.SetE.TabIndex = 15;
-            this.SetE.Text = "Set to E";
             this.SetE.UseVisualStyleBackColor = true;
             this.SetE.Click += new System.EventHandler(this.SetE_Click);
             // 
             // Connection_Select
             // 
             this.Connection_Select.FormattingEnabled = true;
-            this.Connection_Select.Location = new System.Drawing.Point(16, 110);
+            resources.ApplyResources(this.Connection_Select, "Connection_Select");
             this.Connection_Select.Name = "Connection_Select";
-            this.Connection_Select.Size = new System.Drawing.Size(121, 20);
-            this.Connection_Select.TabIndex = 16;
             this.Connection_Select.Click += new System.EventHandler(this.Connection_Select_Click);
             // 
             // LBL_ACopter
             // 
-            this.LBL_ACopter.AutoSize = true;
-            this.LBL_ACopter.Font = new System.Drawing.Font("Arial", 9F);
-            this.LBL_ACopter.Location = new System.Drawing.Point(13, 292);
+            resources.ApplyResources(this.LBL_ACopter, "LBL_ACopter");
             this.LBL_ACopter.Name = "LBL_ACopter";
-            this.LBL_ACopter.Size = new System.Drawing.Size(51, 15);
-            this.LBL_ACopter.TabIndex = 17;
-            this.LBL_ACopter.Text = "ACopter";
             // 
             // LBL_BCopter
             // 
-            this.LBL_BCopter.AutoSize = true;
-            this.LBL_BCopter.Font = new System.Drawing.Font("Arial", 9F);
-            this.LBL_BCopter.Location = new System.Drawing.Point(12, 307);
+            resources.ApplyResources(this.LBL_BCopter, "LBL_BCopter");
             this.LBL_BCopter.Name = "LBL_BCopter";
-            this.LBL_BCopter.Size = new System.Drawing.Size(52, 15);
-            this.LBL_BCopter.TabIndex = 17;
-            this.LBL_BCopter.Text = "BCopter";
             // 
             // LBL_CCopter
             // 
-            this.LBL_CCopter.AutoSize = true;
-            this.LBL_CCopter.Font = new System.Drawing.Font("Arial", 9F);
-            this.LBL_CCopter.Location = new System.Drawing.Point(11, 322);
+            resources.ApplyResources(this.LBL_CCopter, "LBL_CCopter");
             this.LBL_CCopter.Name = "LBL_CCopter";
-            this.LBL_CCopter.Size = new System.Drawing.Size(53, 15);
-            this.LBL_CCopter.TabIndex = 17;
-            this.LBL_CCopter.Text = "CCopter";
             // 
             // LBL_DCopter
             // 
-            this.LBL_DCopter.AutoSize = true;
-            this.LBL_DCopter.Font = new System.Drawing.Font("Arial", 9F);
-            this.LBL_DCopter.Location = new System.Drawing.Point(11, 337);
+            resources.ApplyResources(this.LBL_DCopter, "LBL_DCopter");
             this.LBL_DCopter.Name = "LBL_DCopter";
-            this.LBL_DCopter.Size = new System.Drawing.Size(53, 15);
-            this.LBL_DCopter.TabIndex = 17;
-            this.LBL_DCopter.Text = "DCopter";
             // 
             // LBL_ECopter
             // 
-            this.LBL_ECopter.AutoSize = true;
-            this.LBL_ECopter.Font = new System.Drawing.Font("Arial", 9F);
-            this.LBL_ECopter.Location = new System.Drawing.Point(12, 352);
+            resources.ApplyResources(this.LBL_ECopter, "LBL_ECopter");
             this.LBL_ECopter.Name = "LBL_ECopter";
-            this.LBL_ECopter.Size = new System.Drawing.Size(52, 15);
-            this.LBL_ECopter.TabIndex = 17;
-            this.LBL_ECopter.Text = "ECopter";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.LBL_ACopter);
+            this.panel1.Controls.Add(this.LBL_ECopter);
+            this.panel1.Controls.Add(this.LBL_BCopter);
+            this.panel1.Controls.Add(this.LBL_DCopter);
+            this.panel1.Controls.Add(this.LBL_CCopter);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
             // 
             // AutoGuided
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.LBL_ECopter);
-            this.Controls.Add(this.LBL_DCopter);
-            this.Controls.Add(this.LBL_CCopter);
-            this.Controls.Add(this.LBL_BCopter);
-            this.Controls.Add(this.LBL_ACopter);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Connection_Select);
             this.Controls.Add(this.SetE);
             this.Controls.Add(this.SetD);
@@ -200,10 +154,10 @@
             this.Controls.Add(this.Button_start);
             this.Controls.Add(this.Armed_and_Takeoff_All);
             this.Name = "AutoGuided";
-            this.Size = new System.Drawing.Size(243, 398);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -223,5 +177,6 @@
         private System.Windows.Forms.Label LBL_CCopter;
         private System.Windows.Forms.Label LBL_DCopter;
         private System.Windows.Forms.Label LBL_ECopter;
+        private System.Windows.Forms.Panel panel1;
     }
 }

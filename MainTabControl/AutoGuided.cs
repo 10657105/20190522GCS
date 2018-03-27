@@ -42,7 +42,7 @@ namespace MissionPlanner.MainTabControl
         internal MAVLinkInterface Dcopter = null;
         internal MAVLinkInterface Ecopter = null;
 
-        //public static MainUserControls MainUserControls = new MainUserControls();
+        private ComponentResourceManager rm = new ComponentResourceManager(typeof(AutoGuided));
 
         public AutoGuided()
         {
@@ -51,7 +51,7 @@ namespace MissionPlanner.MainTabControl
         }
         public void Button_start_end()
         {
-            Button_start.Text = "Start";
+            Button_start.Text = rm.GetString("startText");
         }
 
         private void Connection_Select_Click(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Acopter = port;
-                    LBL_ACopter.Text = "ACopter: On "+port.BaseStream.PortName.ToString();
+                    LBL_ACopter.Text = rm.GetString("LBL_ACopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_ACopter.ForeColor = Color.Yellow;
                 }
             }
@@ -81,7 +81,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Bcopter = port;
-                    LBL_BCopter.Text = "BCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_BCopter.Text = rm.GetString("LBL_BCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_BCopter.ForeColor = Color.Red;
                 }
             }
@@ -94,7 +94,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Ccopter = port;
-                    LBL_CCopter.Text = "CCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_CCopter.Text = rm.GetString("LBL_CCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_CCopter.ForeColor = Color.Cyan;
                 }
             }
@@ -107,7 +107,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Dcopter = port;
-                    LBL_DCopter.Text = "DCopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_DCopter.Text = rm.GetString("LBL_DCopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_DCopter.ForeColor = Color.Tomato;
                 }
             }
@@ -120,7 +120,7 @@ namespace MissionPlanner.MainTabControl
                 if (port.ToString() == Connection_Select.Text)
                 {
                     Ecopter = port;
-                    LBL_ECopter.Text = "ECopter: On " + port.BaseStream.PortName.ToString();
+                    LBL_ECopter.Text = rm.GetString("LBL_ECopter.Text") + port.BaseStream.PortName.ToString();
                     LBL_ECopter.ForeColor = Color.DeepPink;
                 }
             }
@@ -136,20 +136,25 @@ namespace MissionPlanner.MainTabControl
                  Cthread = false;
                  Dthread = false;
                  Ethread = false;
-                 Acopter.setMode("Brake");
-                 Bcopter.setMode("Brake");
-                 Ccopter.setMode("Brake");
-                 Dcopter.setMode("Brake");
-                 Ecopter.setMode("Brake");
-                 Button_start.Text = Strings.Start;
-                 return;
+                if(Acopter != null)
+                     Acopter.setMode("Brake");
+                if (Bcopter != null)
+                    Bcopter.setMode("Brake");
+                if (Ccopter != null)
+                    Ccopter.setMode("Brake");
+                if (Dcopter != null)
+                    Dcopter.setMode("Brake");
+                if (Ecopter != null)
+                    Ecopter.setMode("Brake");
+                Button_start.Text = rm.GetString("startText");
+                return;
              }
 
 
              {
                  new System.Threading.Thread(Mainthread) { IsBackground = true }.Start();
-                 Button_start.Text = Strings.Stop;
-                 Athread = false;
+                Button_start.Text = rm.GetString("stopText");
+                Athread = false;
                  Bthread = false;
                  Cthread = false;
                  Dthread = false;
@@ -190,7 +195,11 @@ namespace MissionPlanner.MainTabControl
                     new System.Threading.Thread(ECopter) { IsBackground = true }.Start();
                 }
                 System.Threading.Thread.Sleep(450);       
-                if (Aend == true && Bend == true && Cend == true && Dend == true && Eend == true)
+                if ((Aend == true && Bcopter == null && Ccopter == null && Dcopter == null && Ecopter == null)||
+                    (Aend == true && Bend == true) ||
+                    (Aend == true && Bend == true && Cend == true) ||
+                    (Aend == true && Bend == true && Cend == true && Dend == true) ||
+                    (Aend == true && Bend == true && Cend == true && Dend == true && Eend == true))
                 {
                     threadrun = false;
                     Athread = false;
@@ -204,7 +213,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void ACopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Acopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -244,7 +253,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void BCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Bcopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -286,7 +295,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void CCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Ccopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -328,7 +337,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void DCopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Dcopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
@@ -369,7 +378,7 @@ namespace MissionPlanner.MainTabControl
         }
         private void ECopter()
         {
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (!Ecopter.BaseStream.IsOpen)
             {
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;

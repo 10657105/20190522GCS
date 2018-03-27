@@ -47,7 +47,6 @@ namespace MissionPlanner.GCSViews
 {
     public partial class MainUserControls : MyUserControl, IDeactivate, IActivate
     {
-        Auto_Guide.Auto_Guide AutoGuide;
        
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         int selectedrow;
@@ -61,12 +60,11 @@ namespace MissionPlanner.GCSViews
         public bool grid;
         public bool waypointtag;
         public bool pathprogram;
+        public bool multitrack;
         public double A_distance = 0, B_distance = 0;
         public static MainUserControls instance;
 
         public bool autopan { get; set; }
-
-        
 
         public List<PointLatLngAlt> pointlist = new List<PointLatLngAlt>(); // used to calc distance
         public List<PointLatLngAlt> fullpointlist = new List<PointLatLngAlt>();
@@ -93,6 +91,7 @@ namespace MissionPlanner.GCSViews
         public GMapRoute Dhomeroute = new GMapRoute("Dhome route");//C Home虛線路線資料
         public GMapRoute Ehomeroute = new GMapRoute("Ehome route");//C Home虛線路線資料
 
+        GMapRoute trackroute;
         GMapRoute Atrackroute; //A機航行軌跡資料
         GMapRoute Btrackroute; //B機航行軌跡資料
         GMapRoute Ctrackroute; //C機航行軌跡資料
@@ -103,7 +102,7 @@ namespace MissionPlanner.GCSViews
         GMapOverlay Croutes;   //C機航行軌跡圖層
         GMapOverlay Droutes;   //D機航行軌跡圖層
         GMapOverlay Eroutes;   //E機航行軌跡圖層
-        GMapOverlay routes;
+        GMapOverlay trackroutes;
         GMapOverlay polygons;
 
         List<PointLatLng> trackPoints = new List<PointLatLng>();
@@ -591,6 +590,7 @@ namespace MissionPlanner.GCSViews
             WayPointControl1.TXT_homelat.TextChanged += TXT_homelat_TextChanged;
             WayPointControl1.TXT_homelng.TextChanged += TXT_homelng_TextChanged;
             WayPointControl1.TXT_homealt.TextChanged += TXT_homealt_TextChanged;
+            WayPointControl1.Groupcountset.KeyDown += Groupcountset_KeyDown;
             WayPointControl1.Path_Programming_button.Click += Path_Programming_button_Click;
 
             // config map             
@@ -662,8 +662,8 @@ namespace MissionPlanner.GCSViews
             polygons = new GMapOverlay("polygons");
             MainMap.Overlays.Add(polygons);
 
-            routes = new GMapOverlay("routes");
-            MainMap.Overlays.Add(routes);
+            trackroutes = new GMapOverlay("routes");
+            MainMap.Overlays.Add(trackroutes);
 
             MainMap.Overlays.Add(poioverlay);
 
@@ -730,15 +730,23 @@ namespace MissionPlanner.GCSViews
             noflypolygon.Stroke = new Pen(Color.Pink, 5);
             noflypolygon.Fill = Brushes.Transparent;
 
-            /*
-            var timer = new System.Timers.Timer();
+
+            /*var timer = new System.Timers.Timer();
 
             // 2 second
             timer.Interval = 2000;
             timer.Elapsed += updateMapType;
 
-            timer.Start();
-            */
+            timer.Start();*/
+
+
+            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs);
+            CMB_modes.ValueMember = "Key";
+            CMB_modes.DisplayMember = "Value";
+
+            //default to auto
+            CMB_modes.Text = "Auto";
+
         }
 
         void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
@@ -998,8 +1006,11 @@ namespace MissionPlanner.GCSViews
             }
 
             Visible = true;
-
+            
             timer1.Start();
+
+            if (!multitrack)
+                new System.Threading.Thread(Singletrack) { IsBackground = true }.Start();
         }
 
         void POI_POIModified(object sender, EventArgs e)
@@ -4609,10 +4620,8 @@ namespace MissionPlanner.GCSViews
                     return;
 
                 var marker = Common.getMAVMarker(MainV2.comPort.MAV);
-
-                routesoverlay.Markers.Add(marker);
-
-                if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
+                //routesoverlay.Markers.Add(marker);  //在routesoverlay圖層畫載具圖案
+                if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0 && !multitrack)
                 {
                     addpolygonmarker("Guided Mode", MainV2.comPort.MAV.GuidedMode.y, MainV2.comPort.MAV.GuidedMode.x,
                         (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
@@ -4622,12 +4631,12 @@ namespace MissionPlanner.GCSViews
                 if (autopan)
                 {
                     if (route.Points[route.Points.Count - 1].Lat != 0 && (mapupdate.AddSeconds(3) < DateTime.Now))
-                    {
+                    {                       
                         PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
                         updateMapPosition(currentloc);
                         mapupdate = DateTime.Now;
                     }
-                }
+                }     
             }
             catch (Exception ex)
             {
@@ -7162,6 +7171,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             grid.Host = new PluginHost();
             grid.but_Click(sender, e);
         }
+        /**當輸入群組數後按下Enter**/
+        public void Groupcountset_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                Path_Programming_button_Click(this, e);
+        }
         /****路徑規劃功能****/
         public void Path_Programming_button_Click(object sender, EventArgs e)
         {
@@ -7553,7 +7568,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     Eroute.Stroke.DashStyle = DashStyle.Custom;  //設置E群路線為實線
                     polygonsoverlay.Routes.Add(Eroute);  //畫E群路線
 
-            }
+                }
                 /****計算來源群航程距離****/
                 double homedist = 0;
                 string home = string.Format("{0},{1},{2}\r\n", WayPointControl1.TXT_homelng.Text, WayPointControl1.TXT_homelat.Text, TXT_DefaultAlt.Text);
@@ -7581,11 +7596,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             
         }
         
-        private void Track_Route()
+        private void MultiTrack_Route()
         {
             bool thread = true;
             DateTime tracklast = DateTime.Now.AddSeconds(0);
-            DateTime mapupdate = DateTime.Now.AddSeconds(0);
+            DateTime mapupdatetime = DateTime.Now.AddSeconds(0);
             Aroutes = new GMapOverlay("routes");
             MainMap.Overlays.Add(Aroutes);
             Broutes = new GMapOverlay("routes");
@@ -7646,25 +7661,25 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     PointLatLng Ccurrentloc = new PointLatLng();
                     PointLatLng Dcurrentloc = new PointLatLng();
                     PointLatLng Ecurrentloc = new PointLatLng();
-                    if (AutoGuide.Acopter != null)
+                    if (AutoGuided1.Acopter != null)
                     {
-                        Acurrentloc = new PointLatLng(AutoGuide.Acopter.MAV.cs.lat, AutoGuide.Acopter.MAV.cs.lng);
+                        Acurrentloc = new PointLatLng(AutoGuided1.Acopter.MAV.cs.lat, AutoGuided1.Acopter.MAV.cs.lng);
                     }
-                    if (AutoGuide.Bcopter != null)
+                    if (AutoGuided1.Bcopter != null)
                     {
-                        Bcurrentloc = new PointLatLng(AutoGuide.Bcopter.MAV.cs.lat, AutoGuide.Bcopter.MAV.cs.lng);
+                        Bcurrentloc = new PointLatLng(AutoGuided1.Bcopter.MAV.cs.lat, AutoGuided1.Bcopter.MAV.cs.lng);
                     }
-                    if (AutoGuide.Ccopter != null)
+                    if (AutoGuided1.Ccopter != null)
                     {
-                        Ccurrentloc = new PointLatLng(AutoGuide.Ccopter.MAV.cs.lat, AutoGuide.Ccopter.MAV.cs.lng);
+                        Ccurrentloc = new PointLatLng(AutoGuided1.Ccopter.MAV.cs.lat, AutoGuided1.Ccopter.MAV.cs.lng);
                     }
-                    if (AutoGuide.Dcopter != null)
+                    if (AutoGuided1.Dcopter != null)
                     {
-                        Dcurrentloc = new PointLatLng(AutoGuide.Dcopter.MAV.cs.lat, AutoGuide.Dcopter.MAV.cs.lng);
+                        Dcurrentloc = new PointLatLng(AutoGuided1.Dcopter.MAV.cs.lat, AutoGuided1.Dcopter.MAV.cs.lng);
                     }
-                    if (AutoGuide.Ecopter != null)
+                    if (AutoGuided1.Ecopter != null)
                     {
-                        Ecurrentloc = new PointLatLng(AutoGuide.Ecopter.MAV.cs.lat, AutoGuide.Ecopter.MAV.cs.lng);
+                        Ecurrentloc = new PointLatLng(AutoGuided1.Ecopter.MAV.cs.lat, AutoGuided1.Ecopter.MAV.cs.lng);
                     }
                     MainMap.HoldInvalidation = true;
                     int numTrackLength = Settings.Instance.GetInt32("NUM_tracklength");
@@ -7695,37 +7710,37 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Etrackroute.Points.Count - numTrackLength);
                     }
                     // add new route point
-                    if (AutoGuide.Acopter != null)
+                    if (AutoGuided1.Acopter != null)
                     {
-                        if (AutoGuide.Acopter.MAV.cs.lat != 0 && AutoGuide.Acopter.MAV.cs.lng != 0)
+                        if (AutoGuided1.Acopter.MAV.cs.lat != 0 && AutoGuided1.Acopter.MAV.cs.lng != 0)
                         {
                             Atrackroute.Points.Add(Acurrentloc);
                         }
                     }
-                    if (AutoGuide.Bcopter != null)
+                    if (AutoGuided1.Bcopter != null)
                     {
-                        if (AutoGuide.Bcopter.MAV.cs.lat != 0 && AutoGuide.Bcopter.MAV.cs.lng != 0)
+                        if (AutoGuided1.Bcopter.MAV.cs.lat != 0 && AutoGuided1.Bcopter.MAV.cs.lng != 0)
                         {
                             Btrackroute.Points.Add(Bcurrentloc);
                         }
                     }
-                    if (AutoGuide.Ccopter != null)
+                    if (AutoGuided1.Ccopter != null)
                     {
-                        if (AutoGuide.Ccopter.MAV.cs.lat != 0 && AutoGuide.Ccopter.MAV.cs.lng != 0)
+                        if (AutoGuided1.Ccopter.MAV.cs.lat != 0 && AutoGuided1.Ccopter.MAV.cs.lng != 0)
                         {
                             Ctrackroute.Points.Add(Ccurrentloc);
                         }
                     }
-                    if (AutoGuide.Dcopter != null)
+                    if (AutoGuided1.Dcopter != null)
                     {
-                        if (AutoGuide.Dcopter.MAV.cs.lat != 0 && AutoGuide.Dcopter.MAV.cs.lng != 0)
+                        if (AutoGuided1.Dcopter.MAV.cs.lat != 0 && AutoGuided1.Dcopter.MAV.cs.lng != 0)
                         {
                             Dtrackroute.Points.Add(Dcurrentloc);
                         }
                     }
-                    if (AutoGuide.Ecopter != null)
+                    if (AutoGuided1.Ecopter != null)
                     {
-                        if (AutoGuide.Ecopter.MAV.cs.lat != 0 && AutoGuide.Ecopter.MAV.cs.lng != 0)
+                        if (AutoGuided1.Ecopter.MAV.cs.lat != 0 && AutoGuided1.Ecopter.MAV.cs.lng != 0)
                         {
                             Etrackroute.Points.Add(Ecurrentloc);
                         }
@@ -7791,17 +7806,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
-                        if (AutoGuide.Acopter.MAV.cs.mode.ToLower() == "guided" && AutoGuide.Acopter.MAV.GuidedMode.x != 0)
+                        if (AutoGuided1.Acopter.MAV.cs.mode.ToLower() == "guided" && AutoGuided1.Acopter.MAV.GuidedMode.x != 0)
                         {
-                            addpolygonmarker("Guided Mode", AutoGuide.Acopter.MAV.GuidedMode.y,
-                                AutoGuide.Acopter.MAV.GuidedMode.x, (int)AutoGuide.Acopter.MAV.GuidedMode.z, Color.Blue,
+                            addpolygonmarker("Guided Mode", AutoGuided1.Acopter.MAV.GuidedMode.y,
+                                AutoGuided1.Acopter.MAV.GuidedMode.x, (int)AutoGuided1.Acopter.MAV.GuidedMode.z, Color.Blue,
                                 Aroutes);
                         }
                         if (Atrackroute.Points.Count == 0 || Atrackroute.Points[Atrackroute.Points.Count - 1].Lat != 0 &&
-                            (mapupdate.AddSeconds(3) < DateTime.Now) /*&& CHK_autopan.Checked*/)
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
                         {
                             updateMapPosition(Acurrentloc);
-                            mapupdate = DateTime.Now;
+                            mapupdatetime = DateTime.Now;
                         }
 
                         if (Atrackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
@@ -7814,17 +7829,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
-                        if (AutoGuide.Bcopter.MAV.cs.mode.ToLower() == "guided" && AutoGuide.Bcopter.MAV.GuidedMode.x != 0)
+                        if (AutoGuided1.Bcopter.MAV.cs.mode.ToLower() == "guided" && AutoGuided1.Bcopter.MAV.GuidedMode.x != 0)
                         {
-                            addpolygonmarker("Guided Mode", AutoGuide.Bcopter.MAV.GuidedMode.y,
-                                AutoGuide.Bcopter.MAV.GuidedMode.x, (int)AutoGuide.Bcopter.MAV.GuidedMode.z, Color.Blue,
+                            addpolygonmarker("Guided Mode", AutoGuided1.Bcopter.MAV.GuidedMode.y,
+                                AutoGuided1.Bcopter.MAV.GuidedMode.x, (int)AutoGuided1.Bcopter.MAV.GuidedMode.z, Color.Blue,
                                 Aroutes);
                         }
                         if (Btrackroute.Points.Count == 0 || Btrackroute.Points[Btrackroute.Points.Count - 1].Lat != 0 &&
-                            (mapupdate.AddSeconds(3) < DateTime.Now) /*&& CHK_autopan.Checked*/)
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
                         {
                             updateMapPosition(Bcurrentloc);
-                            mapupdate = DateTime.Now;
+                            mapupdatetime = DateTime.Now;
                         }
 
                         if (Btrackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
@@ -7837,17 +7852,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
-                        if (AutoGuide.Ccopter.MAV.cs.mode.ToLower() == "guided" && AutoGuide.Ccopter.MAV.GuidedMode.x != 0)
+                        if (AutoGuided1.Ccopter.MAV.cs.mode.ToLower() == "guided" && AutoGuided1.Ccopter.MAV.GuidedMode.x != 0)
                         {
-                            addpolygonmarker("Guided Mode", AutoGuide.Ccopter.MAV.GuidedMode.y,
-                                AutoGuide.Ccopter.MAV.GuidedMode.x, (int)AutoGuide.Ccopter.MAV.GuidedMode.z, Color.Blue,
+                            addpolygonmarker("Guided Mode", AutoGuided1.Ccopter.MAV.GuidedMode.y,
+                                AutoGuided1.Ccopter.MAV.GuidedMode.x, (int)AutoGuided1.Ccopter.MAV.GuidedMode.z, Color.Blue,
                                 Aroutes);
                         }
                         if (Ctrackroute.Points.Count == 0 || Ctrackroute.Points[Ctrackroute.Points.Count - 1].Lat != 0 &&
-                            (mapupdate.AddSeconds(3) < DateTime.Now)/*&& CHK_autopan.Checked*/)
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
                         {
                             updateMapPosition(Ccurrentloc);
-                            mapupdate = DateTime.Now;
+                            mapupdatetime = DateTime.Now;
                         }
 
                         if (Ctrackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
@@ -7860,17 +7875,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
-                        if (AutoGuide.Dcopter.MAV.cs.mode.ToLower() == "guided" && AutoGuide.Dcopter.MAV.GuidedMode.x != 0)
+                        if (AutoGuided1.Dcopter.MAV.cs.mode.ToLower() == "guided" && AutoGuided1.Dcopter.MAV.GuidedMode.x != 0)
                         {
-                            addpolygonmarker("Guided Mode", AutoGuide.Dcopter.MAV.GuidedMode.y,
-                                AutoGuide.Dcopter.MAV.GuidedMode.x, (int)AutoGuide.Dcopter.MAV.GuidedMode.z, Color.Blue,
+                            addpolygonmarker("Guided Mode", AutoGuided1.Dcopter.MAV.GuidedMode.y,
+                                AutoGuided1.Dcopter.MAV.GuidedMode.x, (int)AutoGuided1.Dcopter.MAV.GuidedMode.z, Color.Blue,
                                 Aroutes);
                         }
                         if (Dtrackroute.Points.Count == 0 || Dtrackroute.Points[Dtrackroute.Points.Count - 1].Lat != 0 &&
-                            (mapupdate.AddSeconds(3) < DateTime.Now) /*&& CHK_autopan.Checked*/)
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
                         {
                             updateMapPosition(Dcurrentloc);
-                            mapupdate = DateTime.Now;
+                            mapupdatetime = DateTime.Now;
                         }
 
                         if (Dtrackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
@@ -7883,17 +7898,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
-                        if (AutoGuide.Ecopter.MAV.cs.mode.ToLower() == "guided" && AutoGuide.Ecopter.MAV.GuidedMode.x != 0)
+                        if (AutoGuided1.Ecopter.MAV.cs.mode.ToLower() == "guided" && AutoGuided1.Ecopter.MAV.GuidedMode.x != 0)
                         {
-                            addpolygonmarker("Guided Mode", AutoGuide.Ecopter.MAV.GuidedMode.y,
-                                AutoGuide.Ecopter.MAV.GuidedMode.x, (int)AutoGuide.Ecopter.MAV.GuidedMode.z, Color.Blue,
+                            addpolygonmarker("Guided Mode", AutoGuided1.Ecopter.MAV.GuidedMode.y,
+                                AutoGuided1.Ecopter.MAV.GuidedMode.x, (int)AutoGuided1.Ecopter.MAV.GuidedMode.z, Color.Blue,
                                 Aroutes);
                         }
                         if (Etrackroute.Points.Count == 0 || Etrackroute.Points[Etrackroute.Points.Count - 1].Lat != 0 &&
-                            (mapupdate.AddSeconds(3) < DateTime.Now) /*&& CHK_autopan.Checked*/)
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
                         {
                             updateMapPosition(Ecurrentloc);
-                            mapupdate = DateTime.Now;
+                            mapupdatetime = DateTime.Now;
                         }
 
                         if (Etrackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
@@ -7929,6 +7944,99 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 Thread.Sleep(200);
             }
         }
+        private void Singletrack()
+        {
+            DateTime tracklast = DateTime.Now.AddSeconds(0);
+            DateTime mapupdatetime = DateTime.Now.AddSeconds(0);
+            bool thread = true;
+            while (thread)
+            {
+                if (tracklast.AddSeconds(1.2) < DateTime.Now && !multitrack)
+                {
+                    if (Settings.Instance.GetBoolean("CHK_maprotation"))
+                    {
+                        // dont holdinvalidation here
+                        setMapBearing();
+                    }
+
+                    if (trackroute == null)
+                    {
+                        trackroute = new GMapRoute(trackPoints, "track");
+                        trackroutes.Routes.Add(trackroute);
+                    }
+                    PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+                    MainMap.HoldInvalidation = true;
+
+                    int numTrackLength = Settings.Instance.GetInt32("NUM_tracklength");
+                    // maintain route history length
+                    if (trackroute.Points.Count > numTrackLength)
+                    {
+                        trackroute.Points.RemoveRange(0,
+                        trackroute.Points.Count - numTrackLength);
+                    }
+                    // add new route point
+                    if (MainV2.comPort.MAV.cs.lat != 0 && MainV2.comPort.MAV.cs.lng != 0)
+                    {
+                        trackroute.Points.Add(currentloc);
+                    }
+                    if (!this.IsHandleCreated)
+                        continue;
+
+                    updateRoutePosition();
+                    updateClearRoutesMarkers();
+                    if (trackroute.Points.Count > 0)
+                    {
+                        // add primary route icon
+
+                        // draw guide mode point for only main mav
+                        if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
+                        {
+                            addpolygonmarker("Guided Mode", MainV2.comPort.MAV.GuidedMode.y,
+                                MainV2.comPort.MAV.GuidedMode.x, (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue,
+                                trackroutes);
+                        }
+                        // draw all icons for all connected mavs
+                        foreach (var port in MainV2.Comports.ToArray())
+                        {
+                            // draw the mavs seen on this port
+                            foreach (var MAV in port.MAVlist)
+                            {
+                                var marker = Common.getMAVMarker(MAV);
+
+                                if (marker.Position.Lat == 0 && marker.Position.Lng == 0)
+                                    continue;
+
+                                addMissionRouteMarker(marker);
+                            }
+                        }
+
+                        if (trackroute.Points.Count == 0 || trackroute.Points[trackroute.Points.Count - 1].Lat != 0 &&
+                            (mapupdatetime.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
+                        {
+                            updateMapPosition(currentloc);
+                            mapupdatetime = DateTime.Now;
+                        }
+
+                        if (trackroute.Points.Count == 1 && MainMap.Zoom == 3) // 3 is the default load zoom
+                        {
+                            updateMapPosition(currentloc);
+                            updateMapZoom(17);
+                        }
+                        
+                    }
+                    // draw all icons for all connected mavs
+                  
+                    MainMap.HoldInvalidation = false;
+
+                    if (MainMap.Visible)
+                    {
+                        MainMap.Invalidate();
+                    }
+                    tracklast = DateTime.Now;
+                }
+                Thread.Sleep(200);
+            }
+        }
         private void setMapBearing()
         {
             Invoke((MethodInvoker)delegate { MainMap.Bearing = (int)((MainV2.comPort.MAV.cs.yaw + 360) % 360); });
@@ -7938,7 +8046,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // not async
             Invoke((MethodInvoker)delegate
             {
-                MainMap.UpdateRouteLocalPosition(route);
+                MainMap.UpdateRouteLocalPosition(trackroute);
                 if (Atrackroute != null)
                     MainMap.UpdateRouteLocalPosition(Atrackroute);
                 if (Btrackroute != null)
@@ -7955,7 +8063,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             Invoke((MethodInvoker)delegate
             {
-                routes.Markers.Clear();
+                trackroutes.Markers.Clear();
                 if (Aroutes != null)
                     Aroutes.Markers.Clear();
                 if (Broutes != null)
@@ -7986,15 +8094,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // not async
             Invoke((MethodInvoker)delegate
             {
-                routes.Markers.Add(marker);
+                trackroutes.Markers.Add(marker);
             });
-        }
-        
-        public void autoguideform()
-        {
-            // AutoGuide = new Auto_Guide.Auto_Guide(this);
-            AutoGuide = new Auto_Guide.Auto_Guide();
-            //AutoGuide.Show();
         }
 
         private void CHK_WaypointTag_CheckedChanged(object sender, EventArgs e)
@@ -8031,6 +8132,181 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private void CHK_Multitrack_CheckedChanged(object sender, EventArgs e)
+        {
+            multitrack = CHK_Multitrack.Checked;
+            if (multitrack == true)        
+                new System.Threading.Thread(MultiTrack_Route) { IsBackground = true }.Start(); 
+        }
+
+        private void CHK_autopan_CheckedChanged(object sender, EventArgs e)
+        {
+            autopan = CHK_autopan.Checked;
+        }
+
+        private void BUT_setmode_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.failsafe)
+            {
+                if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+            MainV2.comPort.setMode(CMB_modes.Text);
+        }
+
+        private void CMB_modes_Click(object sender, EventArgs e)
+        {
+            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs);
+            CMB_modes.ValueMember = "Key";
+            CMB_modes.DisplayMember = "Value";
+        }
+
+        private void BUT_ARM_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+                return;
+
+            // arm the MAV
+            try
+            {
+                if (MainV2.comPort.MAV.cs.armed)
+                    if (CustomMessageBox.Show("Are you sure you want to Disarm?", "Disarm?", MessageBoxButtons.YesNo) !=
+                        DialogResult.Yes)
+                        return;
+
+                bool ans = MainV2.comPort.doARM(!MainV2.comPort.MAV.cs.armed);
+                if (ans == false)
+                    CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+            }
+            
+        }
+
+        private void BUT_clear_track_Click(object sender, EventArgs e)
+        {
+            if (trackroute != null)
+                trackroute.Points.Clear();
+            if (Atrackroute != null)
+                Atrackroute.Points.Clear();
+            if (Btrackroute != null)
+                Btrackroute.Points.Clear();
+            if (Ctrackroute != null)
+                Ctrackroute.Points.Clear();
+            if (Dtrackroute != null)
+                Dtrackroute.Points.Clear();
+            if (Etrackroute != null)
+                Etrackroute.Points.Clear();
+
+
+            if (MainV2.comPort.MAV.camerapoints != null)
+                MainV2.comPort.MAV.camerapoints.Clear();
+        }
+
+        private void goHereToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
+                return;
+            }
+
+            if (MainV2.comPort.MAV.GuidedMode.z == 0)
+            {
+                flyToHereAltToolStripMenuItem_Click(null, null);
+
+                if (MainV2.comPort.MAV.GuidedMode.z == 0)
+                    return;
+            }
+
+            if (MouseDownStart.Lat == 0 || MouseDownStart.Lng == 0)
+            {
+                CustomMessageBox.Show(Strings.BadCoords, Strings.ERROR);
+                return;
+            }
+
+            Locationwp gotohere = new Locationwp();
+
+            gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+            gotohere.alt = MainV2.comPort.MAV.GuidedMode.z; // back to m
+            gotohere.lat = (MouseDownStart.Lat);
+            gotohere.lng = (MouseDownStart.Lng);
+
+            try
+            {
+                MainV2.comPort.setGuidedModeWP(gotohere);
+            }
+            catch (Exception ex)
+            {
+                MainV2.comPort.giveComport = false;
+                CustomMessageBox.Show(Strings.CommandFailed + ex.Message, Strings.ERROR);
+            }
+        }
+
+        private void flyToHereAltToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string alt = "100";
+
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+            {
+                alt = (10 * CurrentState.multiplierdist).ToString("0");
+            }
+            else
+            {
+                alt = (100 * CurrentState.multiplierdist).ToString("0");
+            }
+
+            if (Settings.Instance.ContainsKey("guided_alt"))
+                alt = Settings.Instance["guided_alt"];
+
+            if (DialogResult.Cancel == InputBox.Show("Enter Alt", "Enter Guided Mode Alt", ref alt))
+                return;
+
+            Settings.Instance["guided_alt"] = alt;
+
+            int intalt = (int)(100 * CurrentState.multiplierdist);
+            if (!int.TryParse(alt, out intalt))
+            {
+                CustomMessageBox.Show("Bad Alt");
+                return;
+            }
+
+            MainV2.comPort.MAV.GuidedMode.z = intalt / CurrentState.multiplierdist;
+
+            if (MainV2.comPort.MAV.cs.mode == "Guided")
+            {
+                MainV2.comPort.setGuidedModeWP(new Locationwp
+                {
+                    alt = MainV2.comPort.MAV.GuidedMode.z,
+                    lat = MainV2.comPort.MAV.GuidedMode.x,
+                    lng = MainV2.comPort.MAV.GuidedMode.y
+                });
+            }
+        }
+
+        private void TakeOffButton_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                flyToHereAltToolStripMenuItem_Click(null, null);
+
+                MainV2.comPort.setMode("GUIDED");
+
+                try
+                {
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, MainV2.comPort.MAV.GuidedMode.z);
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+            }
+        }
+
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist
                                         , ref List<PointLatLngAlt> outputDpointlist,ref List<PointLatLngAlt> outputEpointlist)    
         {
@@ -8039,7 +8315,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             outputCpointlist = new List<PointLatLngAlt>(Cpointlist);
             outputDpointlist = new List<PointLatLngAlt>(Dpointlist);
             outputEpointlist = new List<PointLatLngAlt>(Epointlist);
-           
         }
     }
         

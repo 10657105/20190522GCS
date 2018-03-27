@@ -101,7 +101,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>mpdesktop.ico</ApplicationIcon>
+    <ApplicationIcon>AUVGCSicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -2752,6 +2752,9 @@
     <EmbeddedResource Include="GCSViews\MainUserControls.resx">
       <DependentUpon>MainUserControls.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\MainUserControls.zh-TW.resx">
+      <DependentUpon>MainUserControls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\SoftwareConfig.resx">
       <DependentUpon>SoftwareConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -2863,7 +2866,13 @@
     <EmbeddedResource Include="MainTabControl\AutoGuided.resx">
       <DependentUpon>AutoGuided.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainTabControl\AutoGuided.zh-TW.resx">
+      <DependentUpon>AutoGuided.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainTabControl\WayPointControl.resx">
+      <DependentUpon>WayPointControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTabControl\WayPointControl.zh-TW.resx">
       <DependentUpon>WayPointControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ar.resx">
@@ -4343,6 +4352,7 @@
     <Content Include="ArduCopterConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="AUVGCSicon.ico" />
     <Content Include="camerasBuiltin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
