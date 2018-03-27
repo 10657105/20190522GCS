@@ -81,7 +81,7 @@ namespace MissionPlanner
                 return;
             }
 
-            name = "Mission Planner";
+            name = "AUV-GCS";
 
             try
             {
@@ -103,7 +103,8 @@ namespace MissionPlanner
             }
             else
             {
-                IconFile = MissionPlanner.Properties.Resources.mpdesktop.ToBitmap();
+                //IconFile = MissionPlanner.Properties.Resources.mpdesktop.ToBitmap();
+                IconFile = MissionPlanner.Properties.Resources.AUVGCSicon.ToBitmap();
             }
 
             if (File.Exists(Settings.GetRunningDirectory() + "splashbg.png")) // 600*375
