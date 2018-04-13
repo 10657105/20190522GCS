@@ -15,7 +15,7 @@ namespace MissionPlanner.GCSViews
 {
     public partial class ConnectionData : MyUserControl
     {
-        public static CurrentState curs;
+       // public static CurrentState curs;
         
         public ConnectionData()
         {
@@ -34,9 +34,13 @@ namespace MissionPlanner.GCSViews
                     {
                         if (MainV2.Comports[0] != null)
                         {
+                            label1.Text = MainV2.Comports[0].MAV.cs.alt.ToString("f1") + "m";
+                            label10.Text = MainV2.Comports[0].MAV.cs.yaw.ToString("f1") + "deg";
+                            label11.Text = MainV2.Comports[0].MAV.cs.groundspeed.ToString("f1") + "m/s";
+                            label12.Text = MainV2.Comports[0].MAV.cs.mode.ToString();
+
                             label7.Text = MainV2.Comports[0].MAV.cs.battery_voltage.ToString("f1") + "V   " + MainV2.Comports[0].MAV.cs.current.ToString("f1") + "A ";                                       
-                            label1.Text = MainV2.Comports[0].MAV.cs.alt.ToString("f1") + "m   " + MainV2.Comports[0].MAV.cs.yaw.ToString("f1") + "deg   " 
-                                        + MainV2.Comports[0].MAV.cs.groundspeed.ToString("f1") + "m/s   " + MainV2.Comports[0].MAV.cs.mode.ToString() + " ";
+                            
                             label9.Text = MainV2.Comports[0].MAV.cs.satcount.ToString() + "   (" + MainV2.Comports[0].MAV.cs.gpshdop.ToString() + "m)  ";
 
                             if (MainV2.Comports[0].MAV.cs.armed)
@@ -68,6 +72,7 @@ namespace MissionPlanner.GCSViews
                                 label6.Text = "EKF";
                                 label6.ForeColor = Color.Lime;
                             }
+
                             label8.Text = MainV2.Comports[0].MAV.cs.linkqualitygcs.ToString() + "% " + MainV2.Comports[0].ToString().Remove(0,9);
                         }
                         if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null)
