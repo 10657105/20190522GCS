@@ -63,6 +63,7 @@ namespace MissionPlanner.GCSViews
         public bool multitrack;
         public double A_distance = 0, B_distance = 0;
         public static MainUserControls instance;
+        public static ConnectionData ConnectionData = new ConnectionData();
 
         public bool autopan { get; set; }
 
@@ -576,7 +577,8 @@ namespace MissionPlanner.GCSViews
             instance = this;
 
             InitializeComponent();
-
+            //手動加入ConnectionData的UserControl到ActionsplitContainer的Panel1
+            ActionsplitContainer.Panel1.Controls.Add(ConnectionData);
             //指定WayPointControls的UserControl觸發程序為此UserControl的副程式
             WayPointControl1.coords1.SystemChanged += coords1_SystemChanged;
             WayPointControl1.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
