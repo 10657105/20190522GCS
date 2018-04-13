@@ -105,7 +105,6 @@ namespace MissionPlanner.GCSViews
             this.panelAction = new BSE.Windows.Forms.Panel();
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.ActionsplitContainer = new System.Windows.Forms.SplitContainer();
-            this.connectionData1 = new MissionPlanner.GCSViews.ConnectionData();
             this.MaintabControl = new System.Windows.Forms.TabControl();
             this.TabWaypoint = new System.Windows.Forms.TabPage();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
@@ -632,19 +631,12 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.ActionsplitContainer, "ActionsplitContainer");
             this.ActionsplitContainer.Name = "ActionsplitContainer";
-            // 
-            // ActionsplitContainer.Panel1
-            // 
-            this.ActionsplitContainer.Panel1.Controls.Add(this.connectionData1);
+
             // 
             // ActionsplitContainer.Panel2
             // 
             this.ActionsplitContainer.Panel2.Controls.Add(this.MaintabControl);
-            // 
-            // connectionData1
-            // 
-            resources.ApplyResources(this.connectionData1, "connectionData1");
-            this.connectionData1.Name = "connectionData1";
+           
             // 
             // MaintabControl
             // 
