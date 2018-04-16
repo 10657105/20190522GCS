@@ -206,7 +206,6 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panelAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).BeginInit();
-            this.ActionsplitContainer.Panel1.SuspendLayout();
             this.ActionsplitContainer.Panel2.SuspendLayout();
             this.ActionsplitContainer.SuspendLayout();
             this.MaintabControl.SuspendLayout();
@@ -631,12 +630,10 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.ActionsplitContainer, "ActionsplitContainer");
             this.ActionsplitContainer.Name = "ActionsplitContainer";
-
             // 
             // ActionsplitContainer.Panel2
             // 
             this.ActionsplitContainer.Panel2.Controls.Add(this.MaintabControl);
-           
             // 
             // MaintabControl
             // 
@@ -1363,7 +1360,6 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.panelAction.ResumeLayout(false);
-            this.ActionsplitContainer.Panel1.ResumeLayout(false);
             this.ActionsplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).EndInit();
             this.ActionsplitContainer.ResumeLayout(false);

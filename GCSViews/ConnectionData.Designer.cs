@@ -245,9 +245,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 18);
+            this.label1.Size = new System.Drawing.Size(29, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "0.0 m";
+            this.label1.Text = "0.0m";
             // 
             // label10
             // 
@@ -255,9 +255,9 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Left;
             this.label10.Location = new System.Drawing.Point(48, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 18);
+            this.label10.Size = new System.Drawing.Size(37, 18);
             this.label10.TabIndex = 1;
-            this.label10.Text = "0.0 deg";
+            this.label10.Text = "0.0deg";
             // 
             // label11
             // 
@@ -265,9 +265,9 @@
             this.label11.Dock = System.Windows.Forms.DockStyle.Left;
             this.label11.Location = new System.Drawing.Point(106, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 18);
+            this.label11.Size = new System.Drawing.Size(36, 18);
             this.label11.TabIndex = 2;
-            this.label11.Text = "0.0 m/s";
+            this.label11.Text = "0.0m/s";
             // 
             // label12
             // 
