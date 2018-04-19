@@ -21,7 +21,8 @@ namespace MissionPlanner.GCSViews
         public static ConnectionStatus ConnectionStatus2 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus3 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus4 = new ConnectionStatus();
-        public static ConnectionStatus ConnectionStatus5 = new ConnectionStatus();       
+        public static ConnectionStatus ConnectionStatus5 = new ConnectionStatus();
+        Thread ThreadA;
 
         public ConnectionData()
         {
@@ -30,19 +31,13 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus1
             // 
-            tableLayoutPanel1.Controls.Add(ConnectionStatus1, 0, 2);
+            /*tableLayoutPanel1.Controls.Add(ConnectionStatus1, 0, 0);
             ConnectionStatus1.Dock = DockStyle.Fill;
             ConnectionStatus1.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus1.Name = "connectionStatus1";
             ConnectionStatus1.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus1.TabIndex = 1;
-
-            Thread ThreadA = new Thread(new ThreadStart(Mainthread));
-            ThreadA.IsBackground = true;
-            ThreadA.Start();
-            //if (MainV2.comPort.BaseStream.IsOpen)
-            // ConnectionStatus1.InputConnection = MainV2.Comports[0];
-            /*// 
+            // */
             // connectionStatus2
             // 
             tableLayoutPanel1.Controls.Add(ConnectionStatus2, 0, 1);
@@ -60,6 +55,7 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus3.Name = "connectionStatus3";
             ConnectionStatus3.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus3.TabIndex = 1;
+            //ConnectionStatus3.Visible = false;
             // 
             // connectionStatus4
             // 
@@ -72,12 +68,16 @@ namespace MissionPlanner.GCSViews
             //
             // connectionStatus5
             // 
-            tableLayoutPanel1.Controls.Add(ConnectionStatus5, 0, 4);
+            /*tableLayoutPanel1.Controls.Add(ConnectionStatus5, 0, 4);
             ConnectionStatus5.Dock = DockStyle.Fill;
             ConnectionStatus5.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus5.Name = "connectionStatus5";
             ConnectionStatus5.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus5.TabIndex = 1;*/
+            
+            ThreadA = new Thread(new ThreadStart(Mainthread));
+            ThreadA.IsBackground = true;
+            ThreadA.Start();
 
         }
         /*private void PrintBat()
@@ -160,10 +160,40 @@ namespace MissionPlanner.GCSViews
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
-                    ConnectionStatus1.InputConnection = MainV2.Comports[0];
+                    if (MainV2.Comports[0] != null)
+                        ConnectionStatus2.conn1 = MainV2.Comports[0];
+
+                    // ConnectionStatus3.InputConnection = MainV2.Comports[1];
+
+
+                }
+
+                // if (MainV2.comPort.BaseStream.IsOpen && MainV2.Comports[0] != null && MainV2.Comports.Count > 1)
+                // {
+                if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                //if (MainV2.Comports.Count > 1 && MainV2.Comports[0].BaseStream.PortName != MainV2.Comports[1].BaseStream.PortName)
+                {
+                    ConnectionStatus3.conn1 = MainV2.Comports[1];
+                    /*this.Invoke(new Action(delegate ()
+                    {
+                        ConnectionStatus3.Visible = true;
+                    }));*/
+                    // }
+                }
+
+                if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                {
+                    ConnectionStatus4.conn1 = MainV2.Comports[2];
+                    /*this.Invoke(new Action(delegate ()
+                    {
+                        ConnectionStatus3.Visible = true;
+                    }));*/
+
 
                 }
             }
+
+
         }
            /* private void ConnectionData_Load(object sender, EventArgs e)
         {

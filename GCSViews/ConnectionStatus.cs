@@ -13,14 +13,13 @@ namespace MissionPlanner.GCSViews
 {
     public partial class ConnectionStatus : MyUserControl
     {
-        internal MAVLinkInterface InputConnection = null;
+        internal MAVLinkInterface conn1 = null;
         public ConnectionStatus()
         {
             InitializeComponent();
         }
         private void PrintBat()
         {
-
             //curs = new CurrentState();
             while (true)
             {
@@ -28,18 +27,18 @@ namespace MissionPlanner.GCSViews
                 {
                     this.Invoke(new Action(delegate ()
                     {
-                        if (InputConnection != null)
+                        if (conn1 != null)
                         {
-                            label1.Text = InputConnection.MAV.cs.alt.ToString("f1") + "m";
-                            label10.Text = InputConnection.MAV.cs.yaw.ToString("f1") + "deg";
-                            label11.Text = InputConnection.MAV.cs.groundspeed.ToString("f1") + "m/s";
-                            label12.Text = InputConnection.MAV.cs.mode.ToString();
+                            label1.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
+                            label10.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
+                            label11.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
+                            label12.Text = conn1.MAV.cs.mode.ToString();
 
-                            label7.Text = InputConnection.MAV.cs.battery_voltage.ToString("f1") + "V   " + InputConnection.MAV.cs.current.ToString("f1") + "A ";
+                            label7.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
 
-                            label9.Text = InputConnection.MAV.cs.satcount.ToString() + "   (" + InputConnection.MAV.cs.gpshdop.ToString() + "m)  ";
+                            label9.Text = conn1.MAV.cs.satcount.ToString() + "   (" + conn1.MAV.cs.gpshdop.ToString() + "m)  ";
 
-                            if (InputConnection.MAV.cs.armed)
+                            if (conn1.MAV.cs.armed)
                             {//arm
                                 label4.Text = "Armed";
                                 label4.ForeColor = Color.Red;
@@ -50,9 +49,9 @@ namespace MissionPlanner.GCSViews
                                 label4.ForeColor = Color.Lime;
                             }
 
-                            if (InputConnection.MAV.cs.ekfstatus > 0.5)
+                            if (conn1.MAV.cs.ekfstatus > 0.5)
                             {//EKF
-                                if (InputConnection.MAV.cs.ekfstatus > 0.8)
+                                if (conn1.MAV.cs.ekfstatus > 0.8)
                                 {
                                     label6.Text = "EKF";
                                     label6.ForeColor = Color.Red;
@@ -69,7 +68,7 @@ namespace MissionPlanner.GCSViews
                                 label6.ForeColor = Color.Lime;
                             }
 
-                            label8.Text = InputConnection.MAV.cs.linkqualitygcs.ToString() + "% " + InputConnection.ToString().Remove(0, 9);
+                            label8.Text = conn1.MAV.cs.linkqualitygcs.ToString() + "% " + conn1.ToString().Remove(0, 9);
                         }
 
 
