@@ -3620,7 +3620,7 @@ namespace MissionPlanner
                     try
                     {
                         MAVLinkInterface mav = new MAVLinkInterface();
-
+                        
                         if (tcp.IsMatch(line))
                         {
                             var matches = tcp.Match(line);
@@ -3664,6 +3664,11 @@ namespace MissionPlanner
                     }
                 }
                 //);
+                //GCSViews.ConnectionData.threadrun = false;
+                GCSViews.ConnectionData.ThreadA.Abort();
+                GCSViews.ConnectionData.ThreadA.Join();
+                if (GCSViews.ConnectionData.ThreadA.IsAlive)
+                    CustomMessageBox.Show("thread alive");
             }
         }
     }

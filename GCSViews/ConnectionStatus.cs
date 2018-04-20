@@ -29,46 +29,46 @@ namespace MissionPlanner.GCSViews
                     {
                         if (conn1 != null)
                         {
-                            label1.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
-                            label10.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
-                            label11.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
-                            label12.Text = conn1.MAV.cs.mode.ToString();
+                            label_alt.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
+                            label_yaw.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
+                            label1_groundspeed.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
+                            label_mode.Text = conn1.MAV.cs.mode.ToString();
 
-                            label7.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
+                            label_battery.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
 
-                            label9.Text = conn1.MAV.cs.satcount.ToString() + "   (" + conn1.MAV.cs.gpshdop.ToString() + "m)  ";
+                            label_GPS.Text = conn1.MAV.cs.satcount.ToString() + "   (" + conn1.MAV.cs.gpshdop.ToString() + "m)  ";
 
                             if (conn1.MAV.cs.armed)
                             {//arm
-                                label4.Text = "Armed";
-                                label4.ForeColor = Color.Red;
+                                label_armedstatus.Text = "Armed";
+                                label_armedstatus.ForeColor = Color.Red;
                             }
                             else
                             {
-                                label4.Text = "Disarmed";
-                                label4.ForeColor = Color.Lime;
+                                label_armedstatus.Text = "Disarmed";
+                                label_armedstatus.ForeColor = Color.Lime;
                             }
 
                             if (conn1.MAV.cs.ekfstatus > 0.5)
                             {//EKF
                                 if (conn1.MAV.cs.ekfstatus > 0.8)
                                 {
-                                    label6.Text = "EKF";
-                                    label6.ForeColor = Color.Red;
+                                    label_ekf.Text = "EKF";
+                                    label_ekf.ForeColor = Color.Red;
                                 }
                                 else
                                 {
-                                    label6.Text = "EKF";
-                                    label6.ForeColor = Color.Orange;
+                                    label_ekf.Text = "EKF";
+                                    label_ekf.ForeColor = Color.Orange;
                                 }
                             }
                             else
                             {
-                                label6.Text = "EKF";
-                                label6.ForeColor = Color.Lime;
+                                label_ekf.Text = "EKF";
+                                label_ekf.ForeColor = Color.Lime;
                             }
 
-                            label8.Text = conn1.MAV.cs.linkqualitygcs.ToString() + "% " + conn1.ToString().Remove(0, 9);
+                            label_linkquality.Text = conn1.MAV.cs.linkqualitygcs.ToString() + "% " + conn1.ToString().Remove(0, 9);
                         }
 
 

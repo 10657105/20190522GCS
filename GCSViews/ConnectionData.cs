@@ -22,7 +22,8 @@ namespace MissionPlanner.GCSViews
         public static ConnectionStatus ConnectionStatus3 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus4 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus5 = new ConnectionStatus();
-        Thread ThreadA;
+        public static Thread ThreadA;
+        public static bool threadrun = true;
 
         public ConnectionData()
         {
@@ -76,7 +77,7 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus5.TabIndex = 1;*/
             
             ThreadA = new Thread(new ThreadStart(Mainthread));
-            ThreadA.IsBackground = true;
+            //ThreadA.IsBackground = true;
             ThreadA.Start();
 
         }
@@ -154,24 +155,21 @@ namespace MissionPlanner.GCSViews
             ThreadA.IsBackground = true;
             ThreadA.Start();
         }*/
-        private void Mainthread()
+        public static void Mainthread()
         {
             while (true)
+            //while (threadrun)
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
                     if (MainV2.Comports[0] != null)
                         ConnectionStatus2.conn1 = MainV2.Comports[0];
-
-                    // ConnectionStatus3.InputConnection = MainV2.Comports[1];
-
-
                 }
 
                 // if (MainV2.comPort.BaseStream.IsOpen && MainV2.Comports[0] != null && MainV2.Comports.Count > 1)
                 // {
                 if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                //if (MainV2.Comports.Count > 1 && MainV2.Comports[0].BaseStream.PortName != MainV2.Comports[1].BaseStream.PortName)
+
                 {
                     ConnectionStatus3.conn1 = MainV2.Comports[1];
                     /*this.Invoke(new Action(delegate ()

@@ -30,18 +30,18 @@
         {
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label_armedstatus = new System.Windows.Forms.Label();
+            this.label_ekf = new System.Windows.Forms.Label();
+            this.label_linkquality = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label_battery = new System.Windows.Forms.Label();
+            this.label_GPS = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label_mode = new System.Windows.Forms.Label();
+            this.label1_groundspeed = new System.Windows.Forms.Label();
+            this.label_alt = new System.Windows.Forms.Label();
+            this.label_yaw = new System.Windows.Forms.Label();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -73,9 +73,9 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48F));
-            this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label6, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label8, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label_armedstatus, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label_ekf, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label_linkquality, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 49);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -84,35 +84,35 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(187, 40);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // label4
+            // label_armedstatus
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label4.Location = new System.Drawing.Point(3, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 40);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "armed";
+            this.label_armedstatus.AutoSize = true;
+            this.label_armedstatus.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_armedstatus.Location = new System.Drawing.Point(3, 0);
+            this.label_armedstatus.Name = "label_armedstatus";
+            this.label_armedstatus.Size = new System.Drawing.Size(34, 40);
+            this.label_armedstatus.TabIndex = 0;
+            this.label_armedstatus.Text = "armed";
             // 
-            // label6
+            // label_ekf
             // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label6.Location = new System.Drawing.Point(62, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 40);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "EKF";
+            this.label_ekf.AutoSize = true;
+            this.label_ekf.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_ekf.Location = new System.Drawing.Point(62, 0);
+            this.label_ekf.Name = "label_ekf";
+            this.label_ekf.Size = new System.Drawing.Size(26, 40);
+            this.label_ekf.TabIndex = 1;
+            this.label_ekf.Text = "EKF";
             // 
-            // label8
+            // label_linkquality
             // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label8.Location = new System.Drawing.Point(99, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(20, 40);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "0%";
+            this.label_linkquality.AutoSize = true;
+            this.label_linkquality.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_linkquality.Location = new System.Drawing.Point(99, 0);
+            this.label_linkquality.Name = "label_linkquality";
+            this.label_linkquality.Size = new System.Drawing.Size(20, 40);
+            this.label_linkquality.TabIndex = 3;
+            this.label_linkquality.Text = "0%";
             // 
             // tableLayoutPanel4
             // 
@@ -121,8 +121,8 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel4.Controls.Add(this.pictureBox1, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label7, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label9, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label_battery, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label_GPS, 2, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 95);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -142,25 +142,25 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // label7
+            // label_battery
             // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label7.Location = new System.Drawing.Point(3, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 41);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "0.0V     0.0A";
+            this.label_battery.AutoSize = true;
+            this.label_battery.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_battery.Location = new System.Drawing.Point(3, 0);
+            this.label_battery.Name = "label_battery";
+            this.label_battery.Size = new System.Drawing.Size(66, 41);
+            this.label_battery.TabIndex = 3;
+            this.label_battery.Text = "0.0V     0.0A";
             // 
-            // label9
+            // label_GPS
             // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label9.Location = new System.Drawing.Point(114, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(23, 41);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Sats";
+            this.label_GPS.AutoSize = true;
+            this.label_GPS.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_GPS.Location = new System.Drawing.Point(114, 0);
+            this.label_GPS.Name = "label_GPS";
+            this.label_GPS.Size = new System.Drawing.Size(23, 41);
+            this.label_GPS.TabIndex = 4;
+            this.label_GPS.Text = "Sats";
             // 
             // tableLayoutPanel5
             // 
@@ -169,10 +169,10 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel5.Controls.Add(this.label12, 3, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label11, 2, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label10, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label_mode, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label1_groundspeed, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label_alt, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label_yaw, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -181,45 +181,45 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(187, 40);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
-            // label12
+            // label_mode
             // 
-            this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label12.Location = new System.Drawing.Point(142, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 40);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Mode";
+            this.label_mode.AutoSize = true;
+            this.label_mode.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_mode.Location = new System.Drawing.Point(142, 0);
+            this.label_mode.Name = "label_mode";
+            this.label_mode.Size = new System.Drawing.Size(32, 40);
+            this.label_mode.TabIndex = 3;
+            this.label_mode.Text = "Mode";
             // 
-            // label11
+            // label1_groundspeed
             // 
-            this.label11.AutoSize = true;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label11.Location = new System.Drawing.Point(96, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 40);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "0.0m/s";
+            this.label1_groundspeed.AutoSize = true;
+            this.label1_groundspeed.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1_groundspeed.Location = new System.Drawing.Point(96, 0);
+            this.label1_groundspeed.Name = "label1_groundspeed";
+            this.label1_groundspeed.Size = new System.Drawing.Size(36, 40);
+            this.label1_groundspeed.TabIndex = 2;
+            this.label1_groundspeed.Text = "0.0m/s";
             // 
-            // label1
+            // label_alt
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 40);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "0.0m";
+            this.label_alt.AutoSize = true;
+            this.label_alt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_alt.Location = new System.Drawing.Point(3, 0);
+            this.label_alt.Name = "label_alt";
+            this.label_alt.Size = new System.Drawing.Size(29, 40);
+            this.label_alt.TabIndex = 0;
+            this.label_alt.Text = "0.0m";
             // 
-            // label10
+            // label_yaw
             // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label10.Location = new System.Drawing.Point(44, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 40);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "0.0deg";
+            this.label_yaw.AutoSize = true;
+            this.label_yaw.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_yaw.Location = new System.Drawing.Point(44, 0);
+            this.label_yaw.Name = "label_yaw";
+            this.label_yaw.Size = new System.Drawing.Size(37, 40);
+            this.label_yaw.TabIndex = 1;
+            this.label_yaw.Text = "0.0deg";
             // 
             // ConnectionStatus
             // 
@@ -245,17 +245,17 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label_armedstatus;
+        private System.Windows.Forms.Label label_ekf;
+        private System.Windows.Forms.Label label_linkquality;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_battery;
+        private System.Windows.Forms.Label label_GPS;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label_mode;
+        private System.Windows.Forms.Label label1_groundspeed;
+        private System.Windows.Forms.Label label_alt;
+        private System.Windows.Forms.Label label_yaw;
     }
 }
