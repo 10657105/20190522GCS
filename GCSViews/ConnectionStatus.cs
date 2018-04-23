@@ -29,9 +29,11 @@ namespace MissionPlanner.GCSViews
                     {
                         if (conn1 != null)
                         {
-                            label_alt.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
+                            label_PortName.Text = conn1.BaseStream.PortName;
+                            label_linkquality.Text = conn1.MAV.cs.linkqualitygcs.ToString() + "% ";
+                            label_GroundSpeed.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
                             label_yaw.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
-                            label1_groundspeed.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
+                            label_alt.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
                             label_mode.Text = conn1.MAV.cs.mode.ToString();
 
                             label_battery.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
@@ -68,7 +70,7 @@ namespace MissionPlanner.GCSViews
                                 label_ekf.ForeColor = Color.Lime;
                             }
 
-                            label_linkquality.Text = conn1.MAV.cs.linkqualitygcs.ToString() + "% " + conn1.ToString().Remove(0, 9);
+                            //label_12.Text =  ;
                         }
 
 
