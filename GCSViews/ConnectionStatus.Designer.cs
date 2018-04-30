@@ -272,9 +272,9 @@
             this.label_latlng.Dock = System.Windows.Forms.DockStyle.Left;
             this.label_latlng.Location = new System.Drawing.Point(3, 0);
             this.label_latlng.Name = "label_latlng";
-            this.label_latlng.Size = new System.Drawing.Size(48, 31);
+            this.label_latlng.Size = new System.Drawing.Size(54, 31);
             this.label_latlng.TabIndex = 4;
-            this.label_latlng.Text = "( lat,lng )";
+            this.label_latlng.Text = "( lat , lng )";
             // 
             // ConnectionStatus
             // 

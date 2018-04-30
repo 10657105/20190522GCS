@@ -50,7 +50,7 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus3
             // 
-           /* tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
+           tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
             ConnectionStatus3.Dock = DockStyle.Fill;
             ConnectionStatus3.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus3.Name = "connectionStatus3";
@@ -60,12 +60,12 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus4
             // 
-            tableLayoutPanel1.Controls.Add(ConnectionStatus4, 0, 3);
+            /*tableLayoutPanel1.Controls.Add(ConnectionStatus4, 0, 3);
             ConnectionStatus4.Dock = DockStyle.Fill;
             ConnectionStatus4.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus4.Name = "connectionStatus4";
             ConnectionStatus4.Size = new System.Drawing.Size(141, 61);
-            ConnectionStatus4.TabIndex = 1;*/
+            ConnectionStatus4.TabIndex = 1;
             //
             // connectionStatus5
             // 
@@ -74,7 +74,7 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus5.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus5.Name = "connectionStatus5";
             ConnectionStatus5.Size = new System.Drawing.Size(141, 61);
-            ConnectionStatus5.TabIndex = 1;
+            ConnectionStatus5.TabIndex = 1;*/
             
             ThreadA = new Thread(new ThreadStart(Mainthread));
             //ThreadA.IsBackground = true;
