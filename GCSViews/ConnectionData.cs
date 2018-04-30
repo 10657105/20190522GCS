@@ -50,7 +50,7 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus3
             // 
-            tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
+           /* tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
             ConnectionStatus3.Dock = DockStyle.Fill;
             ConnectionStatus3.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus3.Name = "connectionStatus3";
@@ -65,16 +65,16 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus4.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus4.Name = "connectionStatus4";
             ConnectionStatus4.Size = new System.Drawing.Size(141, 61);
-            ConnectionStatus4.TabIndex = 1;
+            ConnectionStatus4.TabIndex = 1;*/
             //
             // connectionStatus5
             // 
-            /*tableLayoutPanel1.Controls.Add(ConnectionStatus5, 0, 4);
+            tableLayoutPanel1.Controls.Add(ConnectionStatus5, 0, 4);
             ConnectionStatus5.Dock = DockStyle.Fill;
             ConnectionStatus5.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus5.Name = "connectionStatus5";
             ConnectionStatus5.Size = new System.Drawing.Size(141, 61);
-            ConnectionStatus5.TabIndex = 1;*/
+            ConnectionStatus5.TabIndex = 1;
             
             ThreadA = new Thread(new ThreadStart(Mainthread));
             //ThreadA.IsBackground = true;
@@ -164,31 +164,33 @@ namespace MissionPlanner.GCSViews
                 {
                     if (MainV2.Comports[0] != null)
                         ConnectionStatus2.conn1 = MainV2.Comports[0];
+
+                    if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+
+                    {
+                        ConnectionStatus3.conn1 = MainV2.Comports[1];
+                        /*this.Invoke(new Action(delegate ()
+                        {
+                            ConnectionStatus3.Visible = true;
+                        }));*/
+                        // }
+                    }
                 }
 
                 // if (MainV2.comPort.BaseStream.IsOpen && MainV2.Comports[0] != null && MainV2.Comports.Count > 1)
                 // {
-                if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
 
-                {
-                    ConnectionStatus3.conn1 = MainV2.Comports[1];
-                    /*this.Invoke(new Action(delegate ()
-                    {
-                        ConnectionStatus3.Visible = true;
-                    }));*/
-                    // }
-                }
 
-                if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+               /* if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                 {
                     ConnectionStatus4.conn1 = MainV2.Comports[2];
-                    /*this.Invoke(new Action(delegate ()
+                    this.Invoke(new Action(delegate ()
                     {
                         ConnectionStatus3.Visible = true;
-                    }));*/
+                    }));
 
 
-                }
+                }*/
             }
 
 

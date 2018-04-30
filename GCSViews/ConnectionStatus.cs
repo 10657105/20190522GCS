@@ -35,10 +35,9 @@ namespace MissionPlanner.GCSViews
                             label_yaw.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
                             label_alt.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
                             label_mode.Text = conn1.MAV.cs.mode.ToString();
-
                             label_battery.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
-
                             label_GPS.Text = conn1.MAV.cs.satcount.ToString() + "   (" + conn1.MAV.cs.gpshdop.ToString() + "m)  ";
+                            label_latlng.Text = "( " + conn1.MAV.cs.lat.ToString("f6") + " , " + conn1.MAV.cs.lng.ToString("f6") + " )";
 
                             if (conn1.MAV.cs.armed)
                             {//arm
