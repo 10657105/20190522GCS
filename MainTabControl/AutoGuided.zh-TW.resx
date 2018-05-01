@@ -139,6 +139,9 @@
   <data name="LBL_ECopter.Text" xml:space="preserve">
     <value>E機 : 在</value>
   </data>
+  <data name="Reset_Connection_Button.Text" xml:space="preserve">
+    <value>重置連線設定</value>
+  </data>
   <data name="SetA.Text" xml:space="preserve">
     <value>設為A機</value>
   </data>

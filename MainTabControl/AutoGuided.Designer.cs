@@ -45,6 +45,7 @@
             this.LBL_DCopter = new System.Windows.Forms.Label();
             this.LBL_ECopter = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Reset_Connection_Button = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -140,10 +141,18 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // Reset_Connection_Button
+            // 
+            resources.ApplyResources(this.Reset_Connection_Button, "Reset_Connection_Button");
+            this.Reset_Connection_Button.Name = "Reset_Connection_Button";
+            this.Reset_Connection_Button.UseVisualStyleBackColor = true;
+            this.Reset_Connection_Button.Click += new System.EventHandler(this.Reset_Connection_Button_Click);
+            // 
             // AutoGuided
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Reset_Connection_Button);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Connection_Select);
             this.Controls.Add(this.SetE);
@@ -178,5 +187,6 @@
         private System.Windows.Forms.Label LBL_DCopter;
         private System.Windows.Forms.Label LBL_ECopter;
         private System.Windows.Forms.Panel panel1;
+        private Controls.MyButton Reset_Connection_Button;
     }
 }

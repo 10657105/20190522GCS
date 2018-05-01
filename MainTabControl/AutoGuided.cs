@@ -432,6 +432,23 @@ namespace MissionPlanner.MainTabControl
             }
         }
 
-  
+        private void Reset_Connection_Button_Click(object sender, EventArgs e)
+        {
+            LBL_ACopter.Text = rm.GetString("LBL_ACopter.Text");
+            LBL_ACopter.ForeColor = Color.White;
+            LBL_BCopter.Text = rm.GetString("LBL_BCopter.Text");
+            LBL_BCopter.ForeColor = Color.White;
+            LBL_CCopter.Text = rm.GetString("LBL_CCopter.Text");
+            LBL_CCopter.ForeColor = Color.White;
+            LBL_DCopter.Text = rm.GetString("LBL_DCopter.Text");
+            LBL_DCopter.ForeColor = Color.White;
+            LBL_ECopter.Text = rm.GetString("LBL_ECopter.Text");
+            LBL_ECopter.ForeColor = Color.White;
+            Acopter = null;
+            Bcopter = null;
+            Ccopter = null;
+            Dcopter = null;
+            Ecopter = null;
+        }
     }
 }
