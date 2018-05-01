@@ -32,13 +32,13 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus1
             // 
-            /*tableLayoutPanel1.Controls.Add(ConnectionStatus1, 0, 0);
+            tableLayoutPanel1.Controls.Add(ConnectionStatus1, 0, 0);
             ConnectionStatus1.Dock = DockStyle.Fill;
             ConnectionStatus1.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus1.Name = "connectionStatus1";
             ConnectionStatus1.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus1.TabIndex = 1;
-            // */
+            // 
             // connectionStatus2
             // 
             tableLayoutPanel1.Controls.Add(ConnectionStatus2, 0, 1);
@@ -60,7 +60,7 @@ namespace MissionPlanner.GCSViews
             // 
             // connectionStatus4
             // 
-            /*tableLayoutPanel1.Controls.Add(ConnectionStatus4, 0, 3);
+            tableLayoutPanel1.Controls.Add(ConnectionStatus4, 0, 3);
             ConnectionStatus4.Dock = DockStyle.Fill;
             ConnectionStatus4.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus4.Name = "connectionStatus4";
@@ -74,87 +74,14 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus5.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus5.Name = "connectionStatus5";
             ConnectionStatus5.Size = new System.Drawing.Size(141, 61);
-            ConnectionStatus5.TabIndex = 1;*/
+            ConnectionStatus5.TabIndex = 1;
             
             ThreadA = new Thread(new ThreadStart(Mainthread));
             //ThreadA.IsBackground = true;
             ThreadA.Start();
 
         }
-        /*private void PrintBat()
-        {
         
-            //curs = new CurrentState();
-            while (true)
-            {
-                if (MainV2.comPort.BaseStream.IsOpen)
-                {
-                    this.Invoke(new Action(delegate ()
-                    {
-                        if (MainV2.Comports[0] != null)
-                        {
-                            label1.Text = MainV2.Comports[0].MAV.cs.alt.ToString("f1") + "m";
-                            label10.Text = MainV2.Comports[0].MAV.cs.yaw.ToString("f1") + "deg";
-                            label11.Text = MainV2.Comports[0].MAV.cs.groundspeed.ToString("f1") + "m/s";
-                            label12.Text = MainV2.Comports[0].MAV.cs.mode.ToString();
-
-                            label7.Text = MainV2.Comports[0].MAV.cs.battery_voltage.ToString("f1") + "V   " + MainV2.Comports[0].MAV.cs.current.ToString("f1") + "A ";                                       
-                            
-                            label9.Text = MainV2.Comports[0].MAV.cs.satcount.ToString() + "   (" + MainV2.Comports[0].MAV.cs.gpshdop.ToString() + "m)  ";
-
-                            if (MainV2.Comports[0].MAV.cs.armed)
-                            {//arm
-                                label4.Text = "Armed";
-                                label4.ForeColor = Color.Red;
-                            }
-                            else
-                            {
-                                label4.Text = "Disarmed";
-                                label4.ForeColor = Color.Lime;
-                            }
-
-                             if (MainV2.Comports[0].MAV.cs.ekfstatus > 0.5)
-                             {//EKF
-                                 if (MainV2.Comports[0].MAV.cs.ekfstatus > 0.8)
-                                 {
-                                   label6.Text = "EKF";
-                                   label6.ForeColor = Color.Red;
-                                 }
-                                 else
-                                 {
-                                    label6.Text = "EKF";
-                                    label6.ForeColor = Color.Orange;
-                                 }
-                             }
-                             else
-                             {
-                                label6.Text = "EKF";
-                                label6.ForeColor = Color.Lime;
-                            }
-
-                            label8.Text = MainV2.Comports[0].MAV.cs.linkqualitygcs.ToString() + "% " + MainV2.Comports[0].ToString().Remove(0,9);
-                        }
-                        if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null)
-                        {
-                          label2.Text = MainV2.Comports[1].MAV.cs.battery_voltage.ToString("f1") + "V  " + MainV2.Comports[1].MAV.cs.current.ToString("f1") + "A  \n"
-                                      + MainV2.Comports[1].MAV.cs.alt.ToString("f1") + "m  " + MainV2.Comports[1].MAV.cs.yaw.ToString("f1") + "deg  " + MainV2.Comports[1].MAV.cs.mode.ToString() + " \n"
-                                      + "Ssta:" + MainV2.Comports[1].MAV.cs.satcount.ToString() + "  " + "hdop:" + MainV2.Comports[1].MAV.cs.gpshdop.ToString(); ;
-                        }
-                       
-
-                    }));
-
-                }
-
-            }
-        }
-
-        /*private void label1_Click(object sender, EventArgs e)
-        {
-            Thread ThreadA = new Thread(new ThreadStart(PrintBat));
-            ThreadA.IsBackground = true;
-            ThreadA.Start();
-        }*/
         public static void Mainthread()
         {
             while (true)
@@ -162,45 +89,48 @@ namespace MissionPlanner.GCSViews
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
-                    if (MainV2.Comports[0] != null)
-                        ConnectionStatus2.conn1 = MainV2.Comports[0];
+                    if (MainV2.Comports[0] != null)//5770
+                        ConnectionStatus1.conn1 = MainV2.Comports[0];
 
                     if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-
-                    {
-                        ConnectionStatus3.conn1 = MainV2.Comports[1];
+                    {//5780
+                        ConnectionStatus2.conn1 = MainV2.Comports[1];
                         /*this.Invoke(new Action(delegate ()
                         {
                             ConnectionStatus3.Visible = true;
                         }));*/
-                        // }
+                    }
+
+                    if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                    {//5790
+                        ConnectionStatus3.conn1 = MainV2.Comports[2];
+                        /*this.Invoke(new Action(delegate ()
+                        {
+                            ConnectionStatus4.Visible = true;
+                        }));*/
+                    }
+                    if (MainV2.Comports.Count > 3 && MainV2.Comports[3] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                    {//5790
+                        ConnectionStatus4.conn1 = MainV2.Comports[3];
+                        /*this.Invoke(new Action(delegate ()
+                        {
+                            ConnectionStatus4.Visible = true;
+                        }));*/
+                    }
+                    if (MainV2.Comports.Count > 4 && MainV2.Comports[4] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                    {//5790
+                        ConnectionStatus5.conn1 = MainV2.Comports[4];
+                        /*this.Invoke(new Action(delegate ()
+                        {
+                            ConnectionStatus4.Visible = true;
+                        }));*/
                     }
                 }
 
-                // if (MainV2.comPort.BaseStream.IsOpen && MainV2.Comports[0] != null && MainV2.Comports.Count > 1)
-                // {
-
-
-               /* if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                {
-                    ConnectionStatus4.conn1 = MainV2.Comports[2];
-                    this.Invoke(new Action(delegate ()
-                    {
-                        ConnectionStatus3.Visible = true;
-                    }));
-
-
-                }*/
             }
 
 
         }
-           /* private void ConnectionData_Load(object sender, EventArgs e)
-        {
-            Thread ThreadA = new Thread(new ThreadStart(Mainthread));
-            ThreadA.IsBackground = true;
-            ThreadA.Start();
-        }*/
 
     }
 }
