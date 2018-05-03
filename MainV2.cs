@@ -3605,6 +3605,11 @@ namespace MissionPlanner
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
 
+            if (GCSViews.ConnectionData.threadrun == false)
+            {
+                GCSViews.ConnectionData.threadrun = true;
+            }
+
             if (File.Exists(openFileDialog.FileName))
             {
                 var lines = File.ReadAllLines(openFileDialog.FileName);
@@ -3664,11 +3669,11 @@ namespace MissionPlanner
                     }
                 }
                 //);
-                //GCSViews.ConnectionData.threadrun = false;
-                GCSViews.ConnectionData.ThreadA.Abort();
+                GCSViews.ConnectionData.threadrun = false;
+                /*GCSViews.ConnectionData.ThreadA.Abort();
                 GCSViews.ConnectionData.ThreadA.Join();
                 if (GCSViews.ConnectionData.ThreadA.IsAlive)
-                    CustomMessageBox.Show("thread alive");
+                    CustomMessageBox.Show("thread alive");*/
             }
         }
     }

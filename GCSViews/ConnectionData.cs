@@ -16,14 +16,13 @@ namespace MissionPlanner.GCSViews
 {
     public partial class ConnectionData : MyUserControl
     {
-        // public static CurrentState curs;
+        public static bool threadrun = true;
         public static ConnectionStatus ConnectionStatus1 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus2 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus3 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus4 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus5 = new ConnectionStatus();
-        public static Thread ThreadA;
-        public static bool threadrun = true;
+        public static Thread ThreadA;        
 
         public ConnectionData()
         {
@@ -84,8 +83,8 @@ namespace MissionPlanner.GCSViews
         
         public static void Mainthread()
         {
-            while (true)
-            //while (threadrun)
+            //while (true)
+            while (threadrun)
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
@@ -94,6 +93,7 @@ namespace MissionPlanner.GCSViews
 
                     if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {//5780
+
                         ConnectionStatus2.conn1 = MainV2.Comports[1];
                         /*this.Invoke(new Action(delegate ()
                         {

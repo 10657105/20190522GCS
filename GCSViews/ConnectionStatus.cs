@@ -24,7 +24,7 @@ namespace MissionPlanner.GCSViews
             //curs = new CurrentState();
             while (true)
             {
-                if (updateTime.AddSeconds(1) < DateTime.Now)
+                if (updateTime.AddSeconds(0.5) < DateTime.Now)
                 {
                     if (MainV2.comPort.BaseStream.IsOpen)
                     {
@@ -37,7 +37,7 @@ namespace MissionPlanner.GCSViews
                                 label_GroundSpeed.Text = conn1.MAV.cs.groundspeed.ToString("f1") + "m/s";
                                 label_yaw.Text = conn1.MAV.cs.yaw.ToString("f1") + "deg";
                                 label_alt.Text = conn1.MAV.cs.alt.ToString("f1") + "m";
-                                label_mode.Text = conn1.MAV.cs.mode.ToString();
+                                label_mode.Text = conn1.MAV.cs.mode.ToString(); label_mode.ForeColor = Color.Cyan;
                                 label_battery.Text = conn1.MAV.cs.battery_voltage.ToString("f1") + "V   " + conn1.MAV.cs.current.ToString("f1") + "A ";
                                 label_GPS.Text = conn1.MAV.cs.satcount.ToString() + "   (" + conn1.MAV.cs.gpshdop.ToString() + "m)  ";
                                 label_latlng.Text = "( " + conn1.MAV.cs.lat.ToString("f6") + " , " + conn1.MAV.cs.lng.ToString("f6") + " )";
