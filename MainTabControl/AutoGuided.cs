@@ -196,9 +196,9 @@ namespace MissionPlanner.MainTabControl
                 }
                 System.Threading.Thread.Sleep(450);       
                 if ((Aend == true && Bcopter == null && Ccopter == null && Dcopter == null && Ecopter == null)||
-                    (Aend == true && Bend == true) ||
-                    (Aend == true && Bend == true && Cend == true) ||
-                    (Aend == true && Bend == true && Cend == true && Dend == true) ||
+                    (Aend == true && Bend == true && Ccopter == null && Dcopter == null && Ecopter == null) ||
+                    (Aend == true && Bend == true && Cend == true && Dcopter == null && Ecopter == null) ||
+                    (Aend == true && Bend == true && Cend == true && Dend == true && Ecopter == null) ||
                     (Aend == true && Bend == true && Cend == true && Dend == true && Eend == true))
                 {
                     threadrun = false;
