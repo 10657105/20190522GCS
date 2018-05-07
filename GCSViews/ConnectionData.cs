@@ -22,7 +22,7 @@ namespace MissionPlanner.GCSViews
         public static ConnectionStatus ConnectionStatus3 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus4 = new ConnectionStatus();
         public static ConnectionStatus ConnectionStatus5 = new ConnectionStatus();
-        public static Thread ThreadA;        
+        public static Thread ThreadA;
 
         public ConnectionData()
         {
@@ -46,16 +46,17 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus2.Name = "connectionStatus2";
             ConnectionStatus2.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus2.TabIndex = 1;
+            ConnectionStatus2.Visible = false;
             // 
             // connectionStatus3
             // 
-           tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
+            tableLayoutPanel1.Controls.Add(ConnectionStatus3, 0, 2);
             ConnectionStatus3.Dock = DockStyle.Fill;
             ConnectionStatus3.Location = new System.Drawing.Point(3, 240);
             ConnectionStatus3.Name = "connectionStatus3";
             ConnectionStatus3.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus3.TabIndex = 1;
-            //ConnectionStatus3.Visible = false;
+            ConnectionStatus3.Visible = false;
             // 
             // connectionStatus4
             // 
@@ -65,6 +66,7 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus4.Name = "connectionStatus4";
             ConnectionStatus4.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus4.TabIndex = 1;
+            ConnectionStatus4.Visible = false;
             //
             // connectionStatus5
             // 
@@ -74,14 +76,15 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus5.Name = "connectionStatus5";
             ConnectionStatus5.Size = new System.Drawing.Size(141, 61);
             ConnectionStatus5.TabIndex = 1;
-            
+            ConnectionStatus5.Visible = false;
+
             ThreadA = new Thread(new ThreadStart(Mainthread));
             //ThreadA.IsBackground = true;
             ThreadA.Start();
 
         }
         
-        public static void Mainthread()
+        public void Mainthread()
         {
             //while (true)
             while (threadrun)
@@ -89,41 +92,41 @@ namespace MissionPlanner.GCSViews
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
                     if (MainV2.Comports[0] != null)//5770
-                        ConnectionStatus1.conn1 = MainV2.Comports[0];
-
+                    {
+                        ConnectionStatus1.InputMAVlink = MainV2.Comports[0];                    
+                    }
                     if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {//5780
-
-                        ConnectionStatus2.conn1 = MainV2.Comports[1];
-                        /*this.Invoke(new Action(delegate ()
+                        ConnectionStatus2.InputMAVlink = MainV2.Comports[1];
+                        this.Invoke(new Action(delegate ()
                         {
-                            ConnectionStatus3.Visible = true;
-                        }));*/
+                            ConnectionStatus2.Visible = true;
+                        }));
                     }
 
                     if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {//5790
-                        ConnectionStatus3.conn1 = MainV2.Comports[2];
-                        /*this.Invoke(new Action(delegate ()
+                        ConnectionStatus3.InputMAVlink = MainV2.Comports[2];
+                        this.Invoke(new Action(delegate ()
                         {
-                            ConnectionStatus4.Visible = true;
-                        }));*/
+                            ConnectionStatus3.Visible = true;
+                        }));
                     }
                     if (MainV2.Comports.Count > 3 && MainV2.Comports[3] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {//5790
-                        ConnectionStatus4.conn1 = MainV2.Comports[3];
-                        /*this.Invoke(new Action(delegate ()
+                        ConnectionStatus4.InputMAVlink = MainV2.Comports[3];
+                        this.Invoke(new Action(delegate ()
                         {
                             ConnectionStatus4.Visible = true;
-                        }));*/
+                        }));
                     }
                     if (MainV2.Comports.Count > 4 && MainV2.Comports[4] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {//5790
-                        ConnectionStatus5.conn1 = MainV2.Comports[4];
-                        /*this.Invoke(new Action(delegate ()
+                        ConnectionStatus5.InputMAVlink = MainV2.Comports[4];
+                        this.Invoke(new Action(delegate ()
                         {
-                            ConnectionStatus4.Visible = true;
-                        }));*/
+                            ConnectionStatus5.Visible = true;
+                        }));
                     }
                 }
 

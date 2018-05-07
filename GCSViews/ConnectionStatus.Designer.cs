@@ -126,12 +126,14 @@
             // label_ekf
             // 
             this.label_ekf.AutoSize = true;
+            this.label_ekf.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_ekf.Dock = System.Windows.Forms.DockStyle.Left;
             this.label_ekf.Location = new System.Drawing.Point(151, 0);
             this.label_ekf.Name = "label_ekf";
             this.label_ekf.Size = new System.Drawing.Size(26, 28);
             this.label_ekf.TabIndex = 1;
             this.label_ekf.Text = "EKF";
+            this.label_ekf.Click += new System.EventHandler(this.label_ekf_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -262,7 +264,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(187, 31);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
