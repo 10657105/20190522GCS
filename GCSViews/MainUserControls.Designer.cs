@@ -202,6 +202,7 @@ namespace MissionPlanner.GCSViews
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
             this.AutoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
+            this.CHK_headingline_enable = new System.Windows.Forms.CheckBox();
             this.panelWaypoints.SuspendLayout();
             this.panelAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).BeginInit();
@@ -290,6 +291,7 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelWaypoints.CaptionHeight = 21;
             this.panelWaypoints.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelWaypoints.Controls.Add(this.CHK_headingline_enable);
             this.panelWaypoints.Controls.Add(this.CHK_autopan);
             this.panelWaypoints.Controls.Add(this.CHK_Multitrack);
             this.panelWaypoints.Controls.Add(this.CHK_WaypointTag);
@@ -1346,6 +1348,15 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.AutoGuided1, "AutoGuided1");
             this.AutoGuided1.Name = "AutoGuided1";
             // 
+            // CHK_headingline_enable
+            // 
+            resources.ApplyResources(this.CHK_headingline_enable, "CHK_headingline_enable");
+            this.CHK_headingline_enable.Checked = true;
+            this.CHK_headingline_enable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_headingline_enable.Name = "CHK_headingline_enable";
+            this.CHK_headingline_enable.UseVisualStyleBackColor = true;
+            this.CHK_headingline_enable.CheckedChanged += new System.EventHandler(this.CHK_headingline_enable_CheckedChanged);
+            // 
             // MainUserControls
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1522,5 +1533,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.ToolStripMenuItem goHereToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flyToHereAltToolStripMenuItem;
         private MyButton TakeOffButton;
+        private System.Windows.Forms.CheckBox CHK_headingline_enable;
     }
 }

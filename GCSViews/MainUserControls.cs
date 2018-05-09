@@ -8310,6 +8310,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
+        private void CHK_headingline_enable_CheckedChanged(object sender, EventArgs e)
+        {
+            GMapMarkerQuad.MAVMarkerline_enable = CHK_headingline_enable.Checked;
+        }
+
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist
                                         , ref List<PointLatLngAlt> outputDpointlist,ref List<PointLatLngAlt> outputEpointlist)    
         {

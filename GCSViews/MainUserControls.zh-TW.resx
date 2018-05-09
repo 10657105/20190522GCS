@@ -495,4 +495,7 @@
   <data name="TakeOffButton.Text" xml:space="preserve">
     <value>起飛</value>
   </data>
+  <data name="CHK_headingline_enable.Text" xml:space="preserve">
+    <value>開啟Heading線</value>
+  </data>
 </root>

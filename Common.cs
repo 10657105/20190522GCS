@@ -22,7 +22,6 @@ namespace MissionPlanner
     public class Common
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         public enum distances
         {
             Meters,
@@ -1074,6 +1073,7 @@ union px4_custom_mode {
 
         public float warn = -1;
         public float danger = -1;
+        public static bool MAVMarkerline_enable = true;
 
         public GMapMarkerQuad(PointLatLng p, float heading, float cog, float target, int sysid)
             : base(p)
@@ -1092,19 +1092,22 @@ union px4_custom_mode {
 
             int length = 500;
             // anti NaN
-            try
+            if (MAVMarkerline_enable == true)
             {
-                g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float) Math.Cos((heading - 90)*MathHelper.deg2rad)*length,
-                    (float) Math.Sin((heading - 90)*MathHelper.deg2rad)*length);
+                try
+                {
+                    g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float)Math.Cos((heading - 90) * MathHelper.deg2rad) * length,
+                        (float)Math.Sin((heading - 90) * MathHelper.deg2rad) * length);
+                }
+                catch
+                {
+                }
+                //g.DrawLine(new Pen(Color.Green, 2), 0.0f, 0.0f, (float)Math.Cos((nav_bearing - 90) * MathHelper.deg2rad) * length, (float)Math.Sin((nav_bearing - 90) * MathHelper.deg2rad) * length);
+                g.DrawLine(new Pen(Color.Black, 2), 0.0f, 0.0f, (float)Math.Cos((cog - 90) * MathHelper.deg2rad) * length,
+                    (float)Math.Sin((cog - 90) * MathHelper.deg2rad) * length);
+                g.DrawLine(new Pen(Color.Orange, 2), 0.0f, 0.0f, (float)Math.Cos((target - 90) * MathHelper.deg2rad) * length,
+                    (float)Math.Sin((target - 90) * MathHelper.deg2rad) * length);
             }
-            catch
-            {
-            }
-            //g.DrawLine(new Pen(Color.Green, 2), 0.0f, 0.0f, (float)Math.Cos((nav_bearing - 90) * MathHelper.deg2rad) * length, (float)Math.Sin((nav_bearing - 90) * MathHelper.deg2rad) * length);
-            g.DrawLine(new Pen(Color.Black, 2), 0.0f, 0.0f, (float) Math.Cos((cog - 90)*MathHelper.deg2rad)*length,
-                (float) Math.Sin((cog - 90)*MathHelper.deg2rad)*length);
-            g.DrawLine(new Pen(Color.Orange, 2), 0.0f, 0.0f, (float) Math.Cos((target - 90)*MathHelper.deg2rad)*length,
-                (float) Math.Sin((target - 90)*MathHelper.deg2rad)*length);
             // anti NaN
             try
             {
