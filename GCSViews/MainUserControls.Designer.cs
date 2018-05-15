@@ -72,6 +72,7 @@ namespace MissionPlanner.GCSViews
             this.label6 = new System.Windows.Forms.Label();
             this.panelWaypoints = new BSE.Windows.Forms.Panel();
             this.splitter1 = new BSE.Windows.Forms.Splitter();
+            this.CHK_headingline_enable = new System.Windows.Forms.CheckBox();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CHK_Multitrack = new System.Windows.Forms.CheckBox();
             this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
@@ -202,7 +203,6 @@ namespace MissionPlanner.GCSViews
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
             this.AutoGuided1 = new MissionPlanner.MainTabControl.AutoGuided();
-            this.CHK_headingline_enable = new System.Windows.Forms.CheckBox();
             this.panelWaypoints.SuspendLayout();
             this.panelAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).BeginInit();
@@ -337,6 +337,15 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.splitter1, "splitter1");
             this.splitter1.Name = "splitter1";
             this.splitter1.TabStop = false;
+            // 
+            // CHK_headingline_enable
+            // 
+            resources.ApplyResources(this.CHK_headingline_enable, "CHK_headingline_enable");
+            this.CHK_headingline_enable.Checked = true;
+            this.CHK_headingline_enable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_headingline_enable.Name = "CHK_headingline_enable";
+            this.CHK_headingline_enable.UseVisualStyleBackColor = true;
+            this.CHK_headingline_enable.CheckedChanged += new System.EventHandler(this.CHK_headingline_enable_CheckedChanged);
             // 
             // CHK_autopan
             // 
@@ -586,6 +595,7 @@ namespace MissionPlanner.GCSViews
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteWPToolStripMenuItem,
             this.insertWpToolStripMenuItem,
@@ -1347,15 +1357,6 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.AutoGuided1, "AutoGuided1");
             this.AutoGuided1.Name = "AutoGuided1";
-            // 
-            // CHK_headingline_enable
-            // 
-            resources.ApplyResources(this.CHK_headingline_enable, "CHK_headingline_enable");
-            this.CHK_headingline_enable.Checked = true;
-            this.CHK_headingline_enable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_headingline_enable.Name = "CHK_headingline_enable";
-            this.CHK_headingline_enable.UseVisualStyleBackColor = true;
-            this.CHK_headingline_enable.CheckedChanged += new System.EventHandler(this.CHK_headingline_enable_CheckedChanged);
             // 
             // MainUserControls
             // 
