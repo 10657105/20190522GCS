@@ -2716,8 +2716,27 @@ namespace MissionPlanner.Controls
         [Browsable(false)]
         public new bool VSync
         {
-            get { return base.VSync; }
-            set { base.VSync = value; }
+            get
+            {
+                try
+                {
+                    return base.VSync;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                try
+                {
+                    base.VSync = value;
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }

@@ -27,13 +27,14 @@ namespace MissionPlanner.Controls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+                if (InputMAVlink_EKF != null)
+                {
                 ekfvel.Value = (int)(InputMAVlink_EKF.MAV.cs.ekfvelv * 100);
                 ekfposh.Value = (int)(InputMAVlink_EKF.MAV.cs.ekfposhor * 100);
                 ekfposv.Value = (int)(InputMAVlink_EKF.MAV.cs.ekfposvert * 100);
                 ekfcompass.Value = (int)(InputMAVlink_EKF.MAV.cs.ekfcompv * 100);
                 ekfterrain.Value = (int)(InputMAVlink_EKF.MAV.cs.ekfteralt * 100);
-                
+                }
                 // restore colours
                 Utilities.ThemeManager.ApplyThemeTo(this);
 
@@ -47,17 +48,19 @@ namespace MissionPlanner.Controls
                 }
 
                 label7.Text = "";
-
-                for (int a = 1; a <= (int)MAVLink.EKF_STATUS_FLAGS.EKF_PRED_POS_HORIZ_ABS; a = a << 1)
+                if (InputMAVlink_EKF != null)
                 {
-                    int currentbit = (InputMAVlink_EKF.MAV.cs.ekfflags & a);
+                    for (int a = 1; a <= (int)MAVLink.EKF_STATUS_FLAGS.EKF_PRED_POS_HORIZ_ABS; a = a << 1)
+                    {
 
-                    var currentflag = (MAVLink.EKF_STATUS_FLAGS)Enum.Parse(typeof(MAVLink.EKF_STATUS_FLAGS), a.ToString());
+                        int currentbit = (InputMAVlink_EKF.MAV.cs.ekfflags & a);
 
-                    label7.Text += currentflag.ToString().Replace("EKF_", "").ToLower() + " " +
-                                   (currentbit > 0 ? "On " : "Off") + "\r\n";
+                        var currentflag = (MAVLink.EKF_STATUS_FLAGS)Enum.Parse(typeof(MAVLink.EKF_STATUS_FLAGS), a.ToString());
+
+                        label7.Text += currentflag.ToString().Replace("EKF_", "").ToLower() + " " +
+                                       (currentbit > 0 ? "On " : "Off") + "\r\n";
+                    }
                 }
-
         }
     }
 }

@@ -15,6 +15,9 @@ namespace MissionPlanner.GCSViews
     public partial class ConnectionStatus : MyUserControl
     {
         internal MAVLinkInterface InputMAVlink = null;
+        HUD hud=new HUD();
+        Form HUDdropout = new Form();
+        bool HUDdropoutresize;
 
         public ConnectionStatus()
         {
@@ -103,7 +106,51 @@ namespace MissionPlanner.GCSViews
 
         private void label_hud_Click(object sender, EventArgs e)
         {
-
+            HUDForm hudform = new HUDForm();
+            hudform.Show();
+            /*hud.Size = new Size(358, 264);
+            hud.Dock = DockStyle.Fill;
+            hud.Enabled = true;
+            //if(InputMAVlink!=null)
+            // HUD.Custom.src = InputMAVlink.MAV.cs;
+            HUD.Custom.src = MainV2.comPort.MAV.cs;
+            HUDdropout.Size = new Size(hud.Width, hud.Height + 20);
+            HUDdropout.Controls.Add(hud);
+            HUDdropout.Resize += HUDdropout_Resize;
+            HUDdropout.FormClosed += HUDdropout_FormClosed;
+            HUDdropout.Show();*/
         }
+        void HUDdropout_Resize(object sender, EventArgs e)
+        {
+            if (HUDdropoutresize)
+                return;
+
+            HUDdropoutresize = true;
+
+            int hudh = hud.Height;
+            int formh = ((Form)sender).Height - 30;
+
+            if (((Form)sender).Height < hudh)
+            {
+                if (((Form)sender).WindowState == FormWindowState.Maximized)
+                {
+                    Point tl = ((Form)sender).DesktopLocation;
+                    ((Form)sender).WindowState = FormWindowState.Normal;
+                    ((Form)sender).Location = tl;
+                }
+                ((Form)sender).Width = (int)(formh * (hud.SixteenXNine ? 1.777f : 1.333f));
+                ((Form)sender).Height = formh + 20;
+            }
+
+            hud.Refresh();
+            HUDdropoutresize = false;
+        }
+
+        void HUDdropout_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            HUDdropout.Dispose();
+        }
+
+
     }
 }
