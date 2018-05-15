@@ -939,7 +939,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6709.25909, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6709.25920, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1068,7 +1068,7 @@
     <value>3, 5, 3, 5</value>
   </data>
   <data name="WayPointControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 252</value>
+    <value>242, 302</value>
   </data>
   <data name="WayPointControl1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1077,7 +1077,7 @@
     <value>WayPointControl1</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6709.25909, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6709.25920, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Parent" xml:space="preserve">
     <value>TabWaypoint</value>
@@ -1092,7 +1092,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabWaypoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 258</value>
+    <value>248, 308</value>
   </data>
   <data name="TabWaypoint.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1293,7 +1293,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabActions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 268</value>
+    <value>248, 258</value>
   </data>
   <data name="TabActions.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1326,7 +1326,7 @@
     <value>3, 5, 3, 5</value>
   </data>
   <data name="AutoGuided1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 268</value>
+    <value>248, 258</value>
   </data>
   <data name="AutoGuided1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1335,7 +1335,7 @@
     <value>AutoGuided1</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6709.25909, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6709.25920, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Parent" xml:space="preserve">
     <value>TabAutoGuidedControl</value>
@@ -1347,7 +1347,7 @@
     <value>4, 25</value>
   </data>
   <data name="TabAutoGuidedControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 268</value>
+    <value>248, 258</value>
   </data>
   <data name="TabAutoGuidedControl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1374,7 +1374,7 @@
     <value>0, 0</value>
   </data>
   <data name="MaintabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 287</value>
+    <value>256, 337</value>
   </data>
   <data name="MaintabControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1407,7 +1407,7 @@
     <value>256, 581</value>
   </data>
   <data name="ActionsplitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>290</value>
+    <value>240</value>
   </data>
   <data name="ActionsplitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
