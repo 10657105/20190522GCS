@@ -1765,7 +1765,14 @@ namespace MissionPlanner
             catch
             {
             }
-
+            try
+            {
+                GCSViews.ConnectionData.threadrun = false;
+                MainUserControls.Dispose();
+            }
+            catch
+            {
+            }
             try
             {
                 if (comPort.BaseStream.IsOpen)
@@ -1786,7 +1793,7 @@ namespace MissionPlanner
             log.Info("MainV2_FormClosing done");
 
             if (MONO)
-                this.Dispose();
+                this.Dispose();         
         }
 
 
@@ -3676,5 +3683,6 @@ namespace MissionPlanner
                     CustomMessageBox.Show("thread alive");*/
             }
         }
+        
     }
 }
