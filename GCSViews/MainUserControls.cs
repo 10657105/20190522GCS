@@ -579,7 +579,8 @@ namespace MissionPlanner.GCSViews
             InitializeComponent();
             //手動加入ConnectionData的UserControl到ActionsplitContainer的Panel1
             ActionsplitContainer.Panel1.Controls.Add(ConnectionData);
-            ConnectionData.Dock = DockStyle.Fill;
+            ConnectionData.Dock = DockStyle.Top;
+            ActionsplitContainer.SplitterDistance = ConnectionData.Height-60;
             //指定WayPointControls的UserControl觸發程序為此UserControl的副程式
             WayPointControl1.coords1.SystemChanged += coords1_SystemChanged;
             WayPointControl1.chk_grid.CheckedChanged += chk_grid_CheckedChanged;

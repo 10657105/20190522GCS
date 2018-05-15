@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(220, 388);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(220, 350);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // ConnectionData
@@ -53,7 +53,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ConnectionData";
-            this.Size = new System.Drawing.Size(220, 388);
+            this.Size = new System.Drawing.Size(220, 350);
             this.ResumeLayout(false);
 
         }
