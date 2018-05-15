@@ -46,6 +46,7 @@
             this.label_armedstatus = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_latlng = new System.Windows.Forms.Label();
+            this.label_hud = new System.Windows.Forms.Label();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -137,13 +138,15 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel4.ColumnCount = 4;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4.Controls.Add(this.pictureBox1, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.label_battery, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.label_GPS, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label_hud, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 71);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -156,7 +159,7 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.satellite;
-            this.pictureBox1.Location = new System.Drawing.Point(96, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(77, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(12, 22);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -177,7 +180,7 @@
             // 
             this.label_GPS.AutoSize = true;
             this.label_GPS.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label_GPS.Location = new System.Drawing.Point(114, 0);
+            this.label_GPS.Location = new System.Drawing.Point(95, 0);
             this.label_GPS.Name = "label_GPS";
             this.label_GPS.Size = new System.Drawing.Size(23, 28);
             this.label_GPS.TabIndex = 4;
@@ -278,6 +281,18 @@
             this.label_latlng.TabIndex = 4;
             this.label_latlng.Text = "( lat , lng )";
             // 
+            // label_hud
+            // 
+            this.label_hud.AutoSize = true;
+            this.label_hud.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label_hud.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_hud.Location = new System.Drawing.Point(160, 13);
+            this.label_hud.Name = "label_hud";
+            this.label_hud.Size = new System.Drawing.Size(33, 12);
+            this.label_hud.TabIndex = 5;
+            this.label_hud.Text = "HUD";
+            this.label_hud.Click += new System.EventHandler(this.label_hud_Click);
+            // 
             // ConnectionStatus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -321,5 +336,6 @@
         private System.Windows.Forms.Label label_yaw;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label_latlng;
+        private System.Windows.Forms.Label label_hud;
     }
 }

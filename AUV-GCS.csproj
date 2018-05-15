@@ -459,6 +459,12 @@
     <Compile Include="Controls\ControlSensorsStatus.Designer.cs">
       <DependentUpon>ControlSensorsStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HUDForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\HUDForm.Designer.cs">
+      <DependentUpon>HUDForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MyDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1292,6 +1298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\DefaultSettings.pt.resx">
       <DependentUpon>DefaultSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HUDForm.resx">
+      <DependentUpon>HUDForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Loading.resx">
       <DependentUpon>Loading.cs</DependentUpon>
