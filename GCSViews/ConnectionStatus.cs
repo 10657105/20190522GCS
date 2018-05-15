@@ -100,5 +100,10 @@ namespace MissionPlanner.GCSViews
             frm.TopMost = true;
             frm.Show();            
         }
+
+        private void label_hud_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
