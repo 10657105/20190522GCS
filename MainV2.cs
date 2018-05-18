@@ -3601,11 +3601,7 @@ namespace MissionPlanner
             new ConnectionOptions().Show(this);
         }
 
-        private void AutoGuide_Click(object sender, EventArgs e)
-        {
-            FlightData.autoguideform();
-            //FlightPlanner.autoguideform();
-        }
+  
 
         private void Connection_List_button_Click(object sender, EventArgs e)
         {
@@ -3676,11 +3672,15 @@ namespace MissionPlanner
                     }
                 }
                 //);
-                GCSViews.ConnectionData.threadrun = false;
-                /*GCSViews.ConnectionData.ThreadA.Abort();
-                GCSViews.ConnectionData.ThreadA.Join();
-                if (GCSViews.ConnectionData.ThreadA.IsAlive)
-                    CustomMessageBox.Show("thread alive");*/
+                if(lines.Count()== 1 && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                {
+                    GCSViews.ConnectionData.threadrun = false;
+                }
+                if (lines.Count() > 1)
+                {
+                    GCSViews.ConnectionData.threadrun = false;
+                }
+   
             }
         }
         

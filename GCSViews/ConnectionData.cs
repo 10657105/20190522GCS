@@ -79,7 +79,7 @@ namespace MissionPlanner.GCSViews
             ConnectionStatus5.Visible = false;
 
             ThreadA = new Thread(new ThreadStart(Mainthread));
-            //ThreadA.IsBackground = true;
+            ThreadA.IsBackground = true;
             ThreadA.Start();
 
         }
@@ -91,12 +91,12 @@ namespace MissionPlanner.GCSViews
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
-                    if (MainV2.Comports[0] != null)//5770
+                    if (MainV2.Comports[0] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {
                         ConnectionStatus1.InputMAVlink = MainV2.Comports[0];                    
                     }
                     if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                    {//5780
+                    {
                         ConnectionStatus2.InputMAVlink = MainV2.Comports[1];
                         this.Invoke(new Action(delegate ()
                         {
@@ -105,7 +105,7 @@ namespace MissionPlanner.GCSViews
                     }
 
                     if (MainV2.Comports.Count > 2 && MainV2.Comports[2] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                    {//5790
+                    {
                         ConnectionStatus3.InputMAVlink = MainV2.Comports[2];
                         this.Invoke(new Action(delegate ()
                         {
@@ -113,7 +113,7 @@ namespace MissionPlanner.GCSViews
                         }));
                     }
                     if (MainV2.Comports.Count > 3 && MainV2.Comports[3] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                    {//5790
+                    {
                         ConnectionStatus4.InputMAVlink = MainV2.Comports[3];
                         this.Invoke(new Action(delegate ()
                         {
@@ -121,7 +121,7 @@ namespace MissionPlanner.GCSViews
                         }));
                     }
                     if (MainV2.Comports.Count > 4 && MainV2.Comports[4] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                    {//5790
+                    {
                         ConnectionStatus5.InputMAVlink = MainV2.Comports[4];
                         this.Invoke(new Action(delegate ()
                         {
