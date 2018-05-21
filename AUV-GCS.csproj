@@ -447,12 +447,6 @@
     <Compile Include="Antenna\Tracker.Designer.cs">
       <DependentUpon>Tracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Auto Guide\Auto_Guide.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Auto Guide\Auto_Guide.Designer.cs">
-      <DependentUpon>Auto_Guide.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ControlSensorsStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1262,9 +1256,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\Tracker.pt.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Auto Guide\Auto_Guide.resx">
-      <DependentUpon>Auto_Guide.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionOptions.ar.resx">
       <DependentUpon>ConnectionOptions.cs</DependentUpon>

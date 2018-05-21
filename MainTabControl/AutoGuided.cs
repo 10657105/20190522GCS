@@ -238,7 +238,7 @@ namespace MissionPlanner.MainTabControl
                 do
                 {
                     wpdistance = Acopter.MAV.cs.wp_dist;
-                    Thread.Sleep(450);
+                    Thread.Sleep(550);
                 } while (wpdistance >= 2);
                 if (Acopter.MAV.cs.mode == "Brake")
                     Athread = false;
@@ -279,7 +279,7 @@ namespace MissionPlanner.MainTabControl
                 do
                 {
                     wpdistance = Bcopter.MAV.cs.wp_dist;
-                    Thread.Sleep(450);
+                    Thread.Sleep(550);
                 } while (wpdistance >= 2);
                 if (Bcopter.MAV.cs.mode == "Brake")
                     Bthread = false;
@@ -321,7 +321,7 @@ namespace MissionPlanner.MainTabControl
                 do
                 {
                     wpdistance = Ccopter.MAV.cs.wp_dist;
-                    Thread.Sleep(450);
+                    Thread.Sleep(550);
                 } while (wpdistance >= 2);
                 if (Ccopter.MAV.cs.mode == "Brake")
                     Cthread = false;
@@ -363,7 +363,7 @@ namespace MissionPlanner.MainTabControl
                 do
                 {
                     wpdistance = Dcopter.MAV.cs.wp_dist;
-                    Thread.Sleep(450);
+                    Thread.Sleep(550);
                 } while (wpdistance >= 2);
                 if (Dcopter.MAV.cs.mode == "Brake")
                     Dthread = false;
@@ -404,7 +404,7 @@ namespace MissionPlanner.MainTabControl
                 do
                 {
                     wpdistance = Ecopter.MAV.cs.wp_dist;
-                    Thread.Sleep(450);
+                    Thread.Sleep(550);
                 } while (wpdistance >= 2);
                 if (Ecopter.MAV.cs.mode == "Brake")
                     Ethread = false;
