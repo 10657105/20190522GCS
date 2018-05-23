@@ -39,7 +39,7 @@ namespace MissionPlanner.GCSViews
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);  
         public static bool threadrun;
-        Auto_Guide.Auto_Guide AutoGuide;
+        
         int tickStart;
         int wpnumber;
         bool autoupdatemap=true, multiroute=false;
@@ -4560,11 +4560,6 @@ namespace MissionPlanner.GCSViews
                 GStreamer.Stop(gst);
             }
         }
-        public void autoguideform()
-        {
-            AutoGuide = new Auto_Guide.Auto_Guide();
-            AutoGuide.Show();
-        }
 
         private void UpdateMap_Button_Click(object sender, EventArgs e)
         {
@@ -4582,7 +4577,7 @@ namespace MissionPlanner.GCSViews
             Ehomeroute.Clear();
             Ewppath.Clear();
             updateClearMissionRouteMarkers();    //清除航點
-            new System.Threading.Thread(Track_Route) { IsBackground = true }.Start();
+            //new System.Threading.Thread(Track_Route) { IsBackground = true }.Start();
             FlightPlanner.Receivelist(ref Apointlist,ref Bpointlist, ref Cpointlist, ref Dpointlist, ref Epointlist);
             //addpolygonmarker("1", 149.1657972, -35.3626638, (int)10, Color.White,
             //                            polygons);
@@ -4717,7 +4712,7 @@ namespace MissionPlanner.GCSViews
                 polygons.Routes.Add(Ewppath);
             });
         }
-        private void Track_Route()
+        /*private void Track_Route()
         {
             bool thread = true;
             DateTime tracklast = DateTime.Now.AddSeconds(0);
@@ -4923,7 +4918,7 @@ namespace MissionPlanner.GCSViews
                         }
                     }*/
 
-                    if (Atrackroute.Points.Count > 0)
+                   /* if (Atrackroute.Points.Count > 0)
                     {
                         // add primary route icon
                         // draw guide mode point for only main mav
@@ -5064,7 +5059,7 @@ namespace MissionPlanner.GCSViews
                
                 Thread.Sleep(200);
             }
-        }
+        }*/
     }
  }
 
