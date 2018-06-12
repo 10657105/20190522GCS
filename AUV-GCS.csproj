@@ -4481,6 +4481,7 @@
     <None Include="Resources\autoguideicon.png" />
     <None Include="Resources\auvsplashbg.jpg" />
     <None Include="Resources\linkquality.png" />
+    <None Include="Resources\AUVLABLogo_color_white.png" />
     <Content Include="Resources\satellite.png" />
     <Content Include="Scripts\example7.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

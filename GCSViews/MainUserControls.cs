@@ -581,6 +581,9 @@ namespace MissionPlanner.GCSViews
             ActionsplitContainer.Panel1.Controls.Add(ConnectionData);
             ConnectionData.Dock = DockStyle.Top;
             ActionsplitContainer.SplitterDistance = ConnectionData.Height-60;
+            //手動指定logo圖案大小及位置
+            AUVLAB_logo_pictureBox.Location = new System.Drawing.Point((panelWaypoints.Width-165), (panelWaypoints.Height-110));
+            AUVLAB_logo_pictureBox.Size = new System.Drawing.Size(142, 106);
             //指定WayPointControls的UserControl觸發程序為此UserControl的副程式
             WayPointControl1.coords1.SystemChanged += coords1_SystemChanged;
             WayPointControl1.chk_grid.CheckedChanged += chk_grid_CheckedChanged;
