@@ -7346,6 +7346,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 cell.DataGridView.EndEdit();
 
                 updateRowNumbers();  //加入行數標籤
+                /******FlightData航點設定**********/
                 if (waypointtag)
                     addpolygonmarker((selectedrow + 1).ToString(), sourcepointlist[i + 1].Lng, sourcepointlist[i + 1].Lat,
                                     (int)sourcepointlist[i + 1].Alt, Color.White, polygons);  //FlightData的航點顯示
