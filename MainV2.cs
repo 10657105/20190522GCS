@@ -1337,7 +1337,7 @@ namespace MissionPlanner
                     return;
                 }
 
-                // get all the params
+                // get all the params //0509 取消獲得沒用參數
                 foreach (var mavstate in comPort.MAVlist)
                 {
                     comPort.sysidcurrent = mavstate.sysid;

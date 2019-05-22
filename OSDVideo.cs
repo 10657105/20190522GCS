@@ -445,6 +445,7 @@ namespace MissionPlanner
                 catch
                 {
                 }
+                Thread.Sleep(1);
             }
         }
 

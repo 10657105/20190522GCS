@@ -40,14 +40,17 @@ using Point = System.Drawing.Point;
 using System.Text.RegularExpressions;
 using MissionPlanner.Plugin;
 using PathProgram;
-
+using static System.Math;
+//using stpDfunction;
+//using MathWorks.MATLAB.NET.Arrays;
+//using MathWorks.MATLAB.NET.Utility;
 
 
 namespace MissionPlanner.GCSViews
 {
     public partial class MainUserControls : MyUserControl, IDeactivate, IActivate
     {
-       
+
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         int selectedrow;
         public bool quickadd;
@@ -78,7 +81,8 @@ namespace MissionPlanner.GCSViews
         public static List<PointLatLngAlt> Epointlist = new List<PointLatLngAlt>(); //宣告Epointlist，是DLL輸出運算後A群路徑航點清單
         public static List<PointLatLngAlt> noflypointlist = new List<PointLatLngAlt>(); //宣告noflypointlist，是給DLL的禁航區座標清單
         public GMapPolygon noflypolygon;
-       
+
+
         public GMapRoute route = new GMapRoute("wp route");
         public GMapRoute Aroute = new GMapRoute("Awp route");//A群路徑線路資料
         public GMapRoute Broute = new GMapRoute("Bwp route");//B群路徑線路資料
@@ -116,6 +120,8 @@ namespace MissionPlanner.GCSViews
         List<List<Locationwp>> history = new List<List<Locationwp>>();
 
         List<int> groupmarkers = new List<int>();
+
+        public static Thread ThreadA; //開執行緒給演算法
 
         public enum altmode
         {
@@ -580,9 +586,9 @@ namespace MissionPlanner.GCSViews
             //手動加入ConnectionData的UserControl到ActionsplitContainer的Panel1
             ActionsplitContainer.Panel1.Controls.Add(ConnectionData);
             ConnectionData.Dock = DockStyle.Top;
-            ActionsplitContainer.SplitterDistance = ConnectionData.Height-60;
+            ActionsplitContainer.SplitterDistance = ConnectionData.Height - 120;
             //手動指定logo圖案大小及位置
-            AUVLAB_logo_pictureBox.Location = new System.Drawing.Point((panelWaypoints.Width-165), (panelWaypoints.Height-110));
+            AUVLAB_logo_pictureBox.Location = new System.Drawing.Point((panelWaypoints.Width - 165), (panelWaypoints.Height - 110));
             AUVLAB_logo_pictureBox.Size = new System.Drawing.Size(142, 106);
             //指定WayPointControls的UserControl觸發程序為此UserControl的副程式
             WayPointControl1.coords1.SystemChanged += coords1_SystemChanged;
@@ -597,8 +603,8 @@ namespace MissionPlanner.GCSViews
             WayPointControl1.TXT_homelat.TextChanged += TXT_homelat_TextChanged;
             WayPointControl1.TXT_homelng.TextChanged += TXT_homelng_TextChanged;
             WayPointControl1.TXT_homealt.TextChanged += TXT_homealt_TextChanged;
-            WayPointControl1.Groupcountset.KeyDown += Groupcountset_KeyDown;
-            WayPointControl1.Path_Programming_button.Click += Path_Programming_button_Click;
+            AlgorithmControl1.Groupcountset.KeyDown += Groupcountset_KeyDown;
+            AlgorithmControl1.Path_Programming_button.Click += Path_Programming_button_Click;
 
             // config map             
             MainMap.CacheLocation = Settings.GetDataDirectory() +
@@ -1013,11 +1019,14 @@ namespace MissionPlanner.GCSViews
             }
 
             Visible = true;
-            
+
             timer1.Start();
 
             if (!multitrack)
-                new System.Threading.Thread(Singletrack) { IsBackground = true }.Start();
+            {
+                new Thread(Singletrack) { IsBackground = true }.Start(); //開單機軌跡   
+            }
+            else new Thread(MultiTrack_Route) { IsBackground = true }.Start(); //開多機軌跡
         }
 
         void POI_POIModified(object sender, EventArgs e)
@@ -1303,22 +1312,22 @@ namespace MissionPlanner.GCSViews
             // number rows 
             this.BeginInvoke((MethodInvoker)delegate
            {
-                // thread for updateing row numbers
-                for (int a = 0; a < Commands.Rows.Count - 0; a++)
+               // thread for updateing row numbers
+               for (int a = 0; a < Commands.Rows.Count - 0; a++)
                {
                    try
                    {
                        if (Commands.Rows[a].HeaderCell.Value == null)
                        {
-                            //Commands.Rows[a].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                            Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
+                           //Commands.Rows[a].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                           Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
                        }
-                        // skip rows with the correct number
-                        string rowno = Commands.Rows[a].HeaderCell.Value.ToString();
+                       // skip rows with the correct number
+                       string rowno = Commands.Rows[a].HeaderCell.Value.ToString();
                        if (!rowno.Equals((a + 1).ToString()))
                        {
-                            // this code is where the delay is when deleting.
-                            Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
+                           // this code is where the delay is when deleting.
+                           Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
                        }
                    }
                    catch (Exception)
@@ -1339,7 +1348,7 @@ namespace MissionPlanner.GCSViews
 
             // this is to share the current mission with the data tab
             pointlist = new List<PointLatLngAlt>();
-            
+
             fullpointlist.Clear();
 
             Debug.WriteLine(DateTime.Now);
@@ -1363,14 +1372,14 @@ namespace MissionPlanner.GCSViews
                         if (waypointtag)
                         {
                             polygons.Markers.Clear(); //清除舊有home點
-                            addpolygonmarker_FlightDataMode("Home", double.Parse(WayPointControl1.TXT_homelng.Text), 
+                            addpolygonmarker_FlightDataMode("Home", double.Parse(WayPointControl1.TXT_homelng.Text),
                                 double.Parse(WayPointControl1.TXT_homelat.Text), 0, null); //FlightData Home點顯示方式
 
                         }
                         if (!waypointtag)
                         {
                             polygons.Markers.Clear();//清除舊有home點
-                            addpolygonmarker("H", double.Parse(WayPointControl1.TXT_homelng.Text), 
+                            addpolygonmarker("H", double.Parse(WayPointControl1.TXT_homelng.Text),
                                 double.Parse(WayPointControl1.TXT_homelat.Text), 0, null); //FlightPlanner Home點顯示方式
                         }
                     }
@@ -1502,7 +1511,7 @@ namespace MissionPlanner.GCSViews
                                         double.Parse(cell2), null);   //FlightPlanner的航點顯示模式
                                 }
                                 if (waypointtag)
-                                { 
+                                {
                                     addpolygonmarker_FlightDataMode((a + 1).ToString(), double.Parse(cell4), double.Parse(cell3),
                                        double.Parse(cell2), null);   //FlightData的航點顯示模式
                                 }
@@ -2275,7 +2284,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-         List<Locationwp> GetCommandList()
+        List<Locationwp> GetCommandList()
         {
             List<Locationwp> commands = new List<Locationwp>();
 
@@ -2946,7 +2955,7 @@ namespace MissionPlanner.GCSViews
                 fd.Filter = "All Supported Types|*.txt;*.waypoints;*.shp;*.plan";
                 DialogResult result = fd.ShowDialog();
                 string file = fd.FileName;
-                
+
                 if (File.Exists(file))
                 {
                     if (file.ToLower().EndsWith(".shp"))
@@ -3727,7 +3736,7 @@ namespace MissionPlanner.GCSViews
             //draging
             if (e.Button == MouseButtons.Left && isMouseDown)
             {
-               
+
                 isMouseDraging = true;
                 if (CurrentRallyPt != null)
                 {
@@ -3974,7 +3983,7 @@ namespace MissionPlanner.GCSViews
                 MainMap.ZoomAndCenterMarkers(null);
             }
             trackBar1.Value = (int)MainMap.Zoom;
-            
+
         }
 
         // ensure focus on map, trackbar can have it too
@@ -4638,12 +4647,12 @@ namespace MissionPlanner.GCSViews
                 if (autopan)
                 {
                     if (route.Points[route.Points.Count - 1].Lat != 0 && (mapupdate.AddSeconds(3) < DateTime.Now))
-                    {                       
+                    {
                         PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
                         updateMapPosition(currentloc);
                         mapupdate = DateTime.Now;
                     }
-                }     
+                }
             }
             catch (Exception ex)
             {
@@ -7187,7 +7196,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         /****路徑規劃功能****/
         public void Path_Programming_button_Click(object sender, EventArgs e)
         {
-            int groupset = 0;  //設定群數變數 
+            ThreadA = new Thread(new ThreadStart(Path_Programming_button_Click_Start));
+            ThreadA.IsBackground = true;
+            ThreadA.Start();
+            AlgorithmControl1.Path_Programming_button.Enabled = false;//0508 防止按鈕重複點擊
+        }
+
+        public void Path_Programming_button_Click_Start()
+        {
+            int groupset = 0;  //設定群數變數             
+
             double distance = 0, totaldistance = 0;  // distance 是用來回傳單群航程距離的變數，totaldistance 是拿來計算總航程的變數
             Allpointlist.Clear();  //清除Allpointlist，Allpointlist是要給演算法dll的航點資料清單
             Apointlist.Clear();    //清除A群路徑資料清單
@@ -7206,6 +7224,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Dhomeroute.Clear();  //清除D路徑虛線圖層
             Eroute.Clear();      //清除E路徑路線圖層
             Ehomeroute.Clear();  //清除E路徑虛線圖層
+            AutoGuided1.WP_radius = float.Parse(TXT_WPRad.Text);
             Allpointlist.Add(new PointLatLngAlt(double.Parse(WayPointControl1.TXT_homelat.Text.ToString()), double.Parse(WayPointControl1.TXT_homelng.Text.ToString()), 0));  //將home點座標存入list
             for (int i = 0; i < Commands.RowCount; i++)//將waypoint點座標存入list
             {
@@ -7215,145 +7234,304 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             for (int j = 0; j < drawnpolygon.Points.Count; j++)//將禁航區座標存入noflypointlist
                 noflypointlist.Add(new PointLatLngAlt(drawnpolygon.Points[j].Lat, drawnpolygon.Points[j].Lng, 0));
-            if (WayPointControl1.Groupcountset.Text == string.Empty)   //如果未輸入欲分群數量跳出提示，並以預設值"1"做運算
+            ///////////////////
+            if (AlgorithmControl1.Groupcountset.Text == string.Empty)   //如果未輸入欲分群數量跳出提示，並以預設值"1"做運算
             {
                 CustomMessageBox.Show("Please input group number or default single group !");
                 groupset = 1;
             }
             else  //若有輸入分群數量則轉換變數存入groupset
-
             {
-                groupset = int.Parse(WayPointControl1.Groupcountset.Text);  //將輸入群數轉成int
+                groupset = int.Parse(AlgorithmControl1.Groupcountset.Text);  //將輸入群數轉成int
             }
+
+            if (AlgorithmControl1.TimeSetA.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
+            {
+                CustomMessageBox.Show("Please input time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_a = 2; // m/s
+                AutoGuided1.alg_speed_b = 2;
+                AutoGuided1.alg_speed_c = 2;
+                AutoGuided1.alg_speed_d = 2;
+                AutoGuided1.alg_speed_e = 2;
+            }
+            else  //若有輸入時間則轉換變數存入timeset
+            {
+                AutoGuided1.timeset = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
+            }
+            /////////////////
             PathProgramming pathProgrammingdll = new PathProgramming();
-            pathProgrammingdll.math(groupset, Allpointlist, noflypointlist, ref Apointlist, ref Bpointlist, ref Cpointlist,ref Dpointlist,ref Epointlist);
-            Commands.Rows.Clear();  //清除DataGridView所有欄位
-            writeKML(); //刷新地圖
-            if (Apointlist.Count!=0)  //若A群清單有航點
-            {
-                WP_Marker_Route_function(Apointlist, "A",out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Apointlist及群組A做建航點、畫路徑及新增DataGridView資料，並回傳A群路徑長度
-                WayPointControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false); //A群路徑長度以KM為單位做表示
-                WayPointControl1.lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
-                totaldistance += distance;  //總航程距離加上A群路徑長度
-                
-            }
-            else if (Apointlist.Count == 0)  //若A群清單無航點
-            {
-                WayPointControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text"); //清除A群路徑長度顯示資料
-                WayPointControl1.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText; //A群路徑長度顯示為黑色
-            }
+            if (Allpointlist.Count > 1) //確保有航點
+                pathProgrammingdll.math(CHK_RouteBalance.Checked, groupset, Allpointlist, noflypointlist, ref Apointlist, ref Bpointlist, ref Cpointlist, ref Dpointlist, ref Epointlist);
+            else
+                CustomMessageBox.Show("no waypiont !");
 
-            if (Bpointlist.Count != 0)  //若B群清單有航點
+            this.Invoke(new Action(delegate () //跨執行緒
             {
-                WP_Marker_Route_function(Bpointlist, "B", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Bpointlist及群組B做建航點、畫路徑及新增DataGridView資料，並回傳B群路徑長度
-                WayPointControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false);  //B群路徑長度以KM為單位做表示
-                WayPointControl1.lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
-                totaldistance += distance;  //總航程距離加上B群路徑長度
-            }
-            else if (Bpointlist.Count == 0)  //若B群清單無航點
-            {
-                WayPointControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text");  //清除B群路徑長度顯示資料
-                WayPointControl1.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;  //B群路徑長度顯示為黑色
-            }
+                Commands.Rows.Clear();  //清除DataGridView所有欄位           
+                writeKML(); //刷新地圖
 
-            if (Cpointlist.Count != 0)  //若C群清單有航點
-            {
-                WP_Marker_Route_function(Cpointlist, "C", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Cpointlist及群組C做建航點、畫路徑及新增DataGridView資料，並回傳C群路徑長度
-                WayPointControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false);  //C群路徑長度以KM為單位做表示
-                WayPointControl1.lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
-                totaldistance += distance;  //總航程距離加上C群路徑長度
-            }
-            else if (Cpointlist.Count == 0)  //若C群清單無航點
-            {
-                WayPointControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text");  //清除C群路徑長度顯示資料
-                WayPointControl1.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;  //C群路徑長度顯示為黑色
-            }
+                if (Apointlist.Count != 0)  //若A群清單有航點
+                {
+                    WP_Marker_Route_function(Apointlist, "A", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Apointlist及群組A做建航點、畫路徑及新增DataGridView資料，並回傳A群路徑長度                                                         
+                    AlgorithmControl1.lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
+                    totaldistance += distance;  //總航程距離加上A群路徑長度
+                    AutoGuided1.alg_speed_a = v_function(((distance * 1000) / AutoGuided1.timeset), (Apointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
+                    //呼叫v_function 代入v,p,D,st //distance*1000轉公尺
+                    AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false)
+                                                         + " " + AutoGuided1.alg_speed_a.ToString("f6") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
+                }
+                else if (Apointlist.Count == 0)  //若A群清單無航點
+                {
+                    AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text"); //清除A群路徑長度顯示資料
+                    AlgorithmControl1.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText; //A群路徑長度顯示為黑色
+                }
 
-            if (Dpointlist.Count != 0)  //若D群清單有航點
-            {
-                WP_Marker_Route_function(Dpointlist, "D", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Dpointlist及群組D做建航點、畫路徑及新增DataGridView資料，並回傳群D路徑長度
-                WayPointControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false);  //D群路徑長度以KM為單位做表示
-                WayPointControl1.lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
-                totaldistance += distance;  //總航程距離加上D群路徑長度
-            }
-            else if (Dpointlist.Count == 0)  //若D群清單無航點
-            {
-                WayPointControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text");  //清除D群路徑長度顯示資料
-                WayPointControl1.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;  //D群路徑長度顯示為黑色
-            }
+                if (Bpointlist.Count != 0)  //若B群清單有航點
+                {
+                    WP_Marker_Route_function(Bpointlist, "B", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Bpointlist及群組B做建航點、畫路徑及新增DataGridView資料，並回傳B群路徑長度
+                    AlgorithmControl1.lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
+                    totaldistance += distance;  //總航程距離加上B群路徑長度
+                    //AutoGuided1.alg_speed_b = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AutoGuided1.alg_speed_b = v_function(((distance * 1000) / AutoGuided1.timeset), (Bpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
+                    AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false)
+                                                          + " " + AutoGuided1.alg_speed_b.ToString("f6") + "m/s";  //B群路徑長度以KM為單位做表示
+                }
+                else if (Bpointlist.Count == 0)  //若B群清單無航點
+                {
+                    AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text");  //清除B群路徑長度顯示資料
+                    AlgorithmControl1.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;  //B群路徑長度顯示為黑色
+                }
 
-            if (Epointlist.Count != 0)  //若E群清單有航點
-            {
-                WP_Marker_Route_function(Epointlist, "E", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Epointlist及群組E做建航點、畫路徑及新增DataGridView資料，並回傳群E路徑長度
-                WayPointControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false);  //E群路徑長度以KM為單位做表示
-                WayPointControl1.lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
-                totaldistance += distance;  //總航程距離加上E群路徑長度
-            }
-            else if (Epointlist.Count == 0)  //若E群清單無航點
-            {
-                WayPointControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text");  //清除E群路徑長度顯示資料
-                WayPointControl1.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;  //E群路徑長度顯示為黑色
-            }
+                if (Cpointlist.Count != 0)  //若C群清單有航點
+                {
+                    WP_Marker_Route_function(Cpointlist, "C", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Cpointlist及群組C做建航點、畫路徑及新增DataGridView資料，並回傳C群路徑長度
+                    AlgorithmControl1.lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
+                    totaldistance += distance;  //總航程距離加上C群路徑長度
+                    AutoGuided1.alg_speed_c = v_function(((distance * 1000) / AutoGuided1.timeset), (Cpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
+                    //AutoGuided1.alg_speed_c = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false)
+                                                         + " " + AutoGuided1.alg_speed_c.ToString("f6") + "m/s";  //C群路徑長度以KM為單位做表示
+                }
+                else if (Cpointlist.Count == 0)  //若C群清單無航點
+                {
+                    AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text");  //清除C群路徑長度顯示資料
+                    AlgorithmControl1.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;  //C群路徑長度顯示為黑色
+                }
 
-            //addpolygonmarker("Home", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, Color.White, polygons);
-            lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(totaldistance, false);  //總航程距離以KM為單位表示
+                if (Dpointlist.Count != 0)  //若D群清單有航點
+                {
+                    WP_Marker_Route_function(Dpointlist, "D", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Dpointlist及群組D做建航點、畫路徑及新增DataGridView資料，並回傳群D路徑長度
+                    AlgorithmControl1.lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
+                    totaldistance += distance;  //總航程距離加上D群路徑長度
+                    AutoGuided1.alg_speed_d = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false)
+                                                         + " " + AutoGuided1.alg_speed_d.ToString("f2") + "m/s";  //D群路徑長度以KM為單位做表示
+                }
+                else if (Dpointlist.Count == 0)  //若D群清單無航點
+                {
+                    AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text");  //清除D群路徑長度顯示資料
+                    AlgorithmControl1.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;  //D群路徑長度顯示為黑色
+                }
 
-            /***參考4780行程式內容在FlightData畫geofence圖層代表禁航區***/
-            noflypolygon.Points.Clear();
-            noflypolygon.Points.AddRange(drawnpolygon.Points.ToArray());
-            //geofenceoverlay.Polygons.Add(geofencepolygon);   //在FlightPlanner下畫geofence圖層
+                if (Epointlist.Count != 0)  //若E群清單有航點
+                {
+                    WP_Marker_Route_function(Epointlist, "E", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Epointlist及群組E做建航點、畫路徑及新增DataGridView資料，並回傳群E路徑長度
 
-            // update flightdata
-            FlightData.geofence.Markers.Clear();
-            FlightData.geofence.Polygons.Clear();
-            FlightData.geofence.Polygons.Add(new GMapPolygon(noflypolygon.Points, "gf fd")
-            {
-                Stroke = noflypolygon.Stroke,
-                //Fill = Brushes.Transparent  //區域內填滿透明
-            });
+                    AlgorithmControl1.lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
+                    totaldistance += distance;  //總航程距離加上E群路徑長度
+                    AutoGuided1.alg_speed_e = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false)
+                                                         + " " + AutoGuided1.alg_speed_e.ToString("f2") + "m/s";  //E群路徑長度以KM為單位做表示
+                }
+                else if (Epointlist.Count == 0)  //若E群清單無航點
+                {
+                    AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text");  //清除E群路徑長度顯示資料
+                    AlgorithmControl1.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;  //E群路徑長度顯示為黑色
+                }
+
+
+                //addpolygonmarker("Home", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, Color.White, polygons);
+                lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(totaldistance, false);  //總航程距離以KM為單位表示
+
+                /***參考4780行程式內容在FlightData畫geofence圖層代表禁航區***/
+                noflypolygon.Points.Clear();
+                noflypolygon.Points.AddRange(drawnpolygon.Points.ToArray());
+                //geofenceoverlay.Polygons.Add(geofencepolygon);   //在FlightPlanner下畫geofence圖層
+
+                // update flightdata
+                FlightData.geofence.Markers.Clear();
+                FlightData.geofence.Polygons.Clear();
+                FlightData.geofence.Polygons.Add(new GMapPolygon(noflypolygon.Points, "gf fd")
+                {
+                    Stroke = noflypolygon.Stroke,
+                    //Fill = Brushes.Transparent  //區域內填滿透明
+                });
+
+                AlgorithmControl1.Path_Programming_button.Enabled = true; //0508 防止按鈕重複點擊
+
+            }));//跨執行緒_尾
+
             pathprogram = true; // 已使用路徑規劃功能，用於航點顯示模式先換
+
+            if (AlgorithmControl1.TimeSetA.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
+            {
+                AutoGuided1.alg_speed_a = 2; // m/s 
+                AutoGuided1.alg_speed_b = 2;
+                AutoGuided1.alg_speed_c = 2;
+                AutoGuided1.alg_speed_d = 2;
+                AutoGuided1.alg_speed_e = 2;
+            }
+            else if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_c > 5
+                    || AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值" ||
+                    AutoGuided1.alg_speed_b.ToString() == "非數值" || AutoGuided1.alg_speed_c.ToString() == "非數值" || 
+                    AutoGuided1.alg_speed_d.ToString() == "非數值" || AutoGuided1.alg_speed_e.ToString() == "非數值")
+                 {
+                    CustomMessageBox.Show("Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                    AutoGuided1.alg_speed_a = 2; // m/s
+                    AutoGuided1.alg_speed_b = 2;
+                    AutoGuided1.alg_speed_c = 2;
+                    AutoGuided1.alg_speed_d = 2;
+                    AutoGuided1.alg_speed_e = 2;
+                 }
+
+            Thread.Sleep(1);            
         }
+        static private double v_function(double v, double sol_p, double sol_D, double sol_st) //newton's method 
+        {
+            double v0 = 2.5;
+            double v1 = 2.5;
+            int i = 0;
+            do
+            {
+                if (v_function_dErr(v1, sol_p, sol_D, sol_st) == 0)
+                {
+                    v0 = v0 + 1;
+                }
+                else if (v1.ToString() == "infinity")
+                {
+                    v0 = v0 - 1;
+                }
+                else if (v1.ToString() == "-infinity")
+                {
+                    v0 = v0 + 1;
+                }
+                else if (v1 == 0)
+                {
+                    v0 = v0 + 0.001;
+                }
+                else
+                {
+                    v0 = v1;
+                }
+                v1 = v0 - v_function_Err(v0, sol_p, sol_D, sol_st) / v_function_dErr(v0, sol_p, sol_D, sol_st);
+                i++;
+            } while (!(Abs(v1 - v0) < 0.00000000000001) && !(i > 500));
+            //while (v_function_sp(v0, sol_p, sol_D, sol_st) != 0);
+                //while ((Abs(v1 - v0) < 0.1) || (v < v1) || (v1 > 0)) ;
+                return v1;
+        }
+        static private double v_function_Err(double sol_s, double sol_p, double sol_D, double sol_st) // function
+        {
+            /*double[] b = new double[] {1, -1559.75450730857, -7.32753442650786, 0.144302835132816, 4.71227930726356, -0.0129336844344871, 1.45060041610731e-05,
+                0.195127465118005, -0.00303228625045557, 5.96094369026959e-06, 0, -8174.21388648437, -50151.5798025555, 0, -140.855545506084, 48.9488688895561,
+                -11.3580183426722, 1.65703345864047, -0.137269980156225, 0.00476212742385153, 186.459193888211, -4501.84829936796, 10115.0146981395, -6744.42272092180,
+                -1988.96738236563, 10738.1198492515, 170.390143693786, 320.544056593094, -435.696040742248, -51435.9613567817, 1928.79296270657, -0.000116798884993713,
+                1287.81675408063, -0.659739151820360 };*/
+            double[] b = new double[] {1,-1203.21776542390, -8.64317946074717, 0.145626350420806, 4.78320585244601, -0.0125648096233831, 1.24478796114948e-05,
+                -1.42631091028599, -0.000772244564204960, 5.11506212417674e-06, 0, -7463.55747722132, -20921.2472660713, 0, -587.116306646614, 248.659346293098, 
+                -67.0206746429631, 10.7273195231281, -0.926343693305173, 0.0329613582764334, 1041.55350737143, -4534.18257800930, 8152.39186944946, -4718.63631063409, 
+                -4305.28048156120, 3104.03481665004, 106.988062359265, 82.0515745390620, -197.002532863788, 6161.55501096566, 4092.91938266108, -0.000398210946607812,
+                1270.38203034113, 0.175376815159694 };
+
+            double sol_d = sol_p / sol_D;
+            //double sp = b[1] + b[2] * sol_p + b[3] * Pow(sol_p, 2) + b[4] * Pow(sol_p, 3) + b[5] * sol_D + b[6] * Pow(sol_D, 2) + b[7] * Pow(sol_D, 3)
+            //      + b[8] * sol_st + b[9] * Pow(sol_st, 2) + b[10] * Pow(sol_st, 3) + b[11] * (sol_p / sol_D) + b[12] * Pow((sol_p / sol_D), 2)
+            //      + b[13] * Pow((sol_p / sol_D), 3) + b[14] * v0 + b[15] * Pow(v0, 2) + b[16] * Pow(v0, 3) + b[17] * 1 / (1 - v0) + b[18] * Pow((1/(v0+1)), 2)
+            //      + b[19] * (sol_p / sol_st) + b[20] * Pow((sol_p / sol_st), 2) + b[21] * v0 * (sol_p / sol_D) * Exp(1 / sol_p) + b[22] * v0 * Pow((sol_p / sol_D + 1), 2)
+            //      + b[23] * (sol_p / sol_D) * Pow(v0, 2) + b[24] * v0 * Pow((sol_p / sol_D), 3) + b[25] * Pow(v0, 3) * Pow((sol_p / sol_D), 2);
+            //double sp = Pow(v0, 2) + 2 * v0 +1;
+            double Err = b[1] + b[2] * sol_p + b[3] * Pow(sol_p, 2)
+                      + b[4] * sol_D + b[5] * Pow(sol_D, 2) + b[6] * Pow(sol_D, 3) + b[7] * sol_st + b[8] * Pow(sol_st, 2) + b[9] * Pow(sol_st, 3)
+                      + b[10] * sol_d + b[11] * Pow(sol_d, 2) + b[12] * Pow(sol_d, 3) + b[13] * Pow(sol_d, 4)
+                      + b[14] * sol_s + b[15] * Pow(sol_s, 2) + b[16] * Pow(sol_s, 3) + b[17] * Pow(sol_s, 4) + b[18] * Pow(sol_s, 5) + b[19] * Pow(sol_s, 6)
+                      + b[20] * sol_p / sol_st + b[21] * Pow((sol_p / sol_st), 2) + b[22] * Pow((sol_p / sol_st), 3) + b[23] * Pow((sol_p / sol_st), 4)
+                      + b[24] * sol_s * sol_d + b[25] * sol_s * Pow(sol_d, 2) + b[26] * sol_d * Pow(sol_s, 2)
+                      + b[27] * Pow(sol_s, 4) * Pow(sol_d, 3) + b[28] * Pow(sol_s, 3) * Pow(sol_d, 2) + b[29] * Pow(sol_d, 4) * Pow((sol_s + 1), 2)
+                      + b[30] * sol_s * sol_d * Exp(1 / sol_p) + b[31] * sol_st * Exp(sol_s) + b[32] * Exp(sol_d) + b[33] * sol_st * sol_s;
+
+            return Err;
+        }
+        static private double v_function_dErr(double sol_s, double sol_p, double sol_D, double sol_st) // differential
+        {
+            /*double[] b = new double[] {1, -1559.75450730857, -7.32753442650786, 0.144302835132816, 4.71227930726356, -0.0129336844344871, 1.45060041610731e-05,
+                0.195127465118005, -0.00303228625045557, 5.96094369026959e-06, 0, -8174.21388648437, -50151.5798025555, 0, -140.855545506084, 48.9488688895561,
+                -11.3580183426722, 1.65703345864047, -0.137269980156225, 0.00476212742385153, 186.459193888211, -4501.84829936796, 10115.0146981395, -6744.42272092180,
+                -1988.96738236563, 10738.1198492515, 170.390143693786, 320.544056593094, -435.696040742248, -51435.9613567817, 1928.79296270657, -0.000116798884993713,
+                1287.81675408063, -0.659739151820360};*/
+            double[] b = new double[] {1,-1203.21776542390, -8.64317946074717, 0.145626350420806, 4.78320585244601, -0.0125648096233831, 1.24478796114948e-05,
+                -1.42631091028599, -0.000772244564204960, 5.11506212417674e-06, 0, -7463.55747722132, -20921.2472660713, 0, -587.116306646614, 248.659346293098,
+                -67.0206746429631, 10.7273195231281, -0.926343693305173, 0.0329613582764334, 1041.55350737143, -4534.18257800930, 8152.39186944946, -4718.63631063409,
+                -4305.28048156120, 3104.03481665004, 106.988062359265, 82.0515745390620, -197.002532863788, 6161.55501096566, 4092.91938266108, -0.000398210946607812,
+                1270.38203034113, 0.175376815159694 };
+            double sol_d = sol_p / sol_D;
+            //double dsp = b[14] - b[15] * (5 * Pow(v0, 4) + 4 * Pow(v0, 3) - 3 * Pow(v0, 2) - 2 * v0) - b[16] * (6 * Pow(v0, 5) + 5 * Pow(v0, 4) - 4 * Pow(v0, 3) - 3 * Pow(v0, 2)) + b[17] * (2 * v0 + 2) - b[18]
+            //- b[21] * (4 * Pow(v0, 3) + 3 * Pow(v0, 2) - 2 * v0 - 1) * (sol_p / sol_D) * Exp(1 / sol_p) - b[22] * (4 * Pow(v0, 3) + 3 * Pow(v0, 2) - 2 * v0 - 1) * Pow((sol_p / sol_D + 1), 2)
+            //- b[23] * (5 * Pow(v0, 4) + 4 * Pow(v0, 3) - 3 * Pow(v0, 2) - 2 * v0) * (sol_p / sol_D) - b[24] * (4 * Pow(v0, 3) + 3 * Pow(v0, 2) - 2 * v0 - 1) * Pow((sol_p / sol_D), 3)
+            //- b[25] * (6 * Pow(v0, 5) + 5 * Pow(v0, 4) - 4 * Pow(v0, 3) - 3 * Pow(v0, 2)) * Pow((sol_p / sol_D), 2);
+            //double dsp = 2*v0 +2 ;
+            double dErr = b[14] + b[15] * 2* sol_s + b[16] * 3* Pow(sol_s, 2) + b[17] * 4* Pow(sol_s, 3) + b[18] * 5* Pow(sol_s, 4) + b[19] * 6* Pow(sol_s, 5)
+                      + b[24] * sol_d + b[25] * Pow(sol_d, 2) + b[26] * sol_d * 2*sol_s
+                      + b[27] * 4*Pow(sol_s, 3) * Pow(sol_d, 3) + b[28] * 3*Pow(sol_s, 2) * Pow(sol_d, 2) + b[29] * Pow(sol_d, 4) * (2*sol_s+2)
+                      + b[30] * sol_d * Exp(1 / sol_p) + b[31] * sol_st * Exp(sol_s) + b[33] * sol_st;
+            return dErr;
+        }
+
+
+
 
         /****建立航點、畫航線、新增DataGridView資料 副程式****/
         private void WP_Marker_Route_function(List<PointLatLngAlt> sourcepointlist,string group,out double distance)
-        {
-            for (int i = 0; i < sourcepointlist.Count - 2; i++) //代入之來源清單開頭與結尾都為Home點因此該群路徑航點總數需減掉2筆資料，剩餘數量為該群路徑航點總數
-                                                                //來源清單資料內容範例 [home,1,2,3,4,......,home]
             {
+            this.Invoke(new Action(delegate ()//跨執行緒
+            {
+                for (int i = 0; i < sourcepointlist.Count - 2; i++) //代入之來源清單開頭與結尾都為Home點因此該群路徑航點總數需減掉2筆資料，剩餘數量為該群路徑航點總數
+                                                                    //來源清單資料內容範例 [home,1,2,3,4,......,home]
+                {
+                    selectedrow = Commands.Rows.Add();  //新增DataGridView 資料列             
+                    DataGridViewTextBoxCell cell;
+                    if (Commands.Columns[Lat.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][4] /*"Lat"*/))
+                    {
+                        cell = Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
+                        cell.Value = sourcepointlist[i + 1].Lat.ToString();   //將來源清單Lat資料新增至DataGridView Lat欄位，list[0] 為 home 點所以需加1才會是第一個航點 
+                        cell.DataGridView.EndEdit();
+                    }
+                    if (Commands.Columns[Lon.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][5] /*"Long"*/))
+                    {
+                        cell = Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
+                        cell.Value = sourcepointlist[i + 1].Lng.ToString();    //將來源清單Lng資料新增至DataGridView Lon欄位，list[0] 為 home 點所以需加1才會是第一個航點
+                        cell.DataGridView.EndEdit();
+                    }
+                    if (Commands.Columns[Alt.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][6] /*"Alt"*/))
+                    {
+                        cell = Commands.Rows[selectedrow].Cells[Alt.Index] as DataGridViewTextBoxCell;
+                        cell.Value = sourcepointlist[i + 1].Alt.ToString();    //將來源清單Alt資料新增至DataGridView Alt欄位，list[0] 為 home 點所以需加1才會是第一個航點
+                        cell.DataGridView.EndEdit();
+                    }
+                    cell = Commands.Rows[selectedrow].Cells[Group.Index] as DataGridViewTextBoxCell;/*Group*/
+                    cell.Value = group;   //將群組分類依照來源新增至 "group" 欄位，內容為 "A"、"B"、"C"、"D"、"E"
+                    cell.DataGridView.EndEdit();
 
-                selectedrow = Commands.Rows.Add();  //新增DataGridView 資料列
-                DataGridViewTextBoxCell cell;
-                if (Commands.Columns[Lat.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][4] /*"Lat"*/))
-                {
-                    cell = Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
-                    cell.Value = sourcepointlist[i + 1].Lat.ToString();   //將來源清單Lat資料新增至DataGridView Lat欄位，list[0] 為 home 點所以需加1才會是第一個航點 
-                    cell.DataGridView.EndEdit();
+                    updateRowNumbers();  //加入行數標籤
+                                         /******FlightData航點設定**********/
+                    if (waypointtag)
+                        addpolygonmarker((selectedrow + 1).ToString(), sourcepointlist[i + 1].Lng, sourcepointlist[i + 1].Lat,
+                                        (int)sourcepointlist[i + 1].Alt, Color.White, polygons);  //FlightData的航點顯示
+                    if (!waypointtag)
+                        addpolygonmarker((selectedrow + 1).ToString(), sourcepointlist[i + 1].Lng, sourcepointlist[i + 1].Lat,
+                                            sourcepointlist[i + 1].Alt, null);  //建立標記點(marker)，最後一欄為marker下方圓圈顏色 Color.Green 或null=白色          
                 }
-                if (Commands.Columns[Lon.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][5] /*"Long"*/))
-                {
-                    cell = Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
-                    cell.Value = sourcepointlist[i + 1].Lng.ToString();    //將來源清單Lng資料新增至DataGridView Lon欄位，list[0] 為 home 點所以需加1才會是第一個航點
-                    cell.DataGridView.EndEdit();
-                }
-                if (Commands.Columns[Alt.Index].HeaderText.Equals(cmdParamNames["WAYPOINT"][6] /*"Alt"*/))
-                {
-                    cell = Commands.Rows[selectedrow].Cells[Alt.Index] as DataGridViewTextBoxCell;
-                    cell.Value = sourcepointlist[i + 1].Alt.ToString();    //將來源清單Alt資料新增至DataGridView Alt欄位，list[0] 為 home 點所以需加1才會是第一個航點
-                    cell.DataGridView.EndEdit();
-                }
-                cell = Commands.Rows[selectedrow].Cells[Group.Index] as DataGridViewTextBoxCell;/*Group*/
-                cell.Value = group;   //將群組分類依照來源新增至 "group" 欄位，內容為 "A"、"B"、"C"、"D"、"E"
-                cell.DataGridView.EndEdit();
-
-                updateRowNumbers();  //加入行數標籤
-                /******FlightData航點設定**********/
-                if (waypointtag)
-                    addpolygonmarker((selectedrow + 1).ToString(), sourcepointlist[i + 1].Lng, sourcepointlist[i + 1].Lat,
-                                    (int)sourcepointlist[i + 1].Alt, Color.White, polygons);  //FlightData的航點顯示
-                if (!waypointtag)
-                    addpolygonmarker((selectedrow + 1).ToString(), sourcepointlist[i + 1].Lng, sourcepointlist[i + 1].Lat,
-                                        sourcepointlist[i + 1].Alt, null);  //建立標記點(marker)，最後一欄為marker下方圓圈顏色 Color.Green 或null=白色          
-            }
+            }));
+           
             
                 /* MP spline (圓弧畫線方式，此部分未在路徑規劃功能內用上*/
                 PointLatLngAlt lastpnt = fullpointlist[0];
@@ -7379,21 +7557,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         if (splinepnts.Count > 0)
                         {
                             List<PointLatLng> list = new List<PointLatLng>();
-
                             splinepnts.Add(sourcepointlist[a]);
-
                             Spline2 sp = new Spline2();
-
                             //sp._flags.segment_type = MissionPlanner.Controls.Waypoints.Spline2.SegmentType.SEGMENT_STRAIGHT;
                             //sp._flags.reached_destination = true;
                             //sp._origin = sp.pv_location_to_vector(lastpnt);
                             //sp._destination = sp.pv_location_to_vector(fullpointlist[0]);
-
                             // sp._spline_origin_vel = sp.pv_location_to_vector(lastpnt) - sp.pv_location_to_vector(lastnonspline);
-
                             sp.set_wp_origin_and_destination(sp.pv_location_to_vector(lastpnt2),
                                 sp.pv_location_to_vector(lastpnt));
-
                             sp._flags.reached_destination = true;
 
                             for (int no = 1; no < (splinepnts.Count - 1); no++)
@@ -7419,40 +7591,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                     // Console.WriteLine(sp.pv_vector_to_location(sp.target_pos).ToString());
                                     list.Add(sp.pv_vector_to_location(sp.target_pos));
                                 }
-
                                 list.Add(splinepnts[no]);
                             }
-
                             list.ForEach(x => { wproute.Add(x); });
-
-
                             splinepnts.Clear();
-
                             /*
                             MissionPlanner.Controls.Waypoints.Spline sp = new Controls.Waypoints.Spline();
-
                             var spline = sp.doit(splinepnts, 20, lastlastpnt.GetBearing(splinepnts[0]),false);
-
-
                              */
-
                             lastnonspline = sourcepointlist[a];
                         }
-
                         wproute.Add(sourcepointlist[a]);
-
                         lastpnt2 = lastpnt;
                         lastpnt = sourcepointlist[a];
                     }
                 }
                 /*
-
                List<PointLatLng> list = new List<PointLatLng>();
                fullpointlist.ForEach(x => { list.Add(x); });
                route.Points.AddRange(list);
                */
-                // route is full need to get 1, 2 and last point as "HOME" route
 
+                // route is full need to get 1, 2 and last point as "HOME" route
                 int count = wproute.Count;
                 int counter = 0;
                 PointLatLngAlt homepoint = new PointLatLngAlt();
@@ -7533,9 +7693,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     polygonsoverlay.Routes.Add(Ahomeroute);  //畫A群home虛線
                     Aroute.Stroke = new Pen(Color.Yellow, 4);  //設置A群路線為黃色，粗度為4
                     Aroute.Stroke.DashStyle = DashStyle.Custom;  //設置A群路線為實線
-                    polygonsoverlay.Routes.Add(Aroute);  //畫A群路線
-
- 
+                    polygonsoverlay.Routes.Add(Aroute);  //畫A群路線 
 
                     Bhomeroute.Stroke = new Pen(Color.Red, 2); //設置B群home路線為紅色，粗度為2
                                                                // if we have a large distance between home and the first/last point, it hangs on the draw of a the dashed line.
@@ -7546,7 +7704,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     Broute.Stroke.DashStyle = DashStyle.Custom;   // 設置B群路線為實線
                     polygonsoverlay.Routes.Add(Broute);  //畫B群路線
 
-
                     Chomeroute.Stroke = new Pen(Color.Cyan, 2); //設置C群home路線為亮藍色，粗度為2
                     // if we have a large distance between home and the first/last point, it hangs on the draw of a the dashed line.
                     if (homepoint.GetDistance(lastpoint) < 5000 && homepoint.GetDistance(firstpoint) < 5000)
@@ -7555,7 +7712,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     Croute.Stroke = new Pen(Color.Cyan, 4);  //設置C群路線為亮藍色，粗度為4
                     Croute.Stroke.DashStyle = DashStyle.Custom;  // 設置C群路線為實線
                     polygonsoverlay.Routes.Add(Croute);  //畫C群路線
-
 
                     Dhomeroute.Stroke = new Pen(Color.Tomato, 2); //設置D群home路線為橘色，粗度為2
                     // if we have a large distance between home and the first/last point, it hangs on the draw of a the dashed line.
@@ -7566,7 +7722,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     Droute.Stroke.DashStyle = DashStyle.Custom;  //設置D群路線為實線
                     polygonsoverlay.Routes.Add(Droute);  //畫D群路線
 
-
                     Ehomeroute.Stroke = new Pen(Color.DeepPink, 2); //設置E群home路線為粉紅色，粗度為2
                     // if we have a large distance between home and the first/last point, it hangs on the draw of a the dashed line.
                     if (homepoint.GetDistance(lastpoint) < 5000 && homepoint.GetDistance(firstpoint) < 5000)
@@ -7575,7 +7730,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     Eroute.Stroke = new Pen(Color.DeepPink, 4);  //設置E群路線為粉紅色，粗度為4
                     Eroute.Stroke.DashStyle = DashStyle.Custom;  //設置E群路線為實線
                     polygonsoverlay.Routes.Add(Eroute);  //畫E群路線
-
                 }
                 /****計算來源群航程距離****/
                 double homedist = 0;
@@ -7598,10 +7752,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     dist += MainMap.MapProvider.Projection.GetDistance(sourcepointlist[a - 1], sourcepointlist[a]);  //加總導航點與導航點間的距離，函式為此點與上一點
                 }
-
-                distance = dist + homedist;  //來源群總航程=home點與最後一個導航點之距離+導航點與導航點間的距離加總
-
-            
+                distance = dist + homedist;  //來源群總航程=home點與最後一個導航點之距離+導航點與導航點間的距離加總            
         }
         
         private void MultiTrack_Route()
@@ -7621,17 +7772,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             MainMap.Overlays.Add(Eroutes);
             while (thread)
             {
-
                 if (tracklast.AddSeconds(1.2) < DateTime.Now)
                 {
                     // show disable joystick button
-                    if (MainV2.joystick != null && MainV2.joystick.enabled)
+                   /*if (MainV2.joystick != null && MainV2.joystick.enabled)
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
                            // but_disablejoystick.Visible = true;
                         });
-                    }
+                    }*/
 
                     if (Settings.Instance.GetBoolean("CHK_maprotation"))
                     {
@@ -7758,57 +7908,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     updateRoutePosition();
 
-
                     // update programed wp course
 
-
                     updateClearRoutesMarkers();
-
-                    // add this after the mav icons are drawn
-                    /*if (MainV2.comPort.MAV.cs.MovingBase != null)
-                    {
-                        addMissionRouteMarker(new GMarkerGoogle(currentloc, GMarkerGoogleType.blue_dot)
-                        {
-                            Position = MainV2.comPort.MAV.cs.MovingBase,
-                            ToolTipText = "Moving Base",
-                            ToolTipMode = MarkerTooltipMode.OnMouseOver
-                        });
-                    }*/
-
-                    /*lock (MainV2.instance.adsblock)
-                    {
-                        foreach (adsb.PointLatLngAltHdg plla in MainV2.instance.adsbPlanes.Values)
-                        {
-                            // 30 seconds history
-                            if (((DateTime)plla.Time) > DateTime.Now.AddSeconds(-30))
-                            {
-                                var adsbplane = new GMapMarkerADSBPlane(plla, plla.Heading)
-                                {
-                                    ToolTipText = "ICAO: " + plla.Tag + " " + plla.Alt.ToString("0"),
-                                    ToolTipMode = MarkerTooltipMode.OnMouseOver,
-                                    Tag = plla
-                                };
-
-                                if (plla.DisplayICAO)
-                                    adsbplane.ToolTipMode = MarkerTooltipMode.Always;
-
-                                switch (plla.ThreatLevel)
-                                {
-                                    case MAVLink.MAV_COLLISION_THREAT_LEVEL.NONE:
-                                        adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Green;
-                                        break;
-                                    case MAVLink.MAV_COLLISION_THREAT_LEVEL.LOW:
-                                        adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Orange;
-                                        break;
-                                    case MAVLink.MAV_COLLISION_THREAT_LEVEL.HIGH:
-                                        adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Red;
-                                        break;
-                                }
-
-                                addMissionRouteMarker(adsbplane);
-                            }
-                        }
-                    }*/
 
                     if (Atrackroute.Points.Count > 0)
                     {
@@ -7957,6 +8059,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             DateTime tracklast = DateTime.Now.AddSeconds(0);
             DateTime mapupdatetime = DateTime.Now.AddSeconds(0);
             bool thread = true;
+            new Thread(MultiTrack_Route) { IsBackground = true }.Start(); //開多機軌跡
             while (thread)
             {
                 if (tracklast.AddSeconds(1.2) < DateTime.Now && !multitrack)
@@ -7990,8 +8093,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     if (!this.IsHandleCreated)
                         continue;
 
-                    updateRoutePosition();
-                    updateClearRoutesMarkers();
+                    //updateRoutePosition();
+                    //updateClearRoutesMarkers();
                     if (trackroute.Points.Count > 0)
                     {
                         // add primary route icon
@@ -8043,6 +8146,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     tracklast = DateTime.Now;
                 }
                 Thread.Sleep(200);
+                                
             }
         }
         private void setMapBearing()
@@ -8115,7 +8219,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 objectsoverlay.Markers.Clear(); //清除FlightPlanner航點模式的圖層(objectsoverlay)上的marker
                 addpolygonmarker("Home", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, Color.White, objectsoverlay); //FlightData Home點顯示方式
-                for (int a = 0; a < Commands.Rows.Count - 0; a++)
+                for (int a = 0; a < Commands.Rows.Count; a++)
                 {
                     string cell2 = Commands.Rows[a].Cells[Alt.Index].Value.ToString(); // alt
                     string cell3 = Commands.Rows[a].Cells[Lat.Index].Value.ToString(); // lat
@@ -8129,7 +8233,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {   
                 objectsoverlay.Markers.Clear(); //清除FlightData航點模式的圖層(objectsoverlay)上的marker
                 addpolygonmarker("H", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, null); //FlightPlanner Home點顯示方式
-                for (int a = 0; a < Commands.Rows.Count - 0; a++)
+                for (int a = 0; a < Commands.Rows.Count; a++)
                 {
                     string cell2 = Commands.Rows[a].Cells[Alt.Index].Value.ToString(); // alt
                     string cell3 = Commands.Rows[a].Cells[Lat.Index].Value.ToString(); // lat
@@ -8140,12 +8244,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void CHK_Multitrack_CheckedChanged(object sender, EventArgs e)
+        /*private void CHK_Multitrack_CheckedChanged(object sender, EventArgs e) //原本開多機軌跡的 0327
         {
             multitrack = CHK_Multitrack.Checked;
-            if (multitrack == true)        
-                new System.Threading.Thread(MultiTrack_Route) { IsBackground = true }.Start(); 
-        }
+            if (multitrack == true)
+                new Thread(MultiTrack_Route) { IsBackground = true }.Start(); 
+        }*/
 
         private void CHK_autopan_CheckedChanged(object sender, EventArgs e)
         {
@@ -8318,6 +8422,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void CHK_headingline_enable_CheckedChanged(object sender, EventArgs e)
         {
             GMapMarkerQuad.MAVMarkerline_enable = CHK_headingline_enable.Checked;
+        }
+
+        private void CHK_RouteBalance_CheckedChanged(object sender, EventArgs e)
+        {
+            bool NoBalance = CHK_RouteBalance.Checked;
         }
 
         public static void Receivelist(ref List<PointLatLngAlt> outputApointlist, ref List<PointLatLngAlt> outputBpointlist, ref List<PointLatLngAlt> outputCpointlist

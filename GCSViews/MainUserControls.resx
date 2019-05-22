@@ -394,6 +394,9 @@
   <data name="AUVLAB_logo_pictureBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
+  <data name="AUVLAB_logo_pictureBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="AUVLAB_logo_pictureBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>870, 51</value>
   </data>
@@ -425,7 +428,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_headingline_enable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>854, 30</value>
+    <value>758, 29</value>
   </data>
   <data name="CHK_headingline_enable.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 16</value>
@@ -448,9 +451,6 @@
   <data name="&gt;&gt;CHK_headingline_enable.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="CHK_autopan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <data name="CHK_autopan.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -458,7 +458,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_autopan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>780, 29</value>
+    <value>685, 29</value>
   </data>
   <data name="CHK_autopan.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 16</value>
@@ -486,36 +486,6 @@
   </data>
   <data name="&gt;&gt;CHK_autopan.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="CHK_Multitrack.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CHK_Multitrack.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CHK_Multitrack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>686, 29</value>
-  </data>
-  <data name="CHK_Multitrack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 16</value>
-  </data>
-  <data name="CHK_Multitrack.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="CHK_Multitrack.Text" xml:space="preserve">
-    <value>Multi track</value>
-  </data>
-  <data name="&gt;&gt;CHK_Multitrack.Name" xml:space="preserve">
-    <value>CHK_Multitrack</value>
-  </data>
-  <data name="&gt;&gt;CHK_Multitrack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CHK_Multitrack.Parent" xml:space="preserve">
-    <value>panelWaypoints</value>
-  </data>
-  <data name="&gt;&gt;CHK_Multitrack.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="CHK_WaypointTag.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -545,7 +515,7 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CHK_WaypointTag.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="CMB_altmode.Location" type="System.Drawing.Point, System.Drawing">
     <value>213, 31</value>
@@ -569,6 +539,36 @@
     <value>panelWaypoints</value>
   </data>
   <data name="&gt;&gt;CMB_altmode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="CHK_RouteBalance.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CHK_RouteBalance.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CHK_RouteBalance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>886, 29</value>
+  </data>
+  <data name="CHK_RouteBalance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 16</value>
+  </data>
+  <data name="CHK_RouteBalance.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="CHK_RouteBalance.Text" xml:space="preserve">
+    <value>平衡路徑</value>
+  </data>
+  <data name="&gt;&gt;CHK_RouteBalance.Name" xml:space="preserve">
+    <value>CHK_RouteBalance</value>
+  </data>
+  <data name="&gt;&gt;CHK_RouteBalance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CHK_RouteBalance.Parent" xml:space="preserve">
+    <value>panelWaypoints</value>
+  </data>
+  <data name="&gt;&gt;CHK_RouteBalance.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="CHK_splinedefault.AutoSize" type="System.Boolean, mscorlib">
@@ -969,7 +969,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.6737.38407, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.1.7081.32285, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>panelWaypoints</value>
@@ -1088,6 +1088,9 @@
   <data name="&gt;&gt;ActionsplitContainer.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="WayPointControl1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="WayPointControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1107,13 +1110,34 @@
     <value>WayPointControl1</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.6737.38407, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.WayPointControl, MissionPlanner, Version=1.1.7081.32285, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.Parent" xml:space="preserve">
     <value>TabWaypoint</value>
   </data>
   <data name="&gt;&gt;WayPointControl1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="AlgorithmControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="AlgorithmControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>346, 546</value>
+  </data>
+  <data name="AlgorithmControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AlgorithmControl1.Name" xml:space="preserve">
+    <value>AlgorithmControl1</value>
+  </data>
+  <data name="&gt;&gt;AlgorithmControl1.Type" xml:space="preserve">
+    <value>MissionPlanner.MainTabControl.AlgorithmControl, MissionPlanner, Version=1.1.7081.32285, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;AlgorithmControl1.Parent" xml:space="preserve">
+    <value>TabWaypoint</value>
+  </data>
+  <data name="&gt;&gt;AlgorithmControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="TabWaypoint.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1137,10 +1161,37 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TabWaypoint.Parent" xml:space="preserve">
-    <value>MaintabControl</value>
+    <value>MainControl</value>
   </data>
   <data name="&gt;&gt;TabWaypoint.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="TabAlgorithmControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabAlgorithmControl.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabAlgorithmControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 312</value>
+  </data>
+  <data name="TabAlgorithmControl.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="TabAlgorithmControl.Text" xml:space="preserve">
+    <value>AlgorithmControl</value>
+  </data>
+  <data name="&gt;&gt;TabAlgorithmControl.Name" xml:space="preserve">
+    <value>TabAlgorithmControl</value>
+  </data>
+  <data name="&gt;&gt;TabAlgorithmControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabAlgorithmControl.Parent" xml:space="preserve">
+    <value>MainControl</value>
+  </data>
+  <data name="&gt;&gt;TabAlgorithmControl.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="TakeOffButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1323,7 +1374,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabActions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 74</value>
+    <value>248, 312</value>
   </data>
   <data name="TabActions.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1338,10 +1389,10 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TabActions.Parent" xml:space="preserve">
-    <value>MaintabControl</value>
+    <value>MainControl</value>
   </data>
   <data name="&gt;&gt;TabActions.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AutoGuided1.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1356,7 +1407,7 @@
     <value>3, 5, 3, 5</value>
   </data>
   <data name="AutoGuided1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 74</value>
+    <value>248, 312</value>
   </data>
   <data name="AutoGuided1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1365,7 +1416,7 @@
     <value>AutoGuided1</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Type" xml:space="preserve">
-    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.6737.38407, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.MainTabControl.AutoGuided, MissionPlanner, Version=1.1.7081.32285, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AutoGuided1.Parent" xml:space="preserve">
     <value>TabAutoGuidedControl</value>
@@ -1377,7 +1428,7 @@
     <value>4, 22</value>
   </data>
   <data name="TabAutoGuidedControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 74</value>
+    <value>248, 312</value>
   </data>
   <data name="TabAutoGuidedControl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1392,33 +1443,33 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TabAutoGuidedControl.Parent" xml:space="preserve">
-    <value>MaintabControl</value>
+    <value>MainControl</value>
   </data>
   <data name="&gt;&gt;TabAutoGuidedControl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <data name="MaintabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="MainControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="MaintabControl.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MainControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="MaintabControl.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>256, 338</value>
   </data>
-  <data name="MaintabControl.TabIndex" type="System.Int32, mscorlib">
+  <data name="MainControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;MaintabControl.Name" xml:space="preserve">
-    <value>MaintabControl</value>
+  <data name="&gt;&gt;MainControl.Name" xml:space="preserve">
+    <value>MainControl</value>
   </data>
-  <data name="&gt;&gt;MaintabControl.Type" xml:space="preserve">
+  <data name="&gt;&gt;MainControl.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MaintabControl.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MainControl.Parent" xml:space="preserve">
     <value>ActionsplitContainer.Panel2</value>
   </data>
-  <data name="&gt;&gt;MaintabControl.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MainControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;ActionsplitContainer.Panel2.Name" xml:space="preserve">
@@ -2180,7 +2231,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>54</value>
+    <value>25</value>
   </metadata>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>

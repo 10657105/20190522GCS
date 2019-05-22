@@ -54,22 +54,12 @@ namespace MissionPlanner.MainTabControl
             this.TXT_homealt = new System.Windows.Forms.TextBox();
             this.TXT_homelng = new System.Windows.Forms.TextBox();
             this.TXT_homelat = new System.Windows.Forms.TextBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.lbl_distance_E = new System.Windows.Forms.Label();
-            this.Groupcountset = new System.Windows.Forms.TextBox();
-            this.lbl_distance_D = new System.Windows.Forms.Label();
-            this.Groupcount_label = new System.Windows.Forms.Label();
-            this.lbl_distance_C = new System.Windows.Forms.Label();
-            this.Path_Programming_button = new MissionPlanner.Controls.MyButton();
-            this.lbl_distance_B = new System.Windows.Forms.Label();
-            this.lbl_distance_A = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -80,7 +70,6 @@ namespace MissionPlanner.MainTabControl
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.panel5);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.panel6);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // panel4
@@ -225,67 +214,6 @@ namespace MissionPlanner.MainTabControl
             resources.ApplyResources(this.TXT_homelat, "TXT_homelat");
             this.TXT_homelat.Name = "TXT_homelat";
             // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.lbl_distance_E);
-            this.panel6.Controls.Add(this.Groupcountset);
-            this.panel6.Controls.Add(this.lbl_distance_D);
-            this.panel6.Controls.Add(this.Groupcount_label);
-            this.panel6.Controls.Add(this.lbl_distance_C);
-            this.panel6.Controls.Add(this.Path_Programming_button);
-            this.panel6.Controls.Add(this.lbl_distance_B);
-            this.panel6.Controls.Add(this.lbl_distance_A);
-            resources.ApplyResources(this.panel6, "panel6");
-            this.panel6.Name = "panel6";
-            // 
-            // lbl_distance_E
-            // 
-            resources.ApplyResources(this.lbl_distance_E, "lbl_distance_E");
-            this.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distance_E.Name = "lbl_distance_E";
-            // 
-            // Groupcountset
-            // 
-            resources.ApplyResources(this.Groupcountset, "Groupcountset");
-            this.Groupcountset.Name = "Groupcountset";
-            // 
-            // lbl_distance_D
-            // 
-            resources.ApplyResources(this.lbl_distance_D, "lbl_distance_D");
-            this.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distance_D.Name = "lbl_distance_D";
-            // 
-            // Groupcount_label
-            // 
-            resources.ApplyResources(this.Groupcount_label, "Groupcount_label");
-            this.Groupcount_label.Name = "Groupcount_label";
-            // 
-            // lbl_distance_C
-            // 
-            resources.ApplyResources(this.lbl_distance_C, "lbl_distance_C");
-            this.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distance_C.Name = "lbl_distance_C";
-            // 
-            // Path_Programming_button
-            // 
-            resources.ApplyResources(this.Path_Programming_button, "Path_Programming_button");
-            this.Path_Programming_button.Name = "Path_Programming_button";
-            this.Path_Programming_button.UseVisualStyleBackColor = true;
-            // 
-            // lbl_distance_B
-            // 
-            resources.ApplyResources(this.lbl_distance_B, "lbl_distance_B");
-            this.lbl_distance_B.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distance_B.Name = "lbl_distance_B";
-            // 
-            // lbl_distance_A
-            // 
-            resources.ApplyResources(this.lbl_distance_A, "lbl_distance_A");
-            this.lbl_distance_A.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distance_A.Name = "lbl_distance_A";
-            // 
             // WayPointControl
             // 
             resources.ApplyResources(this, "$this");
@@ -301,9 +229,8 @@ namespace MissionPlanner.MainTabControl
             this.panel5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -318,8 +245,6 @@ namespace MissionPlanner.MainTabControl
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Label1;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label Groupcount_label;
         public Coords coords1;
         public System.Windows.Forms.CheckBox chk_grid;
         public System.Windows.Forms.Label lbl_status;
@@ -332,13 +257,6 @@ namespace MissionPlanner.MainTabControl
         public System.Windows.Forms.TextBox TXT_homealt;
         public System.Windows.Forms.TextBox TXT_homelng;
         public System.Windows.Forms.TextBox TXT_homelat;
-        public System.Windows.Forms.Label lbl_distance_E;
-        public System.Windows.Forms.TextBox Groupcountset;
-        public System.Windows.Forms.Label lbl_distance_D;
-        public System.Windows.Forms.Label lbl_distance_C;
-        public MyButton Path_Programming_button;
-        public System.Windows.Forms.Label lbl_distance_B;
-        public System.Windows.Forms.Label lbl_distance_A;
         public System.Windows.Forms.Label lbl_wpfile;
         public System.Windows.Forms.LinkLabel label4;
     }

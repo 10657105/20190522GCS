@@ -29,7 +29,7 @@ namespace MissionPlanner.GCSViews
             
             while (true)
             {
-                if (updateTime.AddSeconds(0.5) < DateTime.Now)
+                if (updateTime.AddSeconds(0.2) < DateTime.Now)
                 {
                     if (MainV2.comPort.BaseStream.IsOpen)
                     {
@@ -39,7 +39,7 @@ namespace MissionPlanner.GCSViews
                             {
                                 label_PortName.Text = InputMAVlink.BaseStream.PortName;
                                 label_linkquality.Text = InputMAVlink.MAV.cs.linkqualitygcs.ToString() + "% ";
-                                label_GroundSpeed.Text = InputMAVlink.MAV.cs.groundspeed.ToString("f1") + "m/s";
+                                label_GroundSpeed.Text = InputMAVlink.MAV.cs.groundspeed.ToString("f2") + "m/s";
                                 label_yaw.Text = InputMAVlink.MAV.cs.yaw.ToString("f1") + "deg";
                                 label_alt.Text = InputMAVlink.MAV.cs.alt.ToString("f1") + "m";
                                 label_mode.Text = InputMAVlink.MAV.cs.mode.ToString(); label_mode.ForeColor = Color.Cyan;
@@ -60,7 +60,7 @@ namespace MissionPlanner.GCSViews
 
                                 if (InputMAVlink.MAV.cs.ekfstatus > 0.5)
                                 {//EKF
-                                if (InputMAVlink.MAV.cs.ekfstatus > 0.8)
+                                    if (InputMAVlink.MAV.cs.ekfstatus > 0.8)
                                     {
                                         label_ekf.Text = "EKF";
                                         label_ekf.ForeColor = Color.Red;
@@ -76,16 +76,12 @@ namespace MissionPlanner.GCSViews
                                     label_ekf.Text = "EKF";
                                     label_ekf.ForeColor = Color.Lime;
                                 }
-
                             }
-
-
                         }));
-
                     }
                     updateTime = DateTime.Now;
                 }
-
+                Thread.Sleep(5);
             }
         }
 

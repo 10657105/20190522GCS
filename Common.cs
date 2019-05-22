@@ -1073,7 +1073,7 @@ union px4_custom_mode {
 
         public float warn = -1;
         public float danger = -1;
-        public static bool MAVMarkerline_enable = true;
+        public static bool MAVMarkerline_enable = false; //0402 預設handing線關閉
 
         public GMapMarkerQuad(PointLatLng p, float heading, float cog, float target, int sysid)
             : base(p)

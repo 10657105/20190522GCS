@@ -168,10 +168,10 @@ namespace MissionPlanner.Utilities
                 }
             }
 
-            if (updateFound)
+            if (updateFound) //0422 關閉更新
             {
                 // do the update in the main thread
-                MainV2.instance.Invoke((MethodInvoker) delegate
+                /*MainV2.instance.Invoke((MethodInvoker) delegate
                 {
                     string extra = "";
 
@@ -192,7 +192,7 @@ namespace MissionPlanner.Utilities
                     {
                         return;
                     }
-                });
+                });*/
             }
             else if (NotifyNoUpdate)
             {

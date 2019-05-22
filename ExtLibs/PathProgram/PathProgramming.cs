@@ -31,11 +31,13 @@ namespace PathProgram
         static int[,] path_solution = new int[m_num, ((latLength - m_num + 3) - 1) * latLength + nflatLength];
         static int iterat = 0;// initial iteration value (can't be write)
         static int cw_or_ccw = 1;//cw=0 //ccw=1
+        static bool RouteBalance_TF;
 
-        public void math(int groupset, List<PointLatLngAlt> Allpointlist, List<PointLatLngAlt> noflypointlist,
+        public void math(bool RouteBalance,int groupset, List<PointLatLngAlt> Allpointlist, List<PointLatLngAlt> noflypointlist,
                          ref List<PointLatLngAlt> Apointlist, ref List<PointLatLngAlt> Bpointlist,
                          ref List<PointLatLngAlt> Cpointlist, ref List<PointLatLngAlt> Dpointlist, ref List<PointLatLngAlt> Epointlist)
         {// main 
+            RouteBalance_TF = RouteBalance;
 
             List<PointLatLngAlt> final_list = new List<PointLatLngAlt>();// atter algorithm , number of target piont 
             List<PointLatLngAlt> turn_list = new List<PointLatLngAlt>();// atter algorithm , latitude and longitude of target piont 
@@ -115,30 +117,26 @@ namespace PathProgram
                         for (int j = 0; j < final_list.Count; j++)
                         {
                             Apointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
-                        }
-                        turn_list.Clear();
-                        final_list.Clear();
+                        }                        
                     }
                     else
                     {
                         for (int j = 0; j < final_list.Count; j++)
                         {
                             Apointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
-                        }
-                        turn_list.Clear();
-                        final_list.Clear();
+                        }                     
                     }
+                    turn_list.Clear();
+                    final_list.Clear();
                 }
-                if (i == 1)
+                else if (i == 1)
                 {// output swarm.B
                     if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
                         for (int j = 0; j < final_list.Count; j++)
                         {
                             Bpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
-                        }
-                        turn_list.Clear();
-                        final_list.Clear();
+                        }                        
                     }
                     else
                     {
@@ -146,12 +144,12 @@ namespace PathProgram
                         {
                             Bpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
+                    turn_list.Clear();
+                    final_list.Clear();
                 }
 
-                if (i == 2)
+                else if (i == 2)
                 {// output swarm.C
                     if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
@@ -159,8 +157,6 @@ namespace PathProgram
                         {
                             Cpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
                     else
                     {
@@ -168,11 +164,11 @@ namespace PathProgram
                         {
                             Cpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
+                    turn_list.Clear();
+                    final_list.Clear();
                 }
-                if (i == 3)
+                else if (i == 3)
                 {// output swarm.D
                     if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
@@ -180,8 +176,6 @@ namespace PathProgram
                         {
                             Dpointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
                     else
                     {
@@ -189,11 +183,11 @@ namespace PathProgram
                         {
                             Dpointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
+                    turn_list.Clear();
+                    final_list.Clear();
                 }
-                if (i == 4)
+                else if (i == 4)
                 {// output swarm.E
                     if (cw_ccw(final_list[0].Lat, final_list[0].Lng, final_list[1].Lat, final_list[1].Lng, final_list[final_list.Count - 2].Lat, final_list[final_list.Count - 2].Lng))
                     {
@@ -201,8 +195,6 @@ namespace PathProgram
                         {
                             Epointlist.Add(new PointLatLngAlt(final_list[final_list.Count - 1 - j].Lat, final_list[final_list.Count - 1 - j].Lng, final_list[final_list.Count - 1 - j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
                     else
                     {
@@ -210,12 +202,11 @@ namespace PathProgram
                         {
                             Epointlist.Add(new PointLatLngAlt(final_list[j].Lat, final_list[j].Lng, final_list[j].Alt));
                         }
-                        turn_list.Clear();
-                        final_list.Clear();
                     }
+                    turn_list.Clear();
+                    final_list.Clear();
                 }
             }
-
         }
 
         static private int[,] improve()//tabu improve* /i: path after cut /o: final path solution without turning point
@@ -570,8 +561,8 @@ namespace PathProgram
                                     if (dist_r == 0) not_feasible_r = true;
                                     total_dist_f += dist_f;
                                     total_dist_r += dist_r;
-                                    if (dist_f > max_dist_f) max_dist_f = dist_f;
-                                    if (dist_r > max_dist_r) max_dist_r = dist_r; //focus on which group solsution is worst,improve it (load balance)*
+                                    if ((dist_f > max_dist_f) && RouteBalance_TF ) max_dist_f = dist_f;
+                                    if ((dist_r > max_dist_r) && RouteBalance_TF) max_dist_r = dist_r; //focus on which group solsution is worst,improve it (load balance)*
                                 }
 
                                 for (int m = 0; m < tabulist_length; m++)
@@ -1197,14 +1188,14 @@ namespace PathProgram
             if (cw_or_ccw == 0) //cw
             {
                 if (ccw > 0) ccw_tf = false;//left
-                if (ccw < 0) ccw_tf = true;//right
-                if (ccw == 0) ccw_tf = false;//on line
+                else if (ccw < 0) ccw_tf = true;//right
+                else if (ccw == 0) ccw_tf = false;//on line
             }
-            if (cw_or_ccw == 1) //ccw
+            else if (cw_or_ccw == 1) //ccw
             {
                 if (ccw > 0) ccw_tf = true;//left
-                if (ccw < 0) ccw_tf = false;//right
-                if (ccw == 0) ccw_tf = true;//on line
+                else if (ccw < 0) ccw_tf = false;//right
+                else if (ccw == 0) ccw_tf = true;//on line
             }
             return ccw_tf;
         }

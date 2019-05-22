@@ -45,9 +45,13 @@
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MathNet.Numerics.4.0.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +210,7 @@
     <Compile Include="Engine\UriExtensions.cs" />
     <Compile Include="Engine\KmzFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="packages.config" />
     <None Include="Tuple.cs" />
   </ItemGroup>
   <ItemGroup>

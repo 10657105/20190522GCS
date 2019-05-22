@@ -85,16 +85,20 @@ namespace MissionPlanner.GCSViews
         }
         
         public void Mainthread()
-        {
-            //while (true)
+        {            
             while (threadrun)
             {
                 if (MainV2.comPort.BaseStream.IsOpen)
                 {
-                    if (MainV2.Comports[0] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
-                    {
-                        ConnectionStatus1.InputMAVlink = MainV2.Comports[0];                    
+                    if (MainV2.Comports[0] != null || MainV2.Comports[0].ToString() != "MAV 0 on Ice")
+                    {                        
+                        if(MainV2.Comports[0].ToString() == "MAV 0 on Ice")
+                        {
+                            MainV2.Comports.Remove(MainV2.Comports[0]);
+                        }
+                        ConnectionStatus1.InputMAVlink = MainV2.Comports[0]; //
                     }
+
                     if (MainV2.Comports.Count > 1 && MainV2.Comports[1] != null && MainV2.Comports[0].ToString() != "MAV 0 on Ice")
                     {
                         ConnectionStatus2.InputMAVlink = MainV2.Comports[1];
@@ -129,10 +133,9 @@ namespace MissionPlanner.GCSViews
                         }));
                     }
                 }
-
+              Thread.Sleep(1);//100不行
             }
-
-
+            
         }
 
     }

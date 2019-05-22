@@ -7063,7 +7063,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         /****路徑規劃功能****/
         private void Path_Programming_button_Click(object sender, EventArgs e)
         {
-            int groupset = 0;  //設定群數變數 
+          /*  int groupset = 0;  //設定群數變數 
             double distance = 0, totaldistance = 0;  // distance 是用來回傳單群航程距離的變數2，totaldistance 是拿來計算總航程的變數
             Allpointlist.Clear();  //清除Allpointlist，Allpointlist是要給演算法dll的航點資料清單
             Apointlist.Clear();    //清除A群路徑資料清單
@@ -7172,7 +7172,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(totaldistance, false);  //總航程距離以KM為單位表示
 
-            /***參考4780行程式內容在FlightData畫geofence圖層代表禁航區***/
+            ////////參考4780行程式內容在FlightData畫geofence圖層代表禁航區///////
             noflypolygon.Points.Clear();
             noflypolygon.Points.AddRange(drawnpolygon.Points.ToArray());
             //geofenceoverlay.Polygons.Add(geofencepolygon);   //在FlightPlanner下畫geofence圖層
@@ -7184,7 +7184,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 Stroke = noflypolygon.Stroke,
                 //Fill = Brushes.Transparent  //區域內填滿透明
-            });
+            });*/
         }
 
         /****建立航點、畫航線、新增DataGridView資料 副程式****/

@@ -24,6 +24,13 @@ namespace MissionPlanner.MainTabControl
 
         public delegate void mydalegate();
         public mydalegate change_text;
+        public double alg_speed_a;//0305 演算後a機速度
+        public double alg_speed_b;//0305 演算後b機速度
+        public double alg_speed_c;//0305 演算後c機速度
+        public double alg_speed_d;//0305 演算後d機速度
+        public double alg_speed_e;//0305 演算後e機速度
+        public float WP_radius;
+        public int timeset;  //設定抵達時間 
         static bool threadrun;
         static bool Athread;
         static bool Bthread;
@@ -41,7 +48,7 @@ namespace MissionPlanner.MainTabControl
         internal MAVLinkInterface Ccopter = null;
         internal MAVLinkInterface Dcopter = null;
         internal MAVLinkInterface Ecopter = null;
-
+        
         private ComponentResourceManager rm = new ComponentResourceManager(typeof(AutoGuided));
 
         public AutoGuided()
@@ -125,6 +132,27 @@ namespace MissionPlanner.MainTabControl
                 }
             }
         }
+        private void SetAll_Click(object sender, EventArgs e)
+        {
+            if (MainV2.Comports[0] != null)
+            {
+                Acopter = MainV2.Comports[0];
+                LBL_ACopter.Text = rm.GetString("LBL_ACopter.Text") + MainV2.Comports[0].BaseStream.PortName.ToString();
+                LBL_ACopter.ForeColor = Color.Yellow;
+            }
+            if (MainV2.Comports.Count > 1)
+            {
+                Bcopter = MainV2.Comports[1];
+                LBL_BCopter.Text = rm.GetString("LBL_BCopter.Text") + MainV2.Comports[1].BaseStream.PortName.ToString();
+                LBL_BCopter.ForeColor = Color.Red;
+            }
+            if (MainV2.Comports.Count > 2)
+            {
+                Ccopter = MainV2.Comports[2];
+                LBL_CCopter.Text = rm.GetString("LBL_CCopter.Text") + MainV2.Comports[2].BaseStream.PortName.ToString();
+                LBL_CCopter.ForeColor = Color.Cyan;
+            }
+        }
 
         private void Button_start_Click(object sender, EventArgs e)
         {
@@ -149,7 +177,6 @@ namespace MissionPlanner.MainTabControl
                 Button_start.Text = rm.GetString("startText");
                 return;
              }
-
 
              {
                  new System.Threading.Thread(Mainthread) { IsBackground = true }.Start();
@@ -218,14 +245,22 @@ namespace MissionPlanner.MainTabControl
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
             }
+
+            Acopter.setParam("WPNAV_SPEED", alg_speed_a * 100); //0211 WPNAV_SPEED is cm/s
+            Acopter.setParam("WP_YAW_BEHAVIOR", 0); //0405 不轉YAW             
+            //0:Never change yaw  1:Face next waypoint  2:Face next waypoint except RTL  3:Face along GPS course
+            Acopter.setParam("ATC_ACCEL_P_MAX", 120000); //0506 加速度加快一點點 cdeg/s/s
+            Acopter.setParam("ATC_ACCEL_R_MAX", 120000); //0506 roll 預設110000
+
             for (int i = 0; i < Apointlist.Count - 2; i++)
             {
-                gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;                
                 gotohere.alt = (float)Apointlist[i + 1].Alt;  //List第0點是Home點
                 gotohere.lat = Apointlist[i + 1].Lat;
                 gotohere.lng = Apointlist[i + 1].Lng;
+                
                 try
-                {
+                {                    
                     Acopter.setGuidedModeWP(gotohere);
                     Thread.Sleep(550);
                 }
@@ -239,17 +274,24 @@ namespace MissionPlanner.MainTabControl
                 {
                     wpdistance = Acopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
-                } while (wpdistance >= 2);
+                } while (wpdistance >= WP_radius);
+                //float.Parse(MainUserControls2.TXT_WPRad.Text)
+                /*
+                if (i == 0) Acopter.setParam("WPNAV_SPEED", 50); //0211
+                if (i == 1) Acopter.setParam("WPNAV_SPEED", 100);*/ //0211
                 if (Acopter.MAV.cs.mode == "Brake")
                     Athread = false;
-                if (Athread == false)
-                    break;
+                if (Athread == false) break;
+                
             }
+
             if (Athread == true)
             {
+                Acopter.setParam("RTL_ALT", Apointlist[Apointlist.Count-1].Alt); //0211 RTL_ALT is cm
                 Acopter.setMode("RTL");
                 Aend = true;
             }
+            Thread.Sleep(1);
         }
         private void BCopter()
         {
@@ -258,10 +300,16 @@ namespace MissionPlanner.MainTabControl
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
             }
+            //Bcopter.setParam("WPNAV_SPEED", 200); //0211 改速度
+            Bcopter.setParam("WPNAV_SPEED", alg_speed_b * 100); //0211 WPNAV_SPEED is cm/s
+            Bcopter.setParam("WP_YAW_BEHAVIOR", 0); //0405 不轉YAW 
+            //0:Never change yaw  1:Face next waypoint  2:Face next waypoint except RTL  3:Face along GPS course
+            Bcopter.setParam("ATC_ACCEL_P_MAX", 120000); //0506 加速度加快一點點 cdeg/s/s
+            Bcopter.setParam("ATC_ACCEL_R_MAX", 120000); //0506 roll 預設110000
 
             for (int i = 0; i < Bpointlist.Count - 2; i++)
             {
-                gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;                
                 gotohere.alt = (float)Bpointlist[i + 1].Alt;  //List第0點是Home點
                 gotohere.lat = Bpointlist[i + 1].Lat;
                 gotohere.lng = Bpointlist[i + 1].Lng;
@@ -280,18 +328,23 @@ namespace MissionPlanner.MainTabControl
                 {
                     wpdistance = Bcopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
-                } while (wpdistance >= 2);
+                } while (wpdistance >= WP_radius);
+                /*if (i == 0) Bcopter.setParam("WPNAV_SPEED", 50); //0211
+                if (i == 1) Bcopter.setParam("WPNAV_SPEED", 100);*/ //0211
+
                 if (Bcopter.MAV.cs.mode == "Brake")
                     Bthread = false;
-                if (Bthread == false)
-                    break;
+                if (Bthread == false) break;
+
             }
+            
             if (Bthread == true)
             {
+                Bcopter.setParam("RTL_ALT", 500); //0211 RTL_ALT is cm
                 Bcopter.setMode("RTL");
                 Bend = true;
             }
-
+            Thread.Sleep(1);
         }
         private void CCopter()
         {
@@ -300,6 +353,12 @@ namespace MissionPlanner.MainTabControl
                 CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                 return;
             }
+            
+            Ccopter.setParam("WPNAV_SPEED", alg_speed_c * 100); //0211 WPNAV_SPEED is cm/s
+            Ccopter.setParam("WP_YAW_BEHAVIOR", 0); //0405 不轉YAW 
+            //0:Never change yaw  1:Face next waypoint  2:Face next waypoint except RTL  3:Face along GPS course
+            Ccopter.setParam("ATC_ACCEL_P_MAX", 120000); //0506 pitch加速度加快一點點 cdeg/s/s
+            Ccopter.setParam("ATC_ACCEL_R_MAX", 120000); //0506 roll 預設110000
 
             for (int i = 0; i < Cpointlist.Count - 2; i++)
             {
@@ -322,7 +381,7 @@ namespace MissionPlanner.MainTabControl
                 {
                     wpdistance = Ccopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
-                } while (wpdistance >= 2);
+                } while (wpdistance >= WP_radius);
                 if (Ccopter.MAV.cs.mode == "Brake")
                     Cthread = false;
                 if (Cthread == false)
@@ -330,10 +389,11 @@ namespace MissionPlanner.MainTabControl
             }
             if (Cthread == true)
             {
+                Ccopter.setParam("RTL_ALT", 500); //0211 RTL_ALT is cm
                 Ccopter.setMode("RTL");
                 Cend = true;
             }
-
+            Thread.Sleep(1);
         }
         private void DCopter()
         {
@@ -343,6 +403,11 @@ namespace MissionPlanner.MainTabControl
                 return;
             }
 
+            Dcopter.setParam("WPNAV_SPEED", alg_speed_d * 100); //0211 WPNAV_SPEED is cm/s
+            Dcopter.setParam("WP_YAW_BEHAVIOR", 0); //0405 不轉YAW 
+            //0:Never change yaw  1:Face next waypoint  2:Face next waypoint except RTL  3:Face along GPS course
+            Dcopter.setParam("ATC_ACCEL_P_MAX", 120000); //0506 加速度加快一點點 cdeg/s/s
+            Dcopter.setParam("ATC_ACCEL_R_MAX", 120000); //0506 roll 預設110000
             for (int i = 0; i < Dpointlist.Count - 2; i++)
             {
                 gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
@@ -364,7 +429,7 @@ namespace MissionPlanner.MainTabControl
                 {
                     wpdistance = Dcopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
-                } while (wpdistance >= 2);
+                } while (wpdistance >= WP_radius);
                 if (Dcopter.MAV.cs.mode == "Brake")
                     Dthread = false;
                 if (Dthread == false)
@@ -372,9 +437,11 @@ namespace MissionPlanner.MainTabControl
             }
             if (Dthread == true)
             {
+                Dcopter.setParam("RTL_ALT", 500); //0211 RTL_ALT is cm
                 Dcopter.setMode("RTL");
                 Dend = true;
             }
+            Thread.Sleep(1);
         }
         private void ECopter()
         {
@@ -384,6 +451,11 @@ namespace MissionPlanner.MainTabControl
                 return;
             }
 
+            Ecopter.setParam("WPNAV_SPEED", alg_speed_e * 100); //0211 WPNAV_SPEED is cm/s
+            Ecopter.setParam("WP_YAW_BEHAVIOR", 0); //0405 不轉YAW 
+            //0:Never change yaw  1:Face next waypoint  2:Face next waypoint except RTL  3:Face along GPS course
+            Ecopter.setParam("ATC_ACCEL_P_MAX", 120000); //0506 加速度加快一點點 cdeg/s/s
+            Ecopter.setParam("ATC_ACCEL_R_MAX", 120000); //0506 roll 預設110000
             for (int i = 0; i < Epointlist.Count - 2; i++)
             {
                 gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
@@ -405,7 +477,7 @@ namespace MissionPlanner.MainTabControl
                 {
                     wpdistance = Ecopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
-                } while (wpdistance >= 2);
+                } while (wpdistance >= WP_radius);
                 if (Ecopter.MAV.cs.mode == "Brake")
                     Ethread = false;
                 if (Ethread == false)
@@ -413,23 +485,65 @@ namespace MissionPlanner.MainTabControl
             }
             if (Ethread == true)
             {
+                Ecopter.setParam("RTL_ALT", 500); //0211 RTL_ALT is cm
                 Ecopter.setMode("RTL");
                 Eend = true;
             }
+            Thread.Sleep(1);
         }
 
         private void Armed_and_Takeoff_All_Click(object sender, EventArgs e)
         {
-            foreach (var port in MainV2.Comports)
+            if (MainV2.Comports[0] != null)
             {
-                foreach (var MAV in port.MAVlist)
-                {
-                    MAV.parent.doARM(MAV.sysid, MAV.compid, true);
-                    MAV.parent.setMode(MAV.sysid, MAV.compid, "GUIDED");
-
-                    MAV.parent.doCommand(MAV.sysid, MAV.compid, MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, 5);
-                }
+                Thread ThreadAA = new Thread(new ThreadStart(Armed_and_Takeoff_All_Click_Start_AA));
+                ThreadAA.IsBackground = true;
+                ThreadAA.Start();
             }
+            if (MainV2.Comports.Count>1)
+            {
+                Thread ThreadBB = new Thread(new ThreadStart(Armed_and_Takeoff_All_Click_Start_BB));
+                ThreadBB.IsBackground = true;
+                ThreadBB.Start();
+            }
+            if (MainV2.Comports.Count > 2)
+            {
+                Thread ThreadCC = new Thread(new ThreadStart(Armed_and_Takeoff_All_Click_Start_CC));
+                ThreadCC.IsBackground = true;
+                ThreadCC.Start();
+            }
+
+            Armed_and_Takeoff_All.Enabled = false;//0508 防止按鈕重複點擊
+        }
+        private void Armed_and_Takeoff_All_Click_Start_AA()
+        {
+            foreach (var MAV in MainV2.Comports[0].MAVlist)
+            {
+                MAV.parent.doARM(MAV.sysid, MAV.compid, true);
+                MAV.parent.setMode(MAV.sysid, MAV.compid, "GUIDED");
+                MAV.parent.doCommand(MAV.sysid, MAV.compid, MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, 5);
+            }
+            Thread.Sleep(1);
+        }
+        private void Armed_and_Takeoff_All_Click_Start_BB()
+        {
+            foreach (var MAV in MainV2.Comports[1].MAVlist)
+            {
+                MAV.parent.doARM(MAV.sysid, MAV.compid, true);
+                MAV.parent.setMode(MAV.sysid, MAV.compid, "GUIDED");
+                MAV.parent.doCommand(MAV.sysid, MAV.compid, MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, 5);
+            }
+            Thread.Sleep(1);            
+        }
+        private void Armed_and_Takeoff_All_Click_Start_CC()
+        {
+            foreach (var MAV in MainV2.Comports[2].MAVlist)
+            {
+                MAV.parent.doARM(MAV.sysid, MAV.compid, true);
+                MAV.parent.setMode(MAV.sysid, MAV.compid, "GUIDED");
+                MAV.parent.doCommand(MAV.sysid, MAV.compid, MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, 5);
+            }
+            Thread.Sleep(1);
         }
 
         private void Reset_Connection_Button_Click(object sender, EventArgs e)
@@ -450,5 +564,7 @@ namespace MissionPlanner.MainTabControl
             Dcopter = null;
             Ecopter = null;
         }
+
+
     }
 }

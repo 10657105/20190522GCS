@@ -75,9 +75,9 @@ namespace MissionPlanner.GCSViews
             this.AUVLAB_logo_pictureBox = new System.Windows.Forms.PictureBox();
             this.CHK_headingline_enable = new System.Windows.Forms.CheckBox();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
-            this.CHK_Multitrack = new System.Windows.Forms.CheckBox();
             this.CHK_WaypointTag = new System.Windows.Forms.CheckBox();
             this.CMB_altmode = new System.Windows.Forms.ComboBox();
+            this.CHK_RouteBalance = new System.Windows.Forms.CheckBox();
             this.CHK_splinedefault = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.TXT_altwarn = new System.Windows.Forms.TextBox();
@@ -107,9 +107,11 @@ namespace MissionPlanner.GCSViews
             this.panelAction = new BSE.Windows.Forms.Panel();
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.ActionsplitContainer = new System.Windows.Forms.SplitContainer();
-            this.MaintabControl = new System.Windows.Forms.TabControl();
+            this.MainControl = new System.Windows.Forms.TabControl();
             this.TabWaypoint = new System.Windows.Forms.TabPage();
             this.WayPointControl1 = new MissionPlanner.MainTabControl.WayPointControl();
+            this.AlgorithmControl1 = new MissionPlanner.MainTabControl.AlgorithmControl();
+            this.TabAlgorithmControl = new System.Windows.Forms.TabPage();
             this.TabActions = new System.Windows.Forms.TabPage();
             this.TakeOffButton = new MissionPlanner.Controls.MyButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -211,7 +213,7 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).BeginInit();
             this.ActionsplitContainer.Panel2.SuspendLayout();
             this.ActionsplitContainer.SuspendLayout();
-            this.MaintabControl.SuspendLayout();
+            this.MainControl.SuspendLayout();
             this.TabWaypoint.SuspendLayout();
             this.TabActions.SuspendLayout();
             this.TabAutoGuidedControl.SuspendLayout();
@@ -296,9 +298,9 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.Controls.Add(this.AUVLAB_logo_pictureBox);
             this.panelWaypoints.Controls.Add(this.CHK_headingline_enable);
             this.panelWaypoints.Controls.Add(this.CHK_autopan);
-            this.panelWaypoints.Controls.Add(this.CHK_Multitrack);
             this.panelWaypoints.Controls.Add(this.CHK_WaypointTag);
             this.panelWaypoints.Controls.Add(this.CMB_altmode);
+            this.panelWaypoints.Controls.Add(this.CHK_RouteBalance);
             this.panelWaypoints.Controls.Add(this.CHK_splinedefault);
             this.panelWaypoints.Controls.Add(this.label17);
             this.panelWaypoints.Controls.Add(this.TXT_altwarn);
@@ -351,8 +353,6 @@ namespace MissionPlanner.GCSViews
             // CHK_headingline_enable
             // 
             resources.ApplyResources(this.CHK_headingline_enable, "CHK_headingline_enable");
-            this.CHK_headingline_enable.Checked = true;
-            this.CHK_headingline_enable.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CHK_headingline_enable.Name = "CHK_headingline_enable";
             this.CHK_headingline_enable.UseVisualStyleBackColor = true;
             this.CHK_headingline_enable.CheckedChanged += new System.EventHandler(this.CHK_headingline_enable_CheckedChanged);
@@ -360,19 +360,10 @@ namespace MissionPlanner.GCSViews
             // CHK_autopan
             // 
             resources.ApplyResources(this.CHK_autopan, "CHK_autopan");
-            this.CHK_autopan.Checked = true;
-            this.CHK_autopan.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CHK_autopan.Name = "CHK_autopan";
             this.toolTip1.SetToolTip(this.CHK_autopan, resources.GetString("CHK_autopan.ToolTip"));
             this.CHK_autopan.UseVisualStyleBackColor = true;
             this.CHK_autopan.CheckedChanged += new System.EventHandler(this.CHK_autopan_CheckedChanged);
-            // 
-            // CHK_Multitrack
-            // 
-            resources.ApplyResources(this.CHK_Multitrack, "CHK_Multitrack");
-            this.CHK_Multitrack.Name = "CHK_Multitrack";
-            this.CHK_Multitrack.UseVisualStyleBackColor = true;
-            this.CHK_Multitrack.CheckedChanged += new System.EventHandler(this.CHK_Multitrack_CheckedChanged);
             // 
             // CHK_WaypointTag
             // 
@@ -387,6 +378,13 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.CMB_altmode, "CMB_altmode");
             this.CMB_altmode.Name = "CMB_altmode";
             this.CMB_altmode.SelectedIndexChanged += new System.EventHandler(this.CMB_altmode_SelectedIndexChanged);
+            // 
+            // CHK_RouteBalance
+            // 
+            resources.ApplyResources(this.CHK_RouteBalance, "CHK_RouteBalance");
+            this.CHK_RouteBalance.Name = "CHK_RouteBalance";
+            this.CHK_RouteBalance.UseVisualStyleBackColor = true;
+            this.CHK_RouteBalance.CheckedChanged += new System.EventHandler(this.CHK_RouteBalance_CheckedChanged);
             // 
             // CHK_splinedefault
             // 
@@ -654,20 +652,22 @@ namespace MissionPlanner.GCSViews
             // 
             // ActionsplitContainer.Panel2
             // 
-            this.ActionsplitContainer.Panel2.Controls.Add(this.MaintabControl);
+            this.ActionsplitContainer.Panel2.Controls.Add(this.MainControl);
             // 
-            // MaintabControl
+            // MainControl
             // 
-            this.MaintabControl.Controls.Add(this.TabWaypoint);
-            this.MaintabControl.Controls.Add(this.TabActions);
-            this.MaintabControl.Controls.Add(this.TabAutoGuidedControl);
-            resources.ApplyResources(this.MaintabControl, "MaintabControl");
-            this.MaintabControl.Name = "MaintabControl";
-            this.MaintabControl.SelectedIndex = 0;
+            this.MainControl.Controls.Add(this.TabWaypoint);
+            this.MainControl.Controls.Add(this.TabAlgorithmControl);
+            this.MainControl.Controls.Add(this.TabActions);
+            this.MainControl.Controls.Add(this.TabAutoGuidedControl);
+            resources.ApplyResources(this.MainControl, "MainControl");
+            this.MainControl.Name = "MainControl";
+            this.MainControl.SelectedIndex = 0;
             // 
             // TabWaypoint
             // 
             this.TabWaypoint.Controls.Add(this.WayPointControl1);
+            this.TabWaypoint.Controls.Add(this.AlgorithmControl1);
             resources.ApplyResources(this.TabWaypoint, "TabWaypoint");
             this.TabWaypoint.Name = "TabWaypoint";
             this.TabWaypoint.UseVisualStyleBackColor = true;
@@ -676,6 +676,17 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.WayPointControl1, "WayPointControl1");
             this.WayPointControl1.Name = "WayPointControl1";
+            // 
+            // AlgorithmControl1
+            // 
+            resources.ApplyResources(this.AlgorithmControl1, "AlgorithmControl1");
+            this.AlgorithmControl1.Name = "AlgorithmControl1";
+            // 
+            // TabAlgorithmControl
+            // 
+            resources.ApplyResources(this.TabAlgorithmControl, "TabAlgorithmControl");
+            this.TabAlgorithmControl.Name = "TabAlgorithmControl";
+            this.TabAlgorithmControl.UseVisualStyleBackColor = true;
             // 
             // TabActions
             // 
@@ -1386,8 +1397,9 @@ namespace MissionPlanner.GCSViews
             this.ActionsplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ActionsplitContainer)).EndInit();
             this.ActionsplitContainer.ResumeLayout(false);
-            this.MaintabControl.ResumeLayout(false);
+            this.MainControl.ResumeLayout(false);
             this.TabWaypoint.ResumeLayout(false);
+            this.TabWaypoint.PerformLayout();
             this.TabActions.ResumeLayout(false);
             this.TabActions.PerformLayout();
             this.TabAutoGuidedControl.ResumeLayout(false);
@@ -1526,15 +1538,13 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.DataGridViewTextBoxColumn TagData;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.SplitContainer ActionsplitContainer;
-        private System.Windows.Forms.TabControl MaintabControl;
+        private System.Windows.Forms.TabControl MainControl;
         private System.Windows.Forms.TabPage TabWaypoint;
         private System.Windows.Forms.TabPage TabActions;
-        private MainTabControl.WayPointControl WayPointControl1;
         private System.Windows.Forms.CheckBox CHK_WaypointTag;
         private ConnectionData connectionData1;
         private System.Windows.Forms.TabPage TabAutoGuidedControl;
-        private MainTabControl.AutoGuided AutoGuided1;
-        private System.Windows.Forms.CheckBox CHK_Multitrack;
+        private MainTabControl.AutoGuided AutoGuided1 = new MainTabControl.AutoGuided();
         private System.Windows.Forms.CheckBox CHK_autopan;
         private System.Windows.Forms.Label label1;
         private MyButton BUT_clear_track;
@@ -1547,5 +1557,9 @@ namespace MissionPlanner.GCSViews
         private MyButton TakeOffButton;
         private System.Windows.Forms.CheckBox CHK_headingline_enable;
         private System.Windows.Forms.PictureBox AUVLAB_logo_pictureBox;
+        private MainTabControl.WayPointControl WayPointControl1;
+        private MainTabControl.AlgorithmControl AlgorithmControl1;
+        public System.Windows.Forms.CheckBox CHK_RouteBalance;
+        private System.Windows.Forms.TabPage TabAlgorithmControl;
     }
 }

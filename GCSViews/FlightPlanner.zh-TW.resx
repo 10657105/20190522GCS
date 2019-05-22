@@ -792,18 +792,18 @@
     <value>群數</value>
   </data>
   <data name="lbl_distance_A.Text" xml:space="preserve">
-    <value>A群路徑航程</value>
+    <value>A機航程規劃</value>
   </data>
   <data name="lbl_distance_B.Text" xml:space="preserve">
-    <value>B群路徑航程</value>
+    <value>B機航程規劃</value>
   </data>
   <data name="lbl_distance_C.Text" xml:space="preserve">
-    <value>C群路徑航程</value>
+    <value>C機航程規劃</value>
   </data>
   <data name="lbl_distance_D.Text" xml:space="preserve">
-    <value>D群路徑航程</value>
+    <value>D機航程規劃</value>
   </data>
   <data name="lbl_distance_E.Text" xml:space="preserve">
-    <value>E群路徑航程</value>
+    <value>E機航程規劃</value>
   </data>
 </root>

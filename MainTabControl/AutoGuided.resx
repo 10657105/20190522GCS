@@ -122,14 +122,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="Armed_and_Takeoff_All.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 36</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Armed_and_Takeoff_All.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 29</value>
   </data>
   <data name="Armed_and_Takeoff_All.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 36</value>
+    <value>75, 29</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Armed_and_Takeoff_All.TabIndex" type="System.Int32, mscorlib">
@@ -148,19 +144,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Armed_and_Takeoff_All.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="Button_start.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 9pt</value>
   </data>
   <data name="Button_start.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 80</value>
-  </data>
-  <data name="Button_start.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 64</value>
   </data>
   <data name="Button_start.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="Button_start.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -178,19 +171,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Button_start.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="SetA.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 9pt</value>
   </data>
   <data name="SetA.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 170</value>
-  </data>
-  <data name="SetA.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 136</value>
   </data>
   <data name="SetA.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="SetA.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -208,19 +198,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SetA.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="SetB.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 9pt</value>
   </data>
   <data name="SetB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 206</value>
-  </data>
-  <data name="SetB.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 165</value>
   </data>
   <data name="SetB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="SetB.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -244,13 +231,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="SetC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 242</value>
-  </data>
-  <data name="SetC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 194</value>
   </data>
   <data name="SetC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="SetC.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -274,13 +258,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="SetD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 280</value>
-  </data>
-  <data name="SetD.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 224</value>
   </data>
   <data name="SetD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="SetD.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -304,13 +285,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="SetE.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 319</value>
-  </data>
-  <data name="SetE.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 255</value>
   </data>
   <data name="SetE.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="SetE.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -334,13 +312,10 @@
     <value>17, 17</value>
   </metadata>
   <data name="Connection_Select.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 138</value>
-  </data>
-  <data name="Connection_Select.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 110</value>
   </data>
   <data name="Connection_Select.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 23</value>
+    <value>121, 20</value>
   </data>
   <data name="Connection_Select.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -364,13 +339,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="LBL_ACopter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 8</value>
-  </data>
-  <data name="LBL_ACopter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>1, 6</value>
   </data>
   <data name="LBL_ACopter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 17</value>
+    <value>76, 15</value>
   </data>
   <data name="LBL_ACopter.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -397,13 +369,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="LBL_BCopter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 26</value>
-  </data>
-  <data name="LBL_BCopter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>1, 21</value>
   </data>
   <data name="LBL_BCopter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
+    <value>77, 15</value>
   </data>
   <data name="LBL_BCopter.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -430,13 +399,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="LBL_CCopter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 45</value>
-  </data>
-  <data name="LBL_CCopter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>1, 36</value>
   </data>
   <data name="LBL_CCopter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 17</value>
+    <value>78, 15</value>
   </data>
   <data name="LBL_CCopter.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -463,13 +429,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="LBL_DCopter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 64</value>
-  </data>
-  <data name="LBL_DCopter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>1, 51</value>
   </data>
   <data name="LBL_DCopter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 17</value>
+    <value>78, 15</value>
   </data>
   <data name="LBL_DCopter.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -496,13 +459,10 @@
     <value>Arial, 9pt</value>
   </data>
   <data name="LBL_ECopter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 82</value>
-  </data>
-  <data name="LBL_ECopter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>1, 66</value>
   </data>
   <data name="LBL_ECopter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
+    <value>77, 15</value>
   </data>
   <data name="LBL_ECopter.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -523,13 +483,10 @@
     <value>1</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 355</value>
-  </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>16, 284</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 125</value>
+    <value>200, 100</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -549,17 +506,15 @@
   <data name="Reset_Connection_Button.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 9pt</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Reset_Connection_Button.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="Reset_Connection_Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 235</value>
-  </data>
-  <data name="Reset_Connection_Button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>126, 188</value>
   </data>
   <data name="Reset_Connection_Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 36</value>
+    <value>75, 29</value>
   </data>
   <data name="Reset_Connection_Button.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -579,20 +534,47 @@
   <data name="&gt;&gt;Reset_Connection_Button.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="SetAll.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt</value>
+  </data>
+  <data name="SetAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SetAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 136</value>
+  </data>
+  <data name="SetAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="SetAll.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="SetAll.Text" xml:space="preserve">
+    <value>Set All</value>
+  </data>
+  <data name="&gt;&gt;SetAll.Name" xml:space="preserve">
+    <value>SetAll</value>
+  </data>
+  <data name="&gt;&gt;SetAll.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SetAll.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SetAll.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 15</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 498</value>
+    <value>243, 398</value>
   </data>
   <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
     <value>bindingSource1</value>
