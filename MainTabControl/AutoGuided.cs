@@ -30,7 +30,11 @@ namespace MissionPlanner.MainTabControl
         public double alg_speed_d;//0305 演算後d機速度
         public double alg_speed_e;//0305 演算後e機速度
         public float WP_radius;
-        public int timeset;  //設定抵達時間 
+        public int timeset_a;  //設定A抵達時間 
+        public int timeset_b;  //設定B抵達時間 
+        public int timeset_c;  //設定C抵達時間 
+        public int timeset_d;  //設定D抵達時間 
+        public int timeset_e;  //設定E抵達時間 
         static bool threadrun;
         static bool Athread;
         static bool Bthread;

@@ -7245,7 +7245,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 groupset = int.Parse(AlgorithmControl1.Groupcountset.Text);  //將輸入群數轉成int
             }
 
-            if (AlgorithmControl1.TimeSetA.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
+            if (AlgorithmControl1.TimeSetA.Text == string.Empty || AlgorithmControl1.TimeSetB.Text == string.Empty ||
+                AlgorithmControl1.TimeSetC.Text == string.Empty || AlgorithmControl1.TimeSetD.Text == string.Empty ||
+                AlgorithmControl1.TimeSetE.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
             {
                 CustomMessageBox.Show("Please input time or default speed 2(m/s) !");
                 AutoGuided1.alg_speed_a = 2; // m/s
@@ -7256,7 +7258,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else  //若有輸入時間則轉換變數存入timeset
             {
-                AutoGuided1.timeset = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
+                AutoGuided1.timeset_a = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
+                AutoGuided1.timeset_b = int.Parse(AlgorithmControl1.TimeSetB.Text);  //將輸入時間轉成int
+                AutoGuided1.timeset_c = int.Parse(AlgorithmControl1.TimeSetC.Text);  //將輸入時間轉成int
+                AutoGuided1.timeset_d = int.Parse(AlgorithmControl1.TimeSetD.Text);  //將輸入時間轉成int
+                AutoGuided1.timeset_e = int.Parse(AlgorithmControl1.TimeSetE.Text);  //將輸入時間轉成int
             }
             /////////////////
             PathProgramming pathProgrammingdll = new PathProgramming();
@@ -7275,12 +7281,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Apointlist, "A", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Apointlist及群組A做建航點、畫路徑及新增DataGridView資料，並回傳A群路徑長度                                                         
                     AlgorithmControl1.lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
                     totaldistance += distance;  //總航程距離加上A群路徑長度
-                    AutoGuided1.alg_speed_a = v_function(((distance * 1000) / AutoGuided1.timeset), (Apointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
+                    AutoGuided1.alg_speed_a = v_function(((distance * 1000) / AutoGuided1.timeset_a), (Apointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_a);
                     //呼叫v_function 代入v,p,D,st //distance*1000轉公尺
                     AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false)
                                                          + " " + AutoGuided1.alg_speed_a.ToString("f6") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
                 }
-                else if (Apointlist.Count == 0)  //若A群清單無航點
+                else //若A群清單無航點
                 {
                     AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text"); //清除A群路徑長度顯示資料
                     AlgorithmControl1.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText; //A群路徑長度顯示為黑色
@@ -7290,13 +7296,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     WP_Marker_Route_function(Bpointlist, "B", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Bpointlist及群組B做建航點、畫路徑及新增DataGridView資料，並回傳B群路徑長度
                     AlgorithmControl1.lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
-                    totaldistance += distance;  //總航程距離加上B群路徑長度
-                    //AutoGuided1.alg_speed_b = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
-                    AutoGuided1.alg_speed_b = v_function(((distance * 1000) / AutoGuided1.timeset), (Bpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
+                    totaldistance += distance;  //總航程距離加上B群路徑長度                    
+                    AutoGuided1.alg_speed_b = v_function(((distance * 1000) / AutoGuided1.timeset_b), (Bpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_b);
                     AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false)
                                                           + " " + AutoGuided1.alg_speed_b.ToString("f6") + "m/s";  //B群路徑長度以KM為單位做表示
                 }
-                else if (Bpointlist.Count == 0)  //若B群清單無航點
+                else //若B群清單無航點
                 {
                     AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text");  //清除B群路徑長度顯示資料
                     AlgorithmControl1.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;  //B群路徑長度顯示為黑色
@@ -7307,12 +7312,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Cpointlist, "C", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Cpointlist及群組C做建航點、畫路徑及新增DataGridView資料，並回傳C群路徑長度
                     AlgorithmControl1.lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
                     totaldistance += distance;  //總航程距離加上C群路徑長度
-                    AutoGuided1.alg_speed_c = v_function(((distance * 1000) / AutoGuided1.timeset), (Cpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset);
-                    //AutoGuided1.alg_speed_c = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AutoGuided1.alg_speed_c = v_function(((distance * 1000) / AutoGuided1.timeset_c), (Cpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_c);                    
                     AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false)
                                                          + " " + AutoGuided1.alg_speed_c.ToString("f6") + "m/s";  //C群路徑長度以KM為單位做表示
                 }
-                else if (Cpointlist.Count == 0)  //若C群清單無航點
+                else  //若C群清單無航點
                 {
                     AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text");  //清除C群路徑長度顯示資料
                     AlgorithmControl1.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;  //C群路徑長度顯示為黑色
@@ -7323,11 +7327,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Dpointlist, "D", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Dpointlist及群組D做建航點、畫路徑及新增DataGridView資料，並回傳群D路徑長度
                     AlgorithmControl1.lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
                     totaldistance += distance;  //總航程距離加上D群路徑長度
-                    AutoGuided1.alg_speed_d = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AutoGuided1.alg_speed_d = v_function(((distance * 1000) / AutoGuided1.timeset_d), (Dpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_d);
                     AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false)
                                                          + " " + AutoGuided1.alg_speed_d.ToString("f2") + "m/s";  //D群路徑長度以KM為單位做表示
                 }
-                else if (Dpointlist.Count == 0)  //若D群清單無航點
+                else  //若D群清單無航點
                 {
                     AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text");  //清除D群路徑長度顯示資料
                     AlgorithmControl1.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;  //D群路徑長度顯示為黑色
@@ -7336,19 +7340,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (Epointlist.Count != 0)  //若E群清單有航點
                 {
                     WP_Marker_Route_function(Epointlist, "E", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Epointlist及群組E做建航點、畫路徑及新增DataGridView資料，並回傳群E路徑長度
-
                     AlgorithmControl1.lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
                     totaldistance += distance;  //總航程距離加上E群路徑長度
-                    AutoGuided1.alg_speed_e = distance * 1000 / AutoGuided1.timeset; //0.5(m/s)保底速度 //km->m //目標點會降速，點越多權重越高
+                    AutoGuided1.alg_speed_e = v_function(((distance * 1000) / AutoGuided1.timeset_e), (Epointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_e);
                     AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false)
                                                          + " " + AutoGuided1.alg_speed_e.ToString("f2") + "m/s";  //E群路徑長度以KM為單位做表示
                 }
-                else if (Epointlist.Count == 0)  //若E群清單無航點
+                else  //若E群清單無航點
                 {
                     AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text");  //清除E群路徑長度顯示資料
                     AlgorithmControl1.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;  //E群路徑長度顯示為黑色
                 }
-
 
                 //addpolygonmarker("Home", double.Parse(WayPointControl1.TXT_homelng.Text), double.Parse(WayPointControl1.TXT_homelat.Text), 0, Color.White, polygons);
                 lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(totaldistance, false);  //總航程距離以KM為單位表示
