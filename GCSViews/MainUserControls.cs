@@ -7205,9 +7205,25 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         public void Path_Programming_button_Click_Start()
         {
             int groupset = 0;  //設定群數變數             
-
+            double distance_a = 0; //待存入各群距離
+            double distance_b = 0; //待存入各群距離
+            double distance_c = 0; //待存入各群距離
+            double distance_d = 0; //待存入各群距離
+            double distance_e = 0; //待存入各群距離
             double distance = 0, totaldistance = 0;  // distance 是用來回傳單群航程距離的變數，totaldistance 是拿來計算總航程的變數
-            Allpointlist.Clear();  //清除Allpointlist，Allpointlist是要給演算法dll的航點資料清單
+            AutoGuided1.alg_speed_a =0;//0523 清除a機速度
+            AutoGuided1.alg_speed_b =0;//0523 清除b機速度
+            AutoGuided1.alg_speed_c =0;//0523 清除c機速度
+            AutoGuided1.alg_speed_d =0;//0523 清除d機速度
+            AutoGuided1.alg_speed_e =0;//0523 清除e機速度
+            AutoGuided1.WP_radius =0; //0523
+            AutoGuided1.timeset_a =0;  //清除A抵達時間 //0523
+            AutoGuided1.timeset_b =0;  //清除B抵達時間 
+            AutoGuided1.timeset_c =0;  //清除C抵達時間 
+            AutoGuided1.timeset_d =0;  //清除D抵達時間 
+            AutoGuided1.timeset_e =0;  //清除E抵達時間 
+
+        Allpointlist.Clear();  //清除Allpointlist，Allpointlist是要給演算法dll的航點資料清單
             Apointlist.Clear();    //清除A群路徑資料清單
             Bpointlist.Clear();    //清除B群路徑資料清單
             Cpointlist.Clear();    //清除C群路徑資料清單
@@ -7234,7 +7250,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             for (int j = 0; j < drawnpolygon.Points.Count; j++)//將禁航區座標存入noflypointlist
                 noflypointlist.Add(new PointLatLngAlt(drawnpolygon.Points[j].Lat, drawnpolygon.Points[j].Lng, 0));
-            ///////////////////
+            
+            ////////////////////////////////////////////////////////////////////////////
+            
             if (AlgorithmControl1.Groupcountset.Text == string.Empty)   //如果未輸入欲分群數量跳出提示，並以預設值"1"做運算
             {
                 CustomMessageBox.Show("Please input group number or default single group !");
@@ -7244,32 +7262,52 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 groupset = int.Parse(AlgorithmControl1.Groupcountset.Text);  //將輸入群數轉成int
             }
-
-            if (AlgorithmControl1.TimeSetA.Text == string.Empty || AlgorithmControl1.TimeSetB.Text == string.Empty ||
-                AlgorithmControl1.TimeSetC.Text == string.Empty || AlgorithmControl1.TimeSetD.Text == string.Empty ||
-                AlgorithmControl1.TimeSetE.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
-            {
-                CustomMessageBox.Show("Please input time or default speed 2(m/s) !");
-                AutoGuided1.alg_speed_a = 2; // m/s
-                AutoGuided1.alg_speed_b = 2;
-                AutoGuided1.alg_speed_c = 2;
-                AutoGuided1.alg_speed_d = 2;
-                AutoGuided1.alg_speed_e = 2;
-            }
-            else  //若有輸入時間則轉換變數存入timeset
-            {
-                AutoGuided1.timeset_a = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
-                AutoGuided1.timeset_b = int.Parse(AlgorithmControl1.TimeSetB.Text);  //將輸入時間轉成int
-                AutoGuided1.timeset_c = int.Parse(AlgorithmControl1.TimeSetC.Text);  //將輸入時間轉成int
-                AutoGuided1.timeset_d = int.Parse(AlgorithmControl1.TimeSetD.Text);  //將輸入時間轉成int
-                AutoGuided1.timeset_e = int.Parse(AlgorithmControl1.TimeSetE.Text);  //將輸入時間轉成int
-            }
-            /////////////////
             PathProgramming pathProgrammingdll = new PathProgramming();
+
             if (Allpointlist.Count > 1) //確保有航點
                 pathProgrammingdll.math(CHK_RouteBalance.Checked, groupset, Allpointlist, noflypointlist, ref Apointlist, ref Bpointlist, ref Cpointlist, ref Dpointlist, ref Epointlist);
             else
                 CustomMessageBox.Show("no waypiont !");
+
+            if (AlgorithmControl1.TimeSetA.Text != string.Empty) //若有輸入時間則轉換變數存入timeset
+                AutoGuided1.timeset_a = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
+            else
+            {//如果未輸入設定時間，預設飛行2m/s
+                CustomMessageBox.Show("Please input time or default A speed 2(m/s) !");
+                AutoGuided1.alg_speed_a = 2; // m/s
+            }
+
+            if (groupset > 1 && AlgorithmControl1.TimeSetB.Text != string.Empty)
+                AutoGuided1.timeset_b = int.Parse(AlgorithmControl1.TimeSetB.Text);  //將輸入時間轉成int
+            else if (groupset == 2)
+            {
+                CustomMessageBox.Show("Please input time or default B speed 2(m/s) !");
+                AutoGuided1.alg_speed_b = 2; // m/s
+            }
+
+            if (groupset > 2 && AlgorithmControl1.TimeSetC.Text != string.Empty)
+                AutoGuided1.timeset_c = int.Parse(AlgorithmControl1.TimeSetC.Text);  //將輸入時間轉成int
+            else if (groupset == 3)
+            {
+                CustomMessageBox.Show("Please input time or default C speed 2(m/s) !");
+                AutoGuided1.alg_speed_c = 2; // m/s
+            }
+
+            if (groupset > 3 && AlgorithmControl1.TimeSetD.Text != string.Empty)
+                AutoGuided1.timeset_d = int.Parse(AlgorithmControl1.TimeSetD.Text);  //將輸入時間轉成int
+            else if (groupset == 4)
+            {
+                CustomMessageBox.Show("Please input time or default D speed 2(m/s) !");
+                AutoGuided1.alg_speed_d = 2; // m/s
+            }
+
+            if (groupset > 4 && AlgorithmControl1.TimeSetE.Text != string.Empty)
+                AutoGuided1.timeset_e = int.Parse(AlgorithmControl1.TimeSetE.Text);  //將輸入時間轉成int              
+            else if (groupset == 5)
+            {
+                CustomMessageBox.Show("Please input time or default E speed 2(m/s) !");
+                AutoGuided1.alg_speed_e = 2; // m/s
+            }
 
             this.Invoke(new Action(delegate () //跨執行緒
             {
@@ -7281,10 +7319,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Apointlist, "A", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Apointlist及群組A做建航點、畫路徑及新增DataGridView資料，並回傳A群路徑長度                                                         
                     AlgorithmControl1.lbl_distance_A.ForeColor = System.Drawing.Color.Yellow; //A群路徑長度以黃色表示
                     totaldistance += distance;  //總航程距離加上A群路徑長度
-                    AutoGuided1.alg_speed_a = v_function(((distance * 1000) / AutoGuided1.timeset_a), (Apointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_a);
+                    distance_a = distance;
+                    AutoGuided1.alg_speed_a = v_function(((distance_a * 1000) / AutoGuided1.timeset_a), (Apointlist.Count - 2), (distance_a * 1000), AutoGuided1.timeset_a);
                     //呼叫v_function 代入v,p,D,st //distance*1000轉公尺
-                    AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance, false)
-                                                         + " " + AutoGuided1.alg_speed_a.ToString("f6") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
                 }
                 else //若A群清單無航點
                 {
@@ -7296,10 +7333,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     WP_Marker_Route_function(Bpointlist, "B", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Bpointlist及群組B做建航點、畫路徑及新增DataGridView資料，並回傳B群路徑長度
                     AlgorithmControl1.lbl_distance_B.ForeColor = System.Drawing.Color.Red;  //B群路徑長度以紅色表示
-                    totaldistance += distance;  //總航程距離加上B群路徑長度                    
-                    AutoGuided1.alg_speed_b = v_function(((distance * 1000) / AutoGuided1.timeset_b), (Bpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_b);
-                    AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance, false)
-                                                          + " " + AutoGuided1.alg_speed_b.ToString("f6") + "m/s";  //B群路徑長度以KM為單位做表示
+                    totaldistance += distance;  //總航程距離加上B群路徑長度   
+                    distance_b = distance;
+                    AutoGuided1.alg_speed_b = v_function(((distance_b * 1000) / AutoGuided1.timeset_b), (Bpointlist.Count - 2), (distance_b * 1000), AutoGuided1.timeset_b);
                 }
                 else //若B群清單無航點
                 {
@@ -7312,9 +7348,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Cpointlist, "C", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Cpointlist及群組C做建航點、畫路徑及新增DataGridView資料，並回傳C群路徑長度
                     AlgorithmControl1.lbl_distance_C.ForeColor = System.Drawing.Color.Cyan;  //C群路徑長度以亮藍色表示
                     totaldistance += distance;  //總航程距離加上C群路徑長度
-                    AutoGuided1.alg_speed_c = v_function(((distance * 1000) / AutoGuided1.timeset_c), (Cpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_c);                    
-                    AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance, false)
-                                                         + " " + AutoGuided1.alg_speed_c.ToString("f6") + "m/s";  //C群路徑長度以KM為單位做表示
+                    distance_c = distance;
+                    AutoGuided1.alg_speed_c = v_function(((distance_c * 1000) / AutoGuided1.timeset_c), (Cpointlist.Count - 2), (distance_c * 1000), AutoGuided1.timeset_c);
                 }
                 else  //若C群清單無航點
                 {
@@ -7327,9 +7362,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Dpointlist, "D", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Dpointlist及群組D做建航點、畫路徑及新增DataGridView資料，並回傳群D路徑長度
                     AlgorithmControl1.lbl_distance_D.ForeColor = System.Drawing.Color.Tomato;  //D群路徑長度以橘色表示
                     totaldistance += distance;  //總航程距離加上D群路徑長度
-                    AutoGuided1.alg_speed_d = v_function(((distance * 1000) / AutoGuided1.timeset_d), (Dpointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_d);
-                    AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance, false)
-                                                         + " " + AutoGuided1.alg_speed_d.ToString("f2") + "m/s";  //D群路徑長度以KM為單位做表示
+                    distance_d = distance;
+                    AutoGuided1.alg_speed_d = v_function(((distance_d * 1000) / AutoGuided1.timeset_d), (Dpointlist.Count - 2), (distance_d * 1000), AutoGuided1.timeset_d);
                 }
                 else  //若D群清單無航點
                 {
@@ -7342,9 +7376,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     WP_Marker_Route_function(Epointlist, "E", out distance);  //呼叫 WP_Marker_Route_function副程式，並代入Epointlist及群組E做建航點、畫路徑及新增DataGridView資料，並回傳群E路徑長度
                     AlgorithmControl1.lbl_distance_E.ForeColor = System.Drawing.Color.DeepPink;  //E群路徑長度以粉紅色表示
                     totaldistance += distance;  //總航程距離加上E群路徑長度
-                    AutoGuided1.alg_speed_e = v_function(((distance * 1000) / AutoGuided1.timeset_e), (Epointlist.Count - 2), (distance * 1000), AutoGuided1.timeset_e);
-                    AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance, false)
-                                                         + " " + AutoGuided1.alg_speed_e.ToString("f2") + "m/s";  //E群路徑長度以KM為單位做表示
+                    distance_e = distance;
+                    AutoGuided1.alg_speed_e = v_function(((distance_e * 1000) / AutoGuided1.timeset_e), (Epointlist.Count - 2), (distance_e * 1000), AutoGuided1.timeset_e);
                 }
                 else  //若E群清單無航點
                 {
@@ -7367,37 +7400,58 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     Stroke = noflypolygon.Stroke,
                     //Fill = Brushes.Transparent  //區域內填滿透明
-                });
-
-                AlgorithmControl1.Path_Programming_button.Enabled = true; //0508 防止按鈕重複點擊
-
-            }));//跨執行緒_尾
+                })
+                ;
+            }));//跨執行緒_尾                
 
             pathprogram = true; // 已使用路徑規劃功能，用於航點顯示模式先換
 
-            if (AlgorithmControl1.TimeSetA.Text == string.Empty)   //如果未輸入設定時間，預設飛行2m/s
+            if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值")
             {
-                AutoGuided1.alg_speed_a = 2; // m/s 
-                AutoGuided1.alg_speed_b = 2;
-                AutoGuided1.alg_speed_c = 2;
-                AutoGuided1.alg_speed_d = 2;
-                AutoGuided1.alg_speed_e = 2;
+                AutoGuided1.alg_speed_a = 2; // m/s
+                CustomMessageBox.Show("A Invalid time！ Please re-enter time or default speed 2(m/s) !");
             }
-            else if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_c > 5
-                    || AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值" ||
-                    AutoGuided1.alg_speed_b.ToString() == "非數值" || AutoGuided1.alg_speed_c.ToString() == "非數值" || 
-                    AutoGuided1.alg_speed_d.ToString() == "非數值" || AutoGuided1.alg_speed_e.ToString() == "非數值")
-                 {
-                    CustomMessageBox.Show("Invalid time！ Please re-enter time or default speed 2(m/s) !");
-                    AutoGuided1.alg_speed_a = 2; // m/s
-                    AutoGuided1.alg_speed_b = 2;
-                    AutoGuided1.alg_speed_c = 2;
-                    AutoGuided1.alg_speed_d = 2;
-                    AutoGuided1.alg_speed_e = 2;
-                 }
+            if (AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_b.ToString() == "非數值")
+            {
+                AutoGuided1.alg_speed_b = 2;
+                CustomMessageBox.Show("B Invalid time！ Please re-enter time or default speed 2(m/s) !");
+            }
+            if (AutoGuided1.alg_speed_c > 5 || AutoGuided1.alg_speed_c.ToString() == "非數值")
+            {
+                AutoGuided1.alg_speed_c = 2;
+                CustomMessageBox.Show("C Invalid time！ Please re-enter time or default speed 2(m/s) !");
+            }
+
+            if (AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_d.ToString() == "非數值")
+            {
+                AutoGuided1.alg_speed_d = 2;
+                CustomMessageBox.Show("D Invalid time！ Please re-enter time or default speed 2(m/s) !");
+            }
+            if (AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_e.ToString() == "非數值")
+            {
+                AutoGuided1.alg_speed_e = 2;
+                CustomMessageBox.Show("E Invalid time！ Please re-enter time or default speed 2(m/s) !");
+            }
+
+            this.Invoke(new Action(delegate () //跨執行緒
+            {
+                AlgorithmControl1.Path_Programming_button.Enabled = true; //0508 防止按鈕重複點擊
+
+                AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance_a, false)
+                                                         + " " + AutoGuided1.alg_speed_a.ToString("f6") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
+                AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance_b, false)
+                                                         + " " + AutoGuided1.alg_speed_b.ToString("f6") + "m/s";  //B群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance_c, false)
+                                                         + " " + AutoGuided1.alg_speed_c.ToString("f6") + "m/s";  //C群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance_d, false)
+                                                         + " " + AutoGuided1.alg_speed_d.ToString("f2") + "m/s";  //D群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance_e, false)
+                                                         + " " + AutoGuided1.alg_speed_e.ToString("f2") + "m/s";  //E群路徑長度以KM為單位做表示
+            }));//跨執行緒_尾
 
             Thread.Sleep(1);            
         }
+
         static private double v_function(double v, double sol_p, double sol_D, double sol_st) //newton's method 
         {
             double v0 = 2.5;
@@ -7427,7 +7481,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
                 v1 = v0 - v_function_Err(v0, sol_p, sol_D, sol_st) / v_function_dErr(v0, sol_p, sol_D, sol_st);
                 i++;
-            } while (!(Abs(v1 - v0) < 0.00000000000001) && !(i > 500));
+            } while (!(Abs(v1 - v0) < 0.00000000000001) && !(i > 1000));
             //while (v_function_sp(v0, sol_p, sol_D, sol_st) != 0);
                 //while ((Abs(v1 - v0) < 0.1) || (v < v1) || (v1 > 0)) ;
                 return v1;
