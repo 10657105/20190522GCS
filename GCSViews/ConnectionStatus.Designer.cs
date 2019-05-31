@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label_yaw = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_battery = new System.Windows.Forms.Label();
             this.label_GPS = new System.Windows.Forms.Label();
+            this.label_hud = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label_mode = new System.Windows.Forms.Label();
             this.label_PortName = new System.Windows.Forms.Label();
@@ -45,8 +47,9 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label_armedstatus = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label_timer = new System.Windows.Forms.Label();
             this.label_latlng = new System.Windows.Forms.Label();
-            this.label_hud = new System.Windows.Forms.Label();
+            this.FlightTime = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -186,6 +189,18 @@
             this.label_GPS.TabIndex = 4;
             this.label_GPS.Text = "Sats";
             // 
+            // label_hud
+            // 
+            this.label_hud.AutoSize = true;
+            this.label_hud.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label_hud.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_hud.Location = new System.Drawing.Point(151, 0);
+            this.label_hud.Name = "label_hud";
+            this.label_hud.Size = new System.Drawing.Size(29, 28);
+            this.label_hud.TabIndex = 5;
+            this.label_hud.Text = "HUD";
+            this.label_hud.Click += new System.EventHandler(this.label_hud_Click);
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 5;
@@ -259,8 +274,9 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.93583F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.06417F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.96257F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.03743F));
+            this.tableLayoutPanel1.Controls.Add(this.label_timer, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label_latlng, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 105);
@@ -270,6 +286,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(187, 31);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // label_timer
+            // 
+            this.label_timer.AutoSize = true;
+            this.label_timer.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_timer.Location = new System.Drawing.Point(117, 0);
+            this.label_timer.Name = "label_timer";
+            this.label_timer.Size = new System.Drawing.Size(28, 31);
+            this.label_timer.TabIndex = 5;
+            this.label_timer.Text = "0 sec";
             // 
             // label_latlng
             // 
@@ -281,17 +307,9 @@
             this.label_latlng.TabIndex = 4;
             this.label_latlng.Text = "( lat , lng )";
             // 
-            // label_hud
+            // FlightTime
             // 
-            this.label_hud.AutoSize = true;
-            this.label_hud.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label_hud.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label_hud.Location = new System.Drawing.Point(160, 13);
-            this.label_hud.Name = "label_hud";
-            this.label_hud.Size = new System.Drawing.Size(33, 12);
-            this.label_hud.TabIndex = 5;
-            this.label_hud.Text = "HUD";
-            this.label_hud.Click += new System.EventHandler(this.label_hud_Click);
+            this.FlightTime.Tick += new System.EventHandler(this.FlightTime_Tick);
             // 
             // ConnectionStatus
             // 
@@ -337,5 +355,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label_latlng;
         private System.Windows.Forms.Label label_hud;
+        private System.Windows.Forms.Label label_timer;
+        public System.Windows.Forms.Timer FlightTime;
     }
 }

@@ -31,10 +31,18 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.Groupcountset = new System.Windows.Forms.TextBox();
             this.Groupcount_label = new System.Windows.Forms.Label();
             this.TimeSetA = new System.Windows.Forms.TextBox();
+            this.time_label = new System.Windows.Forms.Label();
             this.TimeSetA_label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.TimeSetB = new System.Windows.Forms.TextBox();
             this.TimeSetE = new System.Windows.Forms.TextBox();
             this.TimeSetC = new System.Windows.Forms.TextBox();
@@ -50,14 +58,6 @@
             this.lbl_distance_C = new System.Windows.Forms.Label();
             this.lbl_distance_B = new System.Windows.Forms.Label();
             this.lbl_distance_A = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.time_label = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel6.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.TableLayoutPanel1.SuspendLayout();
@@ -135,6 +135,45 @@
             this.TableLayoutPanel1.Size = new System.Drawing.Size(198, 260);
             this.TableLayoutPanel1.TabIndex = 56;
             // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label7.Location = new System.Drawing.Point(160, 1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(34, 20);
+            this.label7.TabIndex = 71;
+            this.label7.Text = "Unit";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label6.Location = new System.Drawing.Point(107, 1);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 20);
+            this.label6.TabIndex = 70;
+            this.label6.Text = "Params";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label5.Location = new System.Drawing.Point(4, 1);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 20);
+            this.label5.TabIndex = 69;
+            this.label5.Text = "Name";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Groupcountset
             // 
             this.Groupcountset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -167,6 +206,18 @@
             this.TimeSetA.TabIndex = 53;
             this.TimeSetA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // time_label
+            // 
+            this.time_label.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.time_label.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.time_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.time_label.Location = new System.Drawing.Point(160, 61);
+            this.time_label.Name = "time_label";
+            this.time_label.Size = new System.Drawing.Size(29, 38);
+            this.time_label.TabIndex = 52;
+            this.time_label.Text = "sec";
+            this.time_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // TimeSetA_label
             // 
             this.TimeSetA_label.Dock = System.Windows.Forms.DockStyle.Left;
@@ -178,6 +229,54 @@
             this.TimeSetA_label.TabIndex = 52;
             this.TimeSetA_label.Text = "TimeSet_A";
             this.TimeSetA_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(160, 100);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 38);
+            this.label1.TabIndex = 56;
+            this.label1.Text = "sec";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(160, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 38);
+            this.label3.TabIndex = 58;
+            this.label3.Text = "sec";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(160, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 38);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "sec";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label4.Location = new System.Drawing.Point(160, 218);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 40);
+            this.label4.TabIndex = 59;
+            this.label4.Text = "sec";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TimeSetB
             // 
@@ -305,7 +404,7 @@
             // 
             this.lbl_distance_E.AutoSize = true;
             this.lbl_distance_E.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_distance_E.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl_distance_E.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl_distance_E.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_distance_E.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_distance_E.Location = new System.Drawing.Point(3, 180);
@@ -319,7 +418,7 @@
             // 
             this.lbl_distance_D.AutoSize = true;
             this.lbl_distance_D.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_distance_D.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl_distance_D.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl_distance_D.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_distance_D.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_distance_D.Location = new System.Drawing.Point(3, 135);
@@ -333,7 +432,7 @@
             // 
             this.lbl_distance_C.AutoSize = true;
             this.lbl_distance_C.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_distance_C.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl_distance_C.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl_distance_C.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_distance_C.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_distance_C.Location = new System.Drawing.Point(3, 90);
@@ -348,7 +447,7 @@
             this.lbl_distance_B.AutoSize = true;
             this.lbl_distance_B.BackColor = System.Drawing.Color.Transparent;
             this.lbl_distance_B.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_distance_B.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl_distance_B.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl_distance_B.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_distance_B.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_distance_B.Location = new System.Drawing.Point(3, 45);
@@ -363,7 +462,7 @@
             this.lbl_distance_A.AutoSize = true;
             this.lbl_distance_A.BackColor = System.Drawing.Color.Transparent;
             this.lbl_distance_A.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_distance_A.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl_distance_A.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl_distance_A.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_distance_A.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lbl_distance_A.Location = new System.Drawing.Point(3, 0);
@@ -372,105 +471,6 @@
             this.lbl_distance_A.TabIndex = 51;
             this.lbl_distance_A.Text = "Distance_A";
             this.lbl_distance_A.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(160, 100);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 38);
-            this.label1.TabIndex = 56;
-            this.label1.Text = "sec";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // time_label
-            // 
-            this.time_label.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.time_label.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.time_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.time_label.Location = new System.Drawing.Point(160, 61);
-            this.time_label.Name = "time_label";
-            this.time_label.Size = new System.Drawing.Size(29, 38);
-            this.time_label.TabIndex = 52;
-            this.time_label.Text = "sec";
-            this.time_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label4.Location = new System.Drawing.Point(160, 218);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 40);
-            this.label4.TabIndex = 59;
-            this.label4.Text = "sec";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(160, 178);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 38);
-            this.label2.TabIndex = 57;
-            this.label2.Text = "sec";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(160, 139);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 38);
-            this.label3.TabIndex = 58;
-            this.label3.Text = "sec";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(4, 1);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 20);
-            this.label5.TabIndex = 69;
-            this.label5.Text = "Name";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(107, 1);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 20);
-            this.label6.TabIndex = 70;
-            this.label6.Text = "Params";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(160, 1);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(34, 20);
-            this.label7.TabIndex = 71;
-            this.label7.Text = "Unit";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AlgorithmControl
             // 

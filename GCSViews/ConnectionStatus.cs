@@ -18,12 +18,15 @@ namespace MissionPlanner.GCSViews
         HUD hud=new HUD();
         Form HUDdropout = new Form();
         bool HUDdropoutresize;
+       
 
         public ConnectionStatus()
         {
             InitializeComponent();
         }
-        private void PrintBat()
+        double flytimer = 0;
+
+        public void PrintBat()
         {
             DateTime updateTime = DateTime.Now;
             
@@ -32,7 +35,7 @@ namespace MissionPlanner.GCSViews
                 if (updateTime.AddSeconds(0.2) < DateTime.Now)
                 {
                     if (MainV2.comPort.BaseStream.IsOpen)
-                    {
+                    {                        
                         this.Invoke(new Action(delegate ()
                         {
                             if (InputMAVlink != null)
@@ -46,6 +49,8 @@ namespace MissionPlanner.GCSViews
                                 label_battery.Text = InputMAVlink.MAV.cs.battery_voltage.ToString("f1") + "V   " + InputMAVlink.MAV.cs.current.ToString("f1") + "A ";
                                 label_GPS.Text = InputMAVlink.MAV.cs.satcount.ToString() + "   (" + InputMAVlink.MAV.cs.gpshdop.ToString() + "m)  ";
                                 label_latlng.Text = "( " + InputMAVlink.MAV.cs.lat.ToString("f6") + " , " + InputMAVlink.MAV.cs.lng.ToString("f6") + " )";
+
+                                label_timer.Text = flytimer.ToString("f2") + " sec";
 
                                 if (InputMAVlink.MAV.cs.armed)
                                 {//arm
@@ -146,7 +151,9 @@ namespace MissionPlanner.GCSViews
         {
             HUDdropout.Dispose();
         }
-
-
+        private void FlightTime_Tick(object sender, EventArgs e)
+        {
+            flytimer = flytimer + 0.1;
+        }
     }
 }

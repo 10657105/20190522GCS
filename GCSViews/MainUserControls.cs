@@ -7406,28 +7406,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             pathprogram = true; // 已使用路徑規劃功能，用於航點顯示模式先換
 
-            if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值")
+            if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值" || AutoGuided1.alg_speed_a < 0)
             {
                 AutoGuided1.alg_speed_a = 2; // m/s
                 CustomMessageBox.Show("A Invalid time！ Please re-enter time or default speed 2(m/s) !");
             }
-            if (AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_b.ToString() == "非數值")
+            if (AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_b.ToString() == "非數值" || AutoGuided1.alg_speed_b < 0)
             {
                 AutoGuided1.alg_speed_b = 2;
                 CustomMessageBox.Show("B Invalid time！ Please re-enter time or default speed 2(m/s) !");
             }
-            if (AutoGuided1.alg_speed_c > 5 || AutoGuided1.alg_speed_c.ToString() == "非數值")
+            if (AutoGuided1.alg_speed_c > 5 || AutoGuided1.alg_speed_c.ToString() == "非數值" || AutoGuided1.alg_speed_c < 0)
             {
                 AutoGuided1.alg_speed_c = 2;
                 CustomMessageBox.Show("C Invalid time！ Please re-enter time or default speed 2(m/s) !");
             }
 
-            if (AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_d.ToString() == "非數值")
+            if (AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_d.ToString() == "非數值" || AutoGuided1.alg_speed_d < 0)
             {
                 AutoGuided1.alg_speed_d = 2;
                 CustomMessageBox.Show("D Invalid time！ Please re-enter time or default speed 2(m/s) !");
             }
-            if (AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_e.ToString() == "非數值")
+            if (AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_e.ToString() == "非數值" || AutoGuided1.alg_speed_e < 0)
             {
                 AutoGuided1.alg_speed_e = 2;
                 CustomMessageBox.Show("E Invalid time！ Please re-enter time or default speed 2(m/s) !");
@@ -7437,16 +7437,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 AlgorithmControl1.Path_Programming_button.Enabled = true; //0508 防止按鈕重複點擊
 
-                AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + FormatDistance(distance_a, false)
-                                                         + " " + AutoGuided1.alg_speed_a.ToString("f6") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
-                AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + FormatDistance(distance_b, false)
-                                                         + " " + AutoGuided1.alg_speed_b.ToString("f6") + "m/s";  //B群路徑長度以KM為單位做表示
-                AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + FormatDistance(distance_c, false)
-                                                         + " " + AutoGuided1.alg_speed_c.ToString("f6") + "m/s";  //C群路徑長度以KM為單位做表示
-                AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + FormatDistance(distance_d, false)
-                                                         + " " + AutoGuided1.alg_speed_d.ToString("f2") + "m/s";  //D群路徑長度以KM為單位做表示
-                AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + FormatDistance(distance_e, false)
-                                                         + " " + AutoGuided1.alg_speed_e.ToString("f2") + "m/s";  //E群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_A.Text = rm.GetString("lbl_distance_A.Text") + ": " + "\r" + FormatDistance(distance_a, false)
+                                                         + "   " + AutoGuided1.alg_speed_a.ToString("f3") + "m/s"; //A群路徑長度以KM為單位做表示 //a機速度(m/s)
+                AlgorithmControl1.lbl_distance_B.Text = rm.GetString("lbl_distance_B.Text") + ": " + "\r" + FormatDistance(distance_b, false)
+                                                         + "   " + AutoGuided1.alg_speed_b.ToString("f3") + "m/s";  //B群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_C.Text = rm.GetString("lbl_distance_C.Text") + ": " + "\r" + FormatDistance(distance_c, false)
+                                                         + "   " + AutoGuided1.alg_speed_c.ToString("f3") + "m/s";  //C群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_D.Text = rm.GetString("lbl_distance_D.Text") + ": " + "\r" + FormatDistance(distance_d, false)
+                                                         + "   " + AutoGuided1.alg_speed_d.ToString("f3") + "m/s";  //D群路徑長度以KM為單位做表示
+                AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + "\r" + FormatDistance(distance_e, false)
+                                                         + "   " + AutoGuided1.alg_speed_e.ToString("f3") + "m/s";  //E群路徑長度以KM為單位做表示
             }));//跨執行緒_尾
 
             Thread.Sleep(1);            
