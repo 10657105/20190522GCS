@@ -298,11 +298,11 @@ namespace MissionPlanner.MainTabControl
                 }
                 do
                 {
-                    wpdistance = Acopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
+                    wpdistance = Acopter.MAV.cs.wp_dist;
                 } while (wpdistance >= WP_radius);
                 //float.Parse(MainUserControls2.TXT_WPRad.Text)
-                //if (i == 0) Acopter.setParam("WPNAV_SPEED", 50); //0211可調每段速度
+                //if (i == 0) Acopter.setParam("WPNAV_SPEED", 300); //0211可調每段速度
                 //if (i == 1) Acopter.setParam("WPNAV_SPEED", 100); //0211
                 if (Acopter.MAV.cs.mode == "Brake")
                     Athread = false;
@@ -372,8 +372,8 @@ namespace MissionPlanner.MainTabControl
                 }
                 do
                 {
-                    wpdistance = Bcopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
+                    wpdistance = Bcopter.MAV.cs.wp_dist;                    
                 } while (wpdistance >= WP_radius);
                 /*if (i == 0) Bcopter.setParam("WPNAV_SPEED", 50); //0211
                 if (i == 1) Bcopter.setParam("WPNAV_SPEED", 100);*/ //0211
@@ -445,8 +445,8 @@ namespace MissionPlanner.MainTabControl
                 }
                 do
                 {
-                    wpdistance = Ccopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
+                    wpdistance = Ccopter.MAV.cs.wp_dist;                    
                 } while (wpdistance >= WP_radius);
                 if (Ccopter.MAV.cs.mode == "Brake")
                     Cthread = false;
@@ -515,8 +515,8 @@ namespace MissionPlanner.MainTabControl
                 }
                 do
                 {
-                    wpdistance = Dcopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
+                    wpdistance = Dcopter.MAV.cs.wp_dist;                   
                 } while (wpdistance >= WP_radius);
                 if (Dcopter.MAV.cs.mode == "Brake")
                     Dthread = false;
@@ -586,8 +586,8 @@ namespace MissionPlanner.MainTabControl
                 }
                 do
                 {
-                    wpdistance = Ecopter.MAV.cs.wp_dist;
                     Thread.Sleep(550);
+                    wpdistance = Ecopter.MAV.cs.wp_dist;                   
                 } while (wpdistance >= WP_radius);
                 if (Ecopter.MAV.cs.mode == "Brake")
                     Ethread = false;

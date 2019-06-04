@@ -153,7 +153,7 @@ namespace MissionPlanner.GCSViews
         }
         private void FlightTime_Tick(object sender, EventArgs e)
         {
-            flytimer = flytimer + 0.1;
+            flytimer = flytimer + 0.1125; //0604 fix timer error
         }
     }
 }
