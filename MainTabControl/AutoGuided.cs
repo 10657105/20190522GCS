@@ -290,10 +290,12 @@ namespace MissionPlanner.MainTabControl
 
                 if (i == 0)
                 {
+                   
                     this.Invoke(new Action(delegate ()
                     {
-                        //DateTime start = DateTime.Now;
-                        ConnectionData.ConnectionStatus1.FlightTime.Enabled = true;//0527 開始計時飛行時間
+                        ConnectionData.ConnectionStatus1.start = DateTime.Now; //0605
+                        ConnectionData.ConnectionStatus1.timerSwith = true;
+                        //ConnectionData.ConnectionStatus1.FlightTime.Enabled = true;//0527 開始計時飛行時間 //時間不準
                     }));
                 }
                 do
@@ -321,9 +323,11 @@ namespace MissionPlanner.MainTabControl
                     Thread.Sleep(100);
                     wpdistance = Acopter.MAV.cs.wp_dist;
                 } while ((wpdistance >= WP_radius) || !(wpi == Apointlist.Count-1));
+
                 this.Invoke(new Action(delegate ()
                 {
-                    ConnectionData.ConnectionStatus1.FlightTime.Enabled = false;//0527停止計時飛行時間
+                    //ConnectionData.ConnectionStatus1.FlightTime.Enabled = false;//0527停止計時飛行時間 //時間不準
+                    ConnectionData.ConnectionStatus1.timerSwith = false;
                 }));
             }
             Thread.Sleep(1);
@@ -366,8 +370,10 @@ namespace MissionPlanner.MainTabControl
                 if (i == 0)
                 {
                     this.Invoke(new Action(delegate ()
-                    {                        
-                        ConnectionData.ConnectionStatus2.FlightTime.Enabled = true;
+                    {
+                        ConnectionData.ConnectionStatus2.start = DateTime.Now; //0605
+                        ConnectionData.ConnectionStatus2.timerSwith = true;
+                        //ConnectionData.ConnectionStatus2.FlightTime.Enabled = true;
                     }));
                 }
                 do
@@ -397,7 +403,8 @@ namespace MissionPlanner.MainTabControl
                 } while ((wpdistance >= WP_radius) || !(wpi == Bpointlist.Count - 1));
                 this.Invoke(new Action(delegate ()
                 {
-                    ConnectionData.ConnectionStatus2.FlightTime.Enabled = false;//0527停止計時飛行時間
+                    ConnectionData.ConnectionStatus2.timerSwith = false;
+                    //ConnectionData.ConnectionStatus2.FlightTime.Enabled = false;//0527停止計時飛行時間
                 }));
             }
             Thread.Sleep(1);
@@ -439,8 +446,10 @@ namespace MissionPlanner.MainTabControl
                 if (i == 0)
                 {
                     this.Invoke(new Action(delegate ()
-                    {                        
-                        ConnectionData.ConnectionStatus3.FlightTime.Enabled = true;
+                    {
+                        ConnectionData.ConnectionStatus3.start = DateTime.Now; //0605
+                        ConnectionData.ConnectionStatus3.timerSwith = true;
+                        //ConnectionData.ConnectionStatus3.FlightTime.Enabled = true;
                     }));
                 }
                 do
@@ -467,7 +476,8 @@ namespace MissionPlanner.MainTabControl
                 } while ((wpdistance >= WP_radius) || !(wpi == Cpointlist.Count - 1));
                 this.Invoke(new Action(delegate ()
                 {
-                    ConnectionData.ConnectionStatus3.FlightTime.Enabled = false;//0527停止計時飛行時間
+                    ConnectionData.ConnectionStatus3.timerSwith = false;
+                    //ConnectionData.ConnectionStatus3.FlightTime.Enabled = false;//0527停止計時飛行時間
                 }));
             }
             Thread.Sleep(1);
@@ -510,7 +520,9 @@ namespace MissionPlanner.MainTabControl
                 {
                     this.Invoke(new Action(delegate ()
                     {
-                        ConnectionData.ConnectionStatus4.FlightTime.Enabled = true;//0527 開始計時飛行時間
+                        ConnectionData.ConnectionStatus4.start = DateTime.Now; //0605
+                        ConnectionData.ConnectionStatus4.timerSwith = true;
+                        //ConnectionData.ConnectionStatus4.FlightTime.Enabled = true;//0527 開始計時飛行時間
                     }));
                 }
                 do
@@ -537,7 +549,8 @@ namespace MissionPlanner.MainTabControl
                 } while ((wpdistance >= WP_radius) || !(wpi == Dpointlist.Count - 1));
                 this.Invoke(new Action(delegate ()
                 {
-                    ConnectionData.ConnectionStatus4.FlightTime.Enabled = false;//0527停止計時飛行時間
+                    ConnectionData.ConnectionStatus4.timerSwith = false;
+                    //ConnectionData.ConnectionStatus4.FlightTime.Enabled = false;//0527停止計時飛行時間
                 }));
             }
             Thread.Sleep(1);
@@ -581,7 +594,9 @@ namespace MissionPlanner.MainTabControl
                 {
                     this.Invoke(new Action(delegate ()
                     {
-                       ConnectionData.ConnectionStatus5.FlightTime.Enabled = true;//0527 開始計時飛行時間
+                        ConnectionData.ConnectionStatus5.start = DateTime.Now; //0605
+                        ConnectionData.ConnectionStatus5.timerSwith = true;
+                        //ConnectionData.ConnectionStatus5.FlightTime.Enabled = true;//0527 開始計時飛行時間
                     }));
                 }
                 do
@@ -608,7 +623,8 @@ namespace MissionPlanner.MainTabControl
                 } while ((wpdistance >= WP_radius) || !(wpi == Epointlist.Count - 1));
                 this.Invoke(new Action(delegate ()
                 {
-                    ConnectionData.ConnectionStatus5.FlightTime.Enabled = false;//0527停止計時飛行時間
+                    ConnectionData.ConnectionStatus5.timerSwith = false;
+                    //ConnectionData.ConnectionStatus5.FlightTime.Enabled = false;//0527停止計時飛行時間
                 }));
             }
             Thread.Sleep(1);

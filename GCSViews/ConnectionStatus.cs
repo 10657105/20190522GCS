@@ -18,7 +18,8 @@ namespace MissionPlanner.GCSViews
         HUD hud=new HUD();
         Form HUDdropout = new Form();
         bool HUDdropoutresize;
-       
+        public DateTime start = DateTime.Now;        
+        public bool timerSwith = false;
 
         public ConnectionStatus()
         {
@@ -26,16 +27,22 @@ namespace MissionPlanner.GCSViews
         }
         double flytimer = 0;
 
+        private void ConnectionStatus_Load(object sender, EventArgs e)
+        {
+            Thread ThreadA = new Thread(new ThreadStart(PrintBat));
+            ThreadA.IsBackground = true;
+            ThreadA.Start();
+        }
+
         public void PrintBat()
         {
             DateTime updateTime = DateTime.Now;
-            
             while (true)
             {
                 if (updateTime.AddSeconds(0.2) < DateTime.Now)
                 {
                     if (MainV2.comPort.BaseStream.IsOpen)
-                    {                        
+                    {
                         this.Invoke(new Action(delegate ()
                         {
                             if (InputMAVlink != null)
@@ -49,8 +56,10 @@ namespace MissionPlanner.GCSViews
                                 label_battery.Text = InputMAVlink.MAV.cs.battery_voltage.ToString("f1") + "V   " + InputMAVlink.MAV.cs.current.ToString("f1") + "A ";
                                 label_GPS.Text = InputMAVlink.MAV.cs.satcount.ToString() + "   (" + InputMAVlink.MAV.cs.gpshdop.ToString() + "m)  ";
                                 label_latlng.Text = "( " + InputMAVlink.MAV.cs.lat.ToString("f6") + " , " + InputMAVlink.MAV.cs.lng.ToString("f6") + " )";
-
-                                label_timer.Text = flytimer.ToString("f2") + " sec";
+                                if (timerSwith)
+                                {
+                                    label_timer.Text = FT(updateTime, start) + " sec";
+                                }
 
                                 if (InputMAVlink.MAV.cs.armed)
                                 {//arm
@@ -88,13 +97,6 @@ namespace MissionPlanner.GCSViews
                 }
                 Thread.Sleep(5);
             }
-        }
-
-        private void ConnectionStatus_Load(object sender, EventArgs e)
-        {
-            Thread ThreadA = new Thread(new ThreadStart(PrintBat));
-            ThreadA.IsBackground = true;
-            ThreadA.Start();
         }
 
         private void label_ekf_Click(object sender, EventArgs e)
@@ -152,8 +154,14 @@ namespace MissionPlanner.GCSViews
             HUDdropout.Dispose();
         }
         private void FlightTime_Tick(object sender, EventArgs e)
+        {//內建timer 舊的計時方式
+            flytimer = flytimer + 0.1; //0604 timer error
+        }
+        private string FT(DateTime t1 , DateTime t0)
         {
-            flytimer = flytimer + 0.1125; //0604 fix timer error
+            TimeSpan ft = t1 - t0;
+           
+            return ft.TotalSeconds.ToString("f2"); //0604 fix timer error
         }
     }
 }
