@@ -7273,40 +7273,40 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 AutoGuided1.timeset_a = int.Parse(AlgorithmControl1.TimeSetA.Text);  //將輸入時間轉成int
             else
             {//如果未輸入設定時間，預設飛行2m/s
-                CustomMessageBox.Show("Please input time or default A speed 2(m/s) !");
-                AutoGuided1.alg_speed_a = 2; // m/s
+                CustomMessageBox.Show("Please input time or default A speed 1.5(m/s) !");
+                AutoGuided1.alg_speed_a = 1.5; // m/s
             }
 
             if (groupset > 1 && AlgorithmControl1.TimeSetB.Text != string.Empty)
                 AutoGuided1.timeset_b = int.Parse(AlgorithmControl1.TimeSetB.Text);  //將輸入時間轉成int
             else if (groupset == 2)
             {
-                CustomMessageBox.Show("Please input time or default B speed 2(m/s) !");
-                AutoGuided1.alg_speed_b = 2; // m/s
+                CustomMessageBox.Show("Please input time or default B speed 1.5(m/s) !");
+                AutoGuided1.alg_speed_b = 1.5; // m/s
             }
 
             if (groupset > 2 && AlgorithmControl1.TimeSetC.Text != string.Empty)
                 AutoGuided1.timeset_c = int.Parse(AlgorithmControl1.TimeSetC.Text);  //將輸入時間轉成int
             else if (groupset == 3)
             {
-                CustomMessageBox.Show("Please input time or default C speed 2(m/s) !");
-                AutoGuided1.alg_speed_c = 2; // m/s
+                CustomMessageBox.Show("Please input time or default C speed 1.5(m/s) !");
+                AutoGuided1.alg_speed_c = 1.5; // m/s
             }
 
             if (groupset > 3 && AlgorithmControl1.TimeSetD.Text != string.Empty)
                 AutoGuided1.timeset_d = int.Parse(AlgorithmControl1.TimeSetD.Text);  //將輸入時間轉成int
             else if (groupset == 4)
             {
-                CustomMessageBox.Show("Please input time or default D speed 2(m/s) !");
-                AutoGuided1.alg_speed_d = 2; // m/s
+                CustomMessageBox.Show("Please input time or default D speed 1.5(m/s) !");
+                AutoGuided1.alg_speed_d = 1.5; // m/s
             }
 
             if (groupset > 4 && AlgorithmControl1.TimeSetE.Text != string.Empty)
                 AutoGuided1.timeset_e = int.Parse(AlgorithmControl1.TimeSetE.Text);  //將輸入時間轉成int              
             else if (groupset == 5)
             {
-                CustomMessageBox.Show("Please input time or default E speed 2(m/s) !");
-                AutoGuided1.alg_speed_e = 2; // m/s
+                CustomMessageBox.Show("Please input time or default E speed 1.5(m/s) !");
+                AutoGuided1.alg_speed_e = 1.5; // m/s
             }
 
             this.Invoke(new Action(delegate () //跨執行緒
@@ -7408,29 +7408,29 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             if (AutoGuided1.alg_speed_a > 5 || AutoGuided1.alg_speed_a.ToString() == "非數值" || AutoGuided1.alg_speed_a < 0)
             {
-                AutoGuided1.alg_speed_a = 2; // m/s
-                CustomMessageBox.Show("A Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_a = 1.5; // m/s
+                CustomMessageBox.Show("A Invalid time！ Please re-enter time or default speed 1.5(m/s) !");
             }
             if (AutoGuided1.alg_speed_b > 5 || AutoGuided1.alg_speed_b.ToString() == "非數值" || AutoGuided1.alg_speed_b < 0)
             {
-                AutoGuided1.alg_speed_b = 2;
-                CustomMessageBox.Show("B Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_b = 1.5;
+                CustomMessageBox.Show("B Invalid time！ Please re-enter time or default speed 1.5(m/s) !");
             }
             if (AutoGuided1.alg_speed_c > 5 || AutoGuided1.alg_speed_c.ToString() == "非數值" || AutoGuided1.alg_speed_c < 0)
             {
-                AutoGuided1.alg_speed_c = 2;
-                CustomMessageBox.Show("C Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_c = 1.5;
+                CustomMessageBox.Show("C Invalid time！ Please re-enter time or default speed 1.5(m/s) !");
             }
 
             if (AutoGuided1.alg_speed_d > 5 || AutoGuided1.alg_speed_d.ToString() == "非數值" || AutoGuided1.alg_speed_d < 0)
             {
-                AutoGuided1.alg_speed_d = 2;
-                CustomMessageBox.Show("D Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_d = 1.5;
+                CustomMessageBox.Show("D Invalid time！ Please re-enter time or default speed 1.5(m/s) !");
             }
             if (AutoGuided1.alg_speed_e > 5 || AutoGuided1.alg_speed_e.ToString() == "非數值" || AutoGuided1.alg_speed_e < 0)
             {
-                AutoGuided1.alg_speed_e = 2;
-                CustomMessageBox.Show("E Invalid time！ Please re-enter time or default speed 2(m/s) !");
+                AutoGuided1.alg_speed_e = 1.5;
+                CustomMessageBox.Show("E Invalid time！ Please re-enter time or default speed 1.5(m/s) !");
             }
 
             this.Invoke(new Action(delegate () //跨執行緒
