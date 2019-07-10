@@ -7448,8 +7448,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 AlgorithmControl1.lbl_distance_E.Text = rm.GetString("lbl_distance_E.Text") + ": " + "\r" + FormatDistance(distance_e, false)
                                                          + "   " + AutoGuided1.alg_speed_e.ToString("f3") + "m/s";  //E群路徑長度以KM為單位做表示
             }));//跨執行緒_尾
-
-            Thread.Sleep(1);            
+            
+            Thread.Sleep(1); // 任務規劃結束，演算時間：
         }
 
         static private double v_function(double v, double sol_p, double sol_D, double sol_st) //newton's method 

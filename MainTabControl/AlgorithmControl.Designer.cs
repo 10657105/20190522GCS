@@ -375,7 +375,7 @@
             this.Path_Programming_button.Name = "Path_Programming_button";
             this.Path_Programming_button.Size = new System.Drawing.Size(137, 39);
             this.Path_Programming_button.TabIndex = 51;
-            this.Path_Programming_button.Text = "Path Programming";
+            this.Path_Programming_button.Text = "Mission Programming";
             this.Path_Programming_button.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
